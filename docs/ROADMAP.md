@@ -26,8 +26,8 @@ Progress is tracked by checking items off in place.
 Monorepo skeleton with the quality gates running before any feature code
 exists, so no milestone can accumulate untested work.
 
-- [ ] `backend/` — Laravel 12, PHP 8.4, PostgreSQL connection configured.
-- [ ] `frontend/` — Vite, React 19, TypeScript in strict mode.
+- [x] `backend/` — Laravel 12, PHP 8.4, PostgreSQL connection configured.
+- [x] `frontend/` — Vite, React 19, TypeScript in strict mode.
 - [ ] `docker-compose.yml` — `postgres`, `redis`, `php-fpm`, `queue`,
       `scheduler`, `nginx`, `node`.
 - [ ] Redis wired as the session, cache, rate-limiter, and queue store, with
