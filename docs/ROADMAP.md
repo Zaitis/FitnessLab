@@ -30,7 +30,7 @@ exists, so no milestone can accumulate untested work.
 - [x] `frontend/` — Vite, React 19, TypeScript in strict mode.
 - [x] `docker-compose.yml` — `postgres`, `redis`, `php-fpm`, `queue`,
       `scheduler`, `nginx`, `node`.
-- [ ] Redis wired as the session, cache, rate-limiter, and queue store, with
+- [x] Redis wired as the session, cache, rate-limiter, and queue store, with
       a FitnessLab-specific key prefix.
 - [ ] `config/supported_locales.php` (`pl`, `en`); `react-i18next` and
       Laravel `lang/` wired with `laravel-lang/common` for Polish; key-parity
@@ -41,16 +41,16 @@ exists, so no milestone can accumulate untested work.
       message must land in an inbox rather than a spam folder.
 - [ ] Sanctum installed; `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, and
       CORS with `supports_credentials` configured for local development.
-- [ ] Pest, Larastan (level 6), Pint on the backend.
+- [x] Pest, Larastan (level 6), Pint on the backend.
 - [ ] Vitest, React Testing Library, MSW, ESLint, Prettier on the frontend.
 - [ ] Tailwind v4 and shadcn/ui initialised.
 - [ ] GitHub Actions workflow with a `postgres` service container, running
       every gate listed in [Testing](TESTING.md) except E2E; README badges
       wired up.
-- [ ] `App\Domain` / `App\Application` / `App\Infrastructure` / `App\Http`
+- [x] `App\Domain` / `App\Application` / `App\Infrastructure` / `App\Http`
       namespaces created, with the architecture tests that enforce them
       failing on a deliberate violation before anything else is built.
-- [ ] `GET /api/health` endpoint with a feature test.
+- [x] `GET /api/health` endpoint with a feature test.
 
 **Definition of done:** `docker compose up` serves both applications; the
 frontend reaches `/api/health` cross-origin without CORS errors; a session
