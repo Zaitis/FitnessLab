@@ -28,7 +28,7 @@ exists, so no milestone can accumulate untested work.
 
 - [x] `backend/` — Laravel 12, PHP 8.4, PostgreSQL connection configured.
 - [x] `frontend/` — Vite, React 19, TypeScript in strict mode.
-- [ ] `docker-compose.yml` — `postgres`, `redis`, `php-fpm`, `queue`,
+- [x] `docker-compose.yml` — `postgres`, `redis`, `php-fpm`, `queue`,
       `scheduler`, `nginx`, `node`.
 - [ ] Redis wired as the session, cache, rate-limiter, and queue store, with
       a FitnessLab-specific key prefix.
