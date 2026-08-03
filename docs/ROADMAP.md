@@ -145,10 +145,8 @@ milestones worth doing in order.
       pushed to GHCR by CI.
 - [x] DNS: `fitnesslab.zaitis.dev` and `fitnesslab-api.zaitis.dev` pointed at
       the VPS.
-- [ ] nginx serving both hosts; Certbot certificates for each, with renewal
-      verified rather than assumed. **Configs are written
-      ([deploy/nginx/](../deploy/nginx/)) but not yet installed on the VPS —
-      one-time manual step, see [docs/DEPLOYMENT.md](DEPLOYMENT.md).**
+- [x] nginx serving both hosts; Certbot certificates for each, with renewal
+      verified via `certbot renew --dry-run` rather than assumed.
 - [x] Production configuration per
       [ADR-004](adr/ADR-004-deployment-topology.md): `SESSION_DOMAIN`,
       a distinctly named `SESSION_COOKIE`, `SESSION_SECURE_COOKIE=true`,
@@ -163,7 +161,8 @@ milestones worth doing in order.
       the daily file and an `error_logs` table, so a production failure after
       go-live leaves a durable record instead of scrolling off a container's
       stdout. Capture only — the viewer arrives in M5.
-- [ ] README updated with the live link and screenshots.
+- [ ] README updated with the live link and screenshots. **Live link is in;
+      screenshots still to come.**
 
 No database backups at this stage, deliberately. The terms promise nothing
 about retention, the only data at risk is demo data, and a backup pipeline is
