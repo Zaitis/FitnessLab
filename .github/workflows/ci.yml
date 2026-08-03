@@ -99,23 +99,30 @@ jobs:
       - name: Tests (Vitest)
         run: npx vitest run
 
+  # Built per-architecture on native runners rather than one job cross-
+  # building both platforms under QEMU emulation — Vite's build (Node/V8
+  # under full user-mode emulation) took over 35 minutes and was still
+  # running when this was tried for real, instead of the couple of minutes
+  # a native build takes. Public repos get free GitHub-hosted arm64
+  # runners, so there's no need to emulate at all.
   build-and-push:
-    name: Build and push images
+    name: Build and push images (${{ matrix.arch }})
     needs: [backend, frontend]
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-latest
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
       packages: write
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
@@ -124,35 +131,62 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Built for both amd64 and arm64: the target VPS is arm64, and
-      # GitHub-hosted runners are amd64 — without this, docker/build-push-
-      # action only builds for the runner's own architecture, and the image
-      # fails outright on the VPS ("exec format error").
       - name: Build and push backend image
         uses: docker/build-push-action@v6
         with:
           context: ./backend
           push: true
-          platforms: linux/amd64,linux/arm64
-          tags: |
-            ghcr.io/zaitis/fitnesslab-backend:latest
-            ghcr.io/zaitis/fitnesslab-backend:${{ github.sha }}
+          tags: ghcr.io/zaitis/fitnesslab-backend:${{ github.sha }}-${{ matrix.arch }}
 
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
           context: ./frontend
           push: true
-          platforms: linux/amd64,linux/arm64
           build-args: |
             VITE_API_URL=https://fitnesslab-api.zaitis.dev/api
-          tags: |
-            ghcr.io/zaitis/fitnesslab-frontend:latest
-            ghcr.io/zaitis/fitnesslab-frontend:${{ github.sha }}
+          tags: ghcr.io/zaitis/fitnesslab-frontend:${{ github.sha }}-${{ matrix.arch }}
+
+  publish-manifests:
+    name: Publish multi-arch manifests
+    needs: build-and-push
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Stitches the two single-arch images each matrix leg pushed above
+      # into one multi-arch tag — this is what makes `docker pull
+      # .../fitnesslab-backend:latest` transparently hand the VPS its
+      # arm64 variant and an amd64 dev machine its own, from the same tag.
+      - name: Create backend multi-arch manifest
+        run: |
+          docker buildx imagetools create \
+            -t ghcr.io/zaitis/fitnesslab-backend:latest \
+            -t ghcr.io/zaitis/fitnesslab-backend:${{ github.sha }} \
+            ghcr.io/zaitis/fitnesslab-backend:${{ github.sha }}-amd64 \
+            ghcr.io/zaitis/fitnesslab-backend:${{ github.sha }}-arm64
+
+      - name: Create frontend multi-arch manifest
+        run: |
+          docker buildx imagetools create \
+            -t ghcr.io/zaitis/fitnesslab-frontend:latest \
+            -t ghcr.io/zaitis/fitnesslab-frontend:${{ github.sha }} \
+            ghcr.io/zaitis/fitnesslab-frontend:${{ github.sha }}-amd64 \
+            ghcr.io/zaitis/fitnesslab-frontend:${{ github.sha }}-arm64
 
   deploy:
     name: Deploy to VPS
-    needs: build-and-push
+    needs: publish-manifests
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     runs-on: ubuntu-latest
 
