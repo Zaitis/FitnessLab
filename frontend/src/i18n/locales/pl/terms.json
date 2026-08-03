@@ -1,0 +1,99 @@
+{
+  "title": "Regulamin i zastrzeżenie zdrowotne",
+  "lastUpdated": "2026-08-01",
+  "sections": [
+    {
+      "heading": "1. Czym jest FitnessLab",
+      "paragraphs": [
+        "FitnessLab to bezpłatny projekt demonstracyjny, zbudowany po to, by pokazać warsztat inżynierii oprogramowania. Jest publikowany jako projekt portfolio typu open source.",
+        "Nie jest produktem komercyjnym, wyrobem medycznym ani usługą zdrowotną. Nie jest prowadzony przez żadną firmę i nie ma za sobą działu wsparcia."
+      ]
+    },
+    {
+      "heading": "2. Brak kwalifikacji zawodowych, brak porady medycznej",
+      "paragraphs": [
+        "Osoba, która stworzyła FitnessLab, jest programistą. Nie jest lekarzem, dietetykiem, specjalistą do spraw żywienia, fizjoterapeutą ani certyfikowanym trenerem personalnym i nie posiada żadnych kwalifikacji z zakresu medycyny, żywienia ani fitnessu.",
+        "Wszystko, co generuje ta aplikacja — wartości BMI, kategorie wagowe, plany treningowe, plany posiłków i wartości kaloryczne — powstaje na podstawie prostych, z góry zdefiniowanych reguł napisanych, by zademonstrować techniki programistyczne. Te wyniki nie są poradą medyczną, żywieniową, dietetyczną ani fitnessową; nie są dopasowane do Twojego stanu zdrowia, historii medycznej, przyjmowanych leków, urazów, alergii ani indywidualnych okoliczności; nie zostały sprawdzone ani zatwierdzone przez żadnego wykwalifikowanego specjalistę; i nie wolno ich używać do diagnozowania, leczenia, wyleczenia ani zapobiegania jakiejkolwiek chorobie.",
+        "Skonsultuj się z wykwalifikowanym pracownikiem służby zdrowia przed zmianą diety, rozpoczęciem programu ćwiczeń lub podjęciem jakichkolwiek działań na podstawie tego, co tu widzisz."
+      ]
+    },
+    {
+      "heading": "3. Ograniczenia wskaźnika BMI",
+      "paragraphs": [
+        "BMI to uproszczona statystyka populacyjna, a nie indywidualna ocena stanu zdrowia. Jest obliczane wyłącznie na podstawie wzrostu i wagi, więc nie potrafi odróżnić masy mięśniowej od tkanki tłuszczowej ani uwzględnić budowy ciała, rozmieszczenia tkanki tłuszczowej, wieku czy pochodzenia etnicznego.",
+        "BMI jest szczególnie zawodne, a jego kategorii nie należy stosować w przypadku: dzieci i młodzieży poniżej 18 roku życia, dla których potrzebne są zamiast tego siatki centylowe uwzględniające wiek i płeć; osób w ciąży lub karmiących piersią; sportowców i osób o wysokiej masie mięśniowej, które są rutynowo błędnie klasyfikowane jako osoby z nadwagą; a także osób starszych i osób z chorobami wpływającymi na skład ciała lub bilans płynów.",
+        "Sama wartość BMI nie mówi nic ostatecznego o zdrowiu konkretnej osoby."
+      ]
+    },
+    {
+      "heading": "4. Proszę, zadbaj o siebie",
+      "paragraphs": [
+        "Jeśli masz, lub podejrzewasz, że możesz mieć zaburzenia odżywiania albo trudną relację z jedzeniem, wagą lub ćwiczeniami, narzędzia pokazujące kategorie wagowe i cele kaloryczne mogą być szkodliwe. Ta aplikacja jest demonstracją programistyczną i nie została zaprojektowana z żadnymi zabezpieczeniami klinicznymi. Rozważ, proszę, rezygnację z jej używania i porozmawiaj z pracownikiem służby zdrowia lub organizacją wsparcia w Twoim kraju.",
+        "Nie używaj tej aplikacji do ograniczania kalorii poniżej poziomu zalecanego przez wykwalifikowanego specjalistę oraz przerwij ćwiczenia i zasięgnij pomocy medycznej, jeśli odczuwasz ból, zawroty głowy, dyskomfort w klatce piersiowej lub trudności z oddychaniem."
+      ]
+    },
+    {
+      "heading": "5. Dla kogo jest ta aplikacja",
+      "paragraphs": [
+        "FitnessLab jest przeznaczony dla osób dorosłych w wieku 18 lat i więcej. Konta nie powinny być zakładane przez nikogo poniżej 18 roku życia. Jak zaznaczono wyżej, kategorie BMI i tak nie są prawidłowe dla osób niepełnoletnich."
+      ]
+    },
+    {
+      "heading": "6. Aplikacja jest bezpłatna",
+      "paragraphs": [
+        "FitnessLab jest udostępniany bezpłatnie. Nie ma płatnych planów, subskrypcji, obsługi płatności, reklam ani sprzedaży czy udostępniania danych użytkowników. Nic na tej stronie nie jest ofertą sprzedaży czegokolwiek."
+      ]
+    },
+    {
+      "heading": "7. Twoje konto i Twoje dane",
+      "paragraphs": [
+        "Założenie konta jest opcjonalne — kalkulator BMI na stronie głównej działa bez konta, a wykonane tam obliczenia nie są zapisywane na serwerze.",
+        "Jeśli konto zostanie założone, przechowywane dane to: imię i nazwisko, adres e-mail, hasło (przechowywane wyłącznie jako bezpieczny skrót), preferowany język oraz pomiary, plany i odhaczenia utworzone w aplikacji.",
+        "Co to oznacza w świetle RODO: waga ciała i BMI, powiązane z możliwą do zidentyfikowania osobą, mogą być traktowane jako dane dotyczące zdrowia — szczególna kategoria danych na podstawie art. 9. Ta aplikacja przetwarza je na podstawie Twojej wyraźnej zgody, wyrażonej w momencie założenia konta i wprowadzenia danych. Zgodę można wycofać w dowolnym momencie, usuwając konto, co usuwa konto i wszystkie powiązane z nim dane. Dane są przechowywane na serwerze na terenie Unii Europejskiej i nie są sprzedawane, udostępniane ani przekazywane stronom trzecim.",
+        "Możesz poprosić o dostęp do swoich danych, ich poprawienie lub usunięcie, kontaktując się na adres podany w sekcji 12. Najprostszą drogą jest usunięcie konta w aplikacji, co robi dokładnie to samo od razu.",
+        "Niezależnie od konta, aplikacja przechowuje krótkotrwałe techniczne logi błędów, aby można było diagnozować usterki. Mogą one przypadkowo zawierać adres e-mail lub identyfikator, jeśli błąd wystąpił podczas korzystania ze strony. Hasła i tokeny dostępu są usuwane, zanim cokolwiek zostanie zapisane, logi są dostępne wyłącznie dla administratora strony, a wpisy są automatycznie usuwane po krótkim okresie przechowywania.",
+        "Zasada minimalizacji danych dotyczy też Ciebie: prosimy, nie podawaj więcej danych, niż potrzebujesz, żeby wypróbować aplikację. Nic tutaj nie wymaga prawdziwych danych.",
+        "Ponieważ jest to projekt demonstracyjny, nie ma żadnej gwarancji co do przechowywania danych, kopii zapasowych ani dostępności. Dane mogą zostać utracone, a wersja demonstracyjna może zostać zresetowana lub wyłączona bez uprzedzenia. Nie przechowuj tutaj niczego, na czym Ci zależy."
+      ]
+    },
+    {
+      "heading": "7a. Konto demonstracyjne",
+      "paragraphs": [
+        "Udostępnione jest wspólne konto demonstracyjne, dzięki któremu można poznać aplikację bez rejestracji. Jest publiczne: każdy może się na nie zalogować, a wszystko, co zostanie tam wprowadzone, jest widoczne dla wszystkich innych osób z niego korzystających. Jego zawartość jest czyszczona i przywracana do wstępnie wypełnionych danych przykładowych każdej nocy.",
+        "Nigdy nie wprowadzaj prawdziwych ani osobistych danych na koncie demonstracyjnym."
+      ]
+    },
+    {
+      "heading": "8. Udostępniane „takie, jakie jest”",
+      "paragraphs": [
+        "FitnessLab jest udostępniany „takim, jakim jest” i „w miarę dostępności”, bez żadnej gwarancji, wyraźnej ani domniemanej — w tym gwarancji dokładności, przydatności handlowej czy przydatności do określonego celu.",
+        "Nie ma żadnej obietnicy, że aplikacja będzie dostępna, nieprzerwana, wolna od błędów, ani że jej wyniki są poprawne. Może zostać zmodyfikowana, zawieszona lub wycofana w dowolnym momencie bez uprzedzenia."
+      ]
+    },
+    {
+      "heading": "9. Ograniczenie odpowiedzialności",
+      "paragraphs": [
+        "W najszerszym zakresie dozwolonym przez obowiązujące prawo autor FitnessLab nie ponosi żadnej odpowiedzialności za jakąkolwiek stratę, uszczerbek na zdrowiu czy szkodę — w tym za jakiekolwiek konsekwencje zdrowotne — wynikające z korzystania z tej aplikacji lub polegania na niej bądź na czymkolwiek, co generuje.",
+        "Korzystasz z FitnessLab wyłącznie na własne ryzyko. Nic w niniejszym regulaminie nie ogranicza odpowiedzialności, której nie można ograniczyć na mocy prawa."
+      ]
+    },
+    {
+      "heading": "10. Kod źródłowy i licencja",
+      "paragraphs": [
+        "Kod źródłowy jest publikowany na licencji MIT i jest dostępny w repozytorium projektu. Licencja MIT obejmuje wyłącznie kod; nie stanowi rekomendacji dla wyników aplikacji i nie zmienia powyższych zastrzeżeń."
+      ]
+    },
+    {
+      "heading": "11. Zmiany",
+      "paragraphs": [
+        "Niniejszy regulamin może się zmieniać w miarę rozwoju projektu. Aktualną wersją jest zawsze ta opublikowana w repozytorium, z datą podaną na górze."
+      ]
+    },
+    {
+      "heading": "12. Kontakt",
+      "paragraphs": [
+        "Pytania dotyczące niniejszego regulaminu lub prośby dotyczące Twoich danych można kierować na adres fitnesslab@zaitis.dev. To prywatny projekt, więc odpowiedź nie jest gwarantowana w krótkim czasie."
+      ]
+    }
+  ]
+}

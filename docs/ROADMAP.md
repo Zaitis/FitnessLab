@@ -88,20 +88,20 @@ full BMI range with boundary coverage, and writes nothing.
 The first demonstrable surface, and the cross-cutting disclaimer machinery
 that every later milestone depends on.
 
-- [ ] `config/disclaimer.php` and the `DisclaimerText` value object as the
+- [x] `config/disclaimer.php` and the `DisclaimerText` value object as the
       single source of truth ([Design Patterns §5](DESIGN-PATTERNS.md)).
-- [ ] `GET /api/disclaimer` — public and cached.
-- [ ] Landing page: hero, purpose, and a prominent demo disclaimer.
-- [ ] BMI form — react-hook-form with a zod schema, inline validation errors,
+- [x] `GET /api/disclaimer` — public and cached.
+- [x] Landing page: hero, purpose, and a prominent demo disclaimer.
+- [x] BMI form — react-hook-form with a zod schema, inline validation errors,
       submit disabled while pending, all three request states handled.
-- [ ] Result view with weight category, followed by a registration call to
+- [x] Result view with weight category, followed by a registration call to
       action.
-- [ ] Terms and Disclaimer page in both locales, rendered from
+- [x] Terms and Disclaimer page in both locales, rendered from
       [the source copy](legal/TERMS-AND-DISCLAIMER.md); footer disclaimer and
       link present on every page.
-- [ ] Language switcher in the layout; anonymous choice persisted to
+- [x] Language switcher in the layout; anonymous choice persisted to
       `localStorage`.
-- [ ] Component tests: validation rendering, pending state, result rendering,
+- [x] Component tests: validation rendering, pending state, result rendering,
       call to action appearing only once a result exists, and the switcher
       changing rendered copy.
 

@@ -1,5 +1,46 @@
 {
   "app": {
     "name": "FitnessLab"
+  },
+  "nav": {
+    "home": "Strona główna",
+    "terms": "Regulamin i zastrzeżenie"
+  },
+  "footer": {
+    "termsLink": "Przeczytaj pełny regulamin i zastrzeżenie",
+    "copyright": "FitnessLab to bezpłatny projekt portfolio."
+  },
+  "languageSwitcher": {
+    "label": "Język",
+    "en": "English",
+    "pl": "Polski"
+  },
+  "landing": {
+    "heroTitle": "Zadbaj o zdrowie i sylwetkę",
+    "heroSubtitle": "Bezpłatny demonstracyjny kalkulator BMI. Podaj wagę i wzrost, dostaniesz wynik od razu — bez zakładania konta."
+  },
+  "bmiForm": {
+    "title": "Oblicz swoje BMI",
+    "weightLabel": "Waga (kg)",
+    "heightLabel": "Wzrost (cm)",
+    "submit": "Oblicz",
+    "submitting": "Obliczanie…",
+    "errors": {
+      "weight": "Podaj wagę w zakresie od 1 do 500 kg.",
+      "height": "Podaj wzrost w zakresie od 30 do 250 cm.",
+      "generic": "Coś poszło nie tak. Spróbuj ponownie."
+    }
+  },
+  "bmiResult": {
+    "title": "Twój wynik",
+    "valueLabel": "BMI",
+    "categoryLabel": "Kategoria",
+    "categories": {
+      "underweight": "Niedowaga",
+      "normal": "Waga prawidłowa",
+      "overweight": "Nadwaga",
+      "obese": "Otyłość"
+    },
+    "cta": "Załóż darmowe konto, aby zapisać wynik i śledzić postępy"
   }
 }

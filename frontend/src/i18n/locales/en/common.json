@@ -1,5 +1,46 @@
 {
   "app": {
     "name": "FitnessLab"
+  },
+  "nav": {
+    "home": "Home",
+    "terms": "Terms & Disclaimer"
+  },
+  "footer": {
+    "termsLink": "Read the full Terms & Disclaimer",
+    "copyright": "FitnessLab is a free portfolio project."
+  },
+  "languageSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "pl": "Polski"
+  },
+  "landing": {
+    "heroTitle": "Take care of your health and your shape",
+    "heroSubtitle": "A free demo BMI calculator. Enter your weight and height, get an instant result — no account required."
+  },
+  "bmiForm": {
+    "title": "Calculate your BMI",
+    "weightLabel": "Weight (kg)",
+    "heightLabel": "Height (cm)",
+    "submit": "Calculate",
+    "submitting": "Calculating…",
+    "errors": {
+      "weight": "Enter a weight between 1 and 500 kg.",
+      "height": "Enter a height between 30 and 250 cm.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "bmiResult": {
+    "title": "Your result",
+    "valueLabel": "BMI",
+    "categoryLabel": "Category",
+    "categories": {
+      "underweight": "Underweight",
+      "normal": "Normal weight",
+      "overweight": "Overweight",
+      "obese": "Obese"
+    },
+    "cta": "Create a free account to save this result and track it over time"
   }
 }
