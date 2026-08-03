@@ -39,12 +39,12 @@ exists, so no milestone can accumulate untested work.
       as `fitnesslab@zaitis.dev`; mail queued, verified with `Queue::fake()`.
 - [ ] **SPF, DKIM, and DMARC records verified on `zaitis.dev`** — a real test
       message must land in an inbox rather than a spam folder.
-- [ ] Sanctum installed; `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, and
+- [x] Sanctum installed; `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, and
       CORS with `supports_credentials` configured for local development.
 - [x] Pest, Larastan (level 6), Pint on the backend.
-- [ ] Vitest, React Testing Library, MSW, oxlint, Prettier on the frontend.
-- [ ] Tailwind v4 and shadcn/ui initialised.
-- [ ] GitHub Actions workflow with a `postgres` service container, running
+- [x] Vitest, React Testing Library, MSW, oxlint, Prettier on the frontend.
+- [x] Tailwind v4 and shadcn/ui initialised.
+- [x] GitHub Actions workflow with a `postgres` service container, running
       every gate listed in [Testing](TESTING.md) except E2E; README badges
       wired up.
 - [x] `App\Domain` / `App\Application` / `App\Infrastructure` / `App\Http`

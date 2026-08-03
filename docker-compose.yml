@@ -9,6 +9,7 @@ services:
       - "5435:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./backend/docker/postgres/init-testing-db.sql:/docker-entrypoint-initdb.d/init-testing-db.sql:ro
 
   redis:
     image: redis:7-alpine

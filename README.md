@@ -1,5 +1,7 @@
 # FitnessLab
 
+[![CI](https://github.com/Zaitis/FitnessLab/actions/workflows/ci.yml/badge.svg)](https://github.com/Zaitis/FitnessLab/actions/workflows/ci.yml)
+
 **Take care of your health and your shape** — a full-stack demo application
 built with Laravel and React.
 
@@ -82,7 +84,7 @@ fitness recommendations:
 | Backend tests | Pest (unit, feature, architecture) |
 | Frontend tests | Vitest, React Testing Library, MSW |
 | E2E | Playwright |
-| Quality gates | Larastan, Laravel Pint, ESLint, Prettier, `tsc --noEmit` |
+| Quality gates | Larastan, Laravel Pint, oxlint, Prettier, `tsc --noEmit` |
 | Infrastructure | Docker Compose, GitHub Actions CI, nginx + Let's Encrypt on a single VPS |
 
 The demo runs on one server across two hosts —
