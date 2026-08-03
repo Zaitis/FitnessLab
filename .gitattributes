@@ -1,0 +1,4 @@
+# Shell scripts run inside Linux containers built on a Windows dev machine —
+# force LF regardless of local git config, since CRLF in a shebang line
+# ("#!/bin/sh\r") causes "exec format error" at container startup.
+*.sh text eol=lf
