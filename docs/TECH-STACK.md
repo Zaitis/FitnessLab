@@ -232,6 +232,14 @@ and considerable overkill for one line chart.
 sufficient. Rejected: Moment.js, which is in maintenance mode and ships a
 large mutable-date API.
 
+### oxlint — linting
+
+Rust-based, drop-in replacement for the relevant parts of ESLint's rule set,
+with meaningfully faster runs. Chosen over ESLint because the project's rule
+needs are standard (React hooks, TypeScript) rather than exotic — the speed
+win costs nothing here. Prettier stays separate for formatting; oxlint's
+scope is lint rules only.
+
 ### MSW — API mocking in tests
 
 Intercepts at the network layer, so component tests exercise the real API

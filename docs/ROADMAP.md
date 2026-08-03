@@ -42,7 +42,7 @@ exists, so no milestone can accumulate untested work.
 - [ ] Sanctum installed; `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, and
       CORS with `supports_credentials` configured for local development.
 - [x] Pest, Larastan (level 6), Pint on the backend.
-- [ ] Vitest, React Testing Library, MSW, ESLint, Prettier on the frontend.
+- [ ] Vitest, React Testing Library, MSW, oxlint, Prettier on the frontend.
 - [ ] Tailwind v4 and shadcn/ui initialised.
 - [ ] GitHub Actions workflow with a `postgres` service container, running
       every gate listed in [Testing](TESTING.md) except E2E; README badges

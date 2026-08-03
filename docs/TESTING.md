@@ -276,7 +276,7 @@ container. The build fails on any of:
 | Code style | `pint --test` | M0 |
 | Static analysis | `phpstan analyse` (Larastan, level 6+) | M0 |
 | Backend tests | `pest --coverage --min=90` | M0 |
-| Frontend lint | `eslint .` | M0 |
+| Frontend lint | `oxlint .` | M0 |
 | Type check | `tsc --noEmit` | M0 |
 | Frontend tests | `vitest run` | M0 |
 | E2E | `playwright test` | M11 |
