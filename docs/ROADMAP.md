@@ -111,24 +111,24 @@ footer, and result.
 
 ## M3 — Authentication and anonymous result carry-over
 
-- [ ] Laravel Breeze in API mode: register, login, logout, password reset,
+- [x] Laravel Breeze in API mode: register, login, logout, password reset,
       email verification, `GET /api/user`.
-- [ ] Outbound mail queued rather than sent inline; `queue:work` worker
+- [x] Outbound mail queued rather than sent inline; `queue:work` worker
       running under Compose.
-- [ ] `auth:sanctum` applied to protected routes.
-- [ ] `POST /api/measurements` persisting a measurement for the authenticated
+- [x] `auth:sanctum` applied to protected routes.
+- [x] `POST /api/measurements` persisting a measurement for the authenticated
       user.
-- [ ] Frontend auth modelled as a TanStack Query query — no client store
+- [x] Frontend auth modelled as a TanStack Query query — no client store
       ([Tech Stack](TECH-STACK.md)); protected routes redirect guests.
-- [ ] Anonymous result held in `sessionStorage` and submitted once after
+- [x] Anonymous result held in `sessionStorage` and submitted once after
       registration, then cleared.
-- [ ] `locale` column on `users`, taking precedence over `Accept-Language`.
-- [ ] Email verification implemented but **not** enforced as a gate on using
+- [x] `locale` column on `users`, taking precedence over `Accept-Language`.
+- [x] Email verification implemented but **not** enforced as a gate on using
       the application.
-- [ ] Feature tests: guests receive `401` on protected routes; a registered
+- [x] Feature tests: guests receive `401` on protected routes; a registered
       user can complete the login and logout cycle; password-reset mail is
       queued rather than sent synchronously, asserted with `Queue::fake()`.
-- [ ] Component tests: server validation errors render; the carry-over
+- [x] Component tests: server validation errors render; the carry-over
       submits exactly once and does not repeat on reload.
 
 **Definition of done:** an account can be created either from a calculator

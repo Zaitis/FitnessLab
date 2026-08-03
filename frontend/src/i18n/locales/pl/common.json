@@ -4,7 +4,10 @@
   },
   "nav": {
     "home": "Strona główna",
-    "terms": "Regulamin i zastrzeżenie"
+    "terms": "Regulamin i zastrzeżenie",
+    "login": "Zaloguj się",
+    "register": "Zarejestruj się",
+    "logout": "Wyloguj się"
   },
   "footer": {
     "termsLink": "Przeczytaj pełny regulamin i zastrzeżenie",
@@ -47,5 +50,27 @@
     "title": "404",
     "message": "Nie znaleziono strony.",
     "backLink": "Wróć na stronę główną"
+  },
+  "auth": {
+    "loginTitle": "Zaloguj się",
+    "registerTitle": "Załóż konto",
+    "nameLabel": "Imię",
+    "emailLabel": "E-mail",
+    "passwordLabel": "Hasło",
+    "passwordConfirmationLabel": "Powtórz hasło",
+    "loginSubmit": "Zaloguj się",
+    "registerSubmit": "Załóż konto",
+    "submitting": "Chwileczkę…",
+    "hasAccount": "Masz już konto?",
+    "noAccount": "Nie masz jeszcze konta?",
+    "loginLink": "Zaloguj się",
+    "registerLink": "Zarejestruj się",
+    "errors": {
+      "passwordMismatch": "Hasła nie są identyczne."
+    }
+  },
+  "dashboard": {
+    "welcome": "Witaj, {{name}}",
+    "placeholder": "Panel jest w budowie — historia pomiarów, plany i postępy pojawią się w kolejnych etapach."
   }
 }

@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDisclaimer } from '@/hooks/useDisclaimer';
+import { AuthNav } from '@/components/AuthNav';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 export function Layout() {
@@ -23,6 +24,7 @@ export function Layout() {
             <Link to="/terms" className="text-sm text-muted-foreground hover:text-foreground">
               {t('nav.terms')}
             </Link>
+            <AuthNav />
             <LanguageSwitcher />
           </nav>
         </div>

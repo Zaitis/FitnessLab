@@ -4,7 +4,10 @@
   },
   "nav": {
     "home": "Home",
-    "terms": "Terms & Disclaimer"
+    "terms": "Terms & Disclaimer",
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out"
   },
   "footer": {
     "termsLink": "Read the full Terms & Disclaimer",
@@ -47,5 +50,27 @@
     "title": "404",
     "message": "Page not found.",
     "backLink": "Back to the homepage"
+  },
+  "auth": {
+    "loginTitle": "Log in",
+    "registerTitle": "Create your account",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "passwordConfirmationLabel": "Confirm password",
+    "loginSubmit": "Log in",
+    "registerSubmit": "Create account",
+    "submitting": "Please wait…",
+    "hasAccount": "Already have an account?",
+    "noAccount": "Don't have an account?",
+    "loginLink": "Log in",
+    "registerLink": "Sign up",
+    "errors": {
+      "passwordMismatch": "Passwords do not match."
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome, {{name}}",
+    "placeholder": "Your dashboard is being built — measurement history, plans, and progress will land in later milestones."
   }
 }

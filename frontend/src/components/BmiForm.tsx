@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { apiFetch } from '@/lib/api';
 import type { BmiCalculation } from '@/lib/bmi';
+import { savePendingMeasurement } from '@/lib/pendingMeasurement';
 
 const schema = z.object({
   weightKg: z.coerce.number().min(1).max(500),
@@ -34,7 +35,10 @@ export function BmiForm({ onResult }: BmiFormProps) {
         method: 'POST',
         body: JSON.stringify({ weight_kg: values.weightKg, height_cm: values.heightCm }),
       }),
-    onSuccess: (data) => onResult(data),
+    onSuccess: (data, values) => {
+      savePendingMeasurement({ weightKg: values.weightKg, heightCm: values.heightCm });
+      onResult(data);
+    },
   });
 
   return (

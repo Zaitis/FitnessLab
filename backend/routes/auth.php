@@ -8,20 +8,24 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+// No 'guest' middleware here: it's a server-side concept (redirect an
+// already-authenticated visitor away from the login page) that doesn't
+// apply to a decoupled API with no Blade views. Laravel's default
+// RedirectIfAuthenticated falls back to redirecting to '/' when it can't
+// find a named 'dashboard' or 'home' route — which we never register,
+// since the dashboard is a frontend-only SPA route — and that fallback
+// target isn't covered by our CORS config, so the fetch() call fails
+// outright instead of returning a JSON response.
 Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest')
     ->name('register');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware('guest')
     ->name('login');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-    ->middleware('guest')
     ->name('password.email');
 
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
-    ->middleware('guest')
     ->name('password.store');
 
 Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)

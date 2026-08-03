@@ -16,6 +16,14 @@ export const disclaimerFixture = {
   },
 };
 
+export const userFixture = {
+  id: 1,
+  name: 'Ada Lovelace',
+  email: 'ada@example.com',
+  locale: null,
+  email_verified_at: null,
+};
+
 export const handlers: HttpHandler[] = [
   http.get(`${API_ROOT}/sanctum/csrf-cookie`, () => new HttpResponse(null, { status: 204 })),
 
@@ -32,5 +40,26 @@ export const handlers: HttpHandler[] = [
     const value = Math.round((body.weight_kg / (heightInMeters * heightInMeters)) * 10) / 10;
 
     return HttpResponse.json({ value, category: 'normal' });
+  }),
+
+  http.get(`${API_BASE_URL}/user`, () =>
+    HttpResponse.json({ message: 'Unauthenticated.' }, { status: 401 }),
+  ),
+
+  http.post(`${API_BASE_URL}/login`, () => new HttpResponse(null, { status: 204 })),
+
+  http.post(`${API_BASE_URL}/register`, () => new HttpResponse(null, { status: 204 })),
+
+  http.post(`${API_BASE_URL}/logout`, () => new HttpResponse(null, { status: 204 })),
+
+  http.post(`${API_BASE_URL}/measurements`, async ({ request }) => {
+    const body = (await request.json()) as { weight_kg: number; height_cm: number };
+    const heightInMeters = body.height_cm / 100;
+    const value = Math.round((body.weight_kg / (heightInMeters * heightInMeters)) * 10) / 10;
+
+    return HttpResponse.json(
+      { id: 1, weight_kg: body.weight_kg, height_cm: body.height_cm, value, category: 'normal' },
+      { status: 201 },
+    );
   }),
 ];
