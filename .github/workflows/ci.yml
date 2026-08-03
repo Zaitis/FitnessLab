@@ -199,6 +199,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
+            git config --global --add safe.directory /var/www/fitnesslab
             cd /var/www/fitnesslab
             git pull
             docker compose -f docker-compose.prod.yml pull
