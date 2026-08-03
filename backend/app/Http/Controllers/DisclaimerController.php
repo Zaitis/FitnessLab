@@ -39,16 +39,10 @@ final class DisclaimerController extends Controller
     {
         $strings = config('disclaimer');
 
-        $disclaimer = new DisclaimerText(
+        return (new DisclaimerText(
             short: $strings['short'][$locale],
             standard: $strings['standard'][$locale],
             extended: $strings['extended'][$locale],
-        );
-
-        return [
-            'short' => $disclaimer->short,
-            'standard' => $disclaimer->standard,
-            'extended' => $disclaimer->extended,
-        ];
+        ))->toArray();
     }
 }

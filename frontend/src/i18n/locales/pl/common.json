@@ -42,5 +42,10 @@
       "obese": "Otyłość"
     },
     "cta": "Załóż darmowe konto, aby zapisać wynik i śledzić postępy"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Nie znaleziono strony.",
+    "backLink": "Wróć na stronę główną"
   }
 }

@@ -9,4 +9,16 @@ final readonly class DisclaimerText
         public string $standard,
         public string $extended,
     ) {}
+
+    /**
+     * @return array{short: string, standard: string, extended: string}
+     */
+    public function toArray(): array
+    {
+        return [
+            'short' => $this->short,
+            'standard' => $this->standard,
+            'extended' => $this->extended,
+        ];
+    }
 }

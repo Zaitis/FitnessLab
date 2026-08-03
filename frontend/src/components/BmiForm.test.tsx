@@ -1,18 +1,13 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { delay, http, HttpResponse } from 'msw';
 import { describe, expect, it, vi } from 'vitest';
 import { server } from '@/mocks/server';
+import { renderWithProviders } from '@/test/renderWithProviders';
 import { BmiForm } from './BmiForm';
 
 function renderForm(onResult = vi.fn()) {
-  const queryClient = new QueryClient();
-  render(
-    <QueryClientProvider client={queryClient}>
-      <BmiForm onResult={onResult} />
-    </QueryClientProvider>,
-  );
+  renderWithProviders(<BmiForm onResult={onResult} />);
 
   return { onResult };
 }

@@ -13,3 +13,17 @@ it('holds the three disclaimer strings', function () {
         ->and($disclaimer->standard)->toBe('standard text')
         ->and($disclaimer->extended)->toBe('extended text');
 });
+
+it('converts to an array', function () {
+    $disclaimer = new DisclaimerText(
+        short: 'short text',
+        standard: 'standard text',
+        extended: 'extended text',
+    );
+
+    expect($disclaimer->toArray())->toBe([
+        'short' => 'short text',
+        'standard' => 'standard text',
+        'extended' => 'extended text',
+    ]);
+});

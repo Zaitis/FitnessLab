@@ -42,5 +42,10 @@
       "obese": "Obese"
     },
     "cta": "Create a free account to save this result and track it over time"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Page not found.",
+    "backLink": "Back to the homepage"
   }
 }
