@@ -38,9 +38,15 @@ sudo systemctl enable --now docker
 
 ### 2. Clone the repo
 
+Owned by whichever user `SSH_USER` (step 7) will be — **not** necessarily
+whoever you're logged in as right now while running this. A mismatch here
+is exactly what it looks like: `git pull` during deploy fails later with
+`Permission denied` on `.git/FETCH_HEAD`, because the deploy step
+authenticates as `SSH_USER` but the checkout belongs to someone else.
+
 ```bash
 sudo mkdir -p /var/www/fitnesslab
-sudo chown "$USER":"$USER" /var/www/fitnesslab
+sudo chown <ssh-user>:<ssh-user> /var/www/fitnesslab
 git clone https://github.com/Zaitis/FitnessLab.git /var/www/fitnesslab
 cd /var/www/fitnesslab
 ```
