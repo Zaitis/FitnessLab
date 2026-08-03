@@ -71,6 +71,7 @@
   },
   "dashboard": {
     "welcome": "Welcome, {{name}}",
-    "placeholder": "Your dashboard is being built — measurement history, plans, and progress will land in later milestones."
+    "placeholder": "Your dashboard is being built — measurement history, plans, and progress will land in later milestones.",
+    "emailVerified": "Your email address has been verified."
   }
 }

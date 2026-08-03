@@ -71,6 +71,7 @@
   },
   "dashboard": {
     "welcome": "Witaj, {{name}}",
-    "placeholder": "Panel jest w budowie — historia pomiarów, plany i postępy pojawią się w kolejnych etapach."
+    "placeholder": "Panel jest w budowie — historia pomiarów, plany i postępy pojawią się w kolejnych etapach.",
+    "emailVerified": "Twój adres e-mail został zweryfikowany."
   }
 }
