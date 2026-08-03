@@ -35,9 +35,9 @@ exists, so no milestone can accumulate untested work.
 - [x] `config/supported_locales.php` (`pl`, `en`); `react-i18next` and
       Laravel `lang/` wired with `laravel-lang/common` for Polish; key-parity
       tests in both applications.
-- [ ] SMTP configured against the existing `zaitis.dev` mail service, sending
+- [x] SMTP configured against the existing `zaitis.dev` mail service, sending
       as `fitnesslab@zaitis.dev`; mail queued, verified with `Queue::fake()`.
-- [ ] **SPF, DKIM, and DMARC records verified on `zaitis.dev`** — a real test
+- [x] **SPF, DKIM, and DMARC records verified on `zaitis.dev`** — a real test
       message must land in an inbox rather than a spam folder.
 - [x] Sanctum installed; `SANCTUM_STATEFUL_DOMAINS`, `SESSION_DOMAIN`, and
       CORS with `supports_credentials` configured for local development.
