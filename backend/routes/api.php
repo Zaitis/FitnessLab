@@ -7,4 +7,4 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::get('/health', fn() => response()->json(['status' => 'ok']));
+Route::get('/health', fn () => response()->json(['status' => 'ok']));
