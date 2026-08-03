@@ -71,7 +71,60 @@
   },
   "dashboard": {
     "welcome": "Welcome, {{name}}",
-    "placeholder": "Your dashboard is being built — measurement history, plans, and progress will land in later milestones.",
-    "emailVerified": "Your email address has been verified."
+    "emailVerified": "Your email address has been verified.",
+    "nav": {
+      "progress": "Progress",
+      "training": "Training Plan",
+      "mealPlan": "Meal Plan",
+      "adherence": "Adherence",
+      "admin": "Admin"
+    }
+  },
+  "progress": {
+    "title": "Your progress",
+    "chartTitle": "Weight and BMI trend",
+    "empty": "No measurements yet — add your first one below.",
+    "history": "History",
+    "table": {
+      "date": "Date",
+      "weight": "Weight (kg)",
+      "bmi": "BMI",
+      "category": "Category"
+    },
+    "chart": {
+      "bmiAxis": "BMI",
+      "weightAxis": "Weight (kg)"
+    },
+    "form": {
+      "title": "Add a measurement",
+      "weightLabel": "Weight (kg)",
+      "heightLabel": "Height (cm)",
+      "submit": "Save measurement",
+      "submitting": "Saving…",
+      "success": "Measurement saved.",
+      "errors": {
+        "weight": "Enter a weight between 1 and 500 kg.",
+        "height": "Enter a height between 30 and 250 cm.",
+        "generic": "Something went wrong. Please try again."
+      }
+    }
+  },
+  "comingSoon": {
+    "training": "Training plan generation is coming in a later milestone.",
+    "mealPlan": "Meal plan generation is coming in a later milestone.",
+    "adherence": "The adherence calendar is coming in a later milestone."
+  },
+  "admin": {
+    "logs": {
+      "title": "Error logs",
+      "levelFilter": "Level",
+      "allLevels": "All levels",
+      "empty": "No log entries.",
+      "table": {
+        "time": "Time",
+        "level": "Level",
+        "message": "Message"
+      }
+    }
   }
 }

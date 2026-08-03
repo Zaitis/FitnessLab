@@ -175,20 +175,23 @@ email arrives in an inbox, and merging to `master` deploys automatically.
 
 ## M5 — Dashboard shell, measurement history, admin log viewer
 
-- [ ] Dashboard layout with navigation across its four user-facing sections,
-      plus an admin section rendered only for admins.
-- [ ] `GET /api/measurements` — paginated, scoped to the authenticated user.
-- [ ] Weight and BMI trend chart (Recharts) with BMI category reference bands.
-- [ ] Manual measurement entry from the dashboard.
-- [ ] `is_admin` flag on `users`; an admin-only dashboard section listing
+- [x] Dashboard layout with navigation across its four user-facing sections
+      (Progress, Training Plan, Meal Plan, Adherence — the latter three are
+      stub pages until M6-M8), plus an admin section rendered only for admins.
+- [x] `GET /api/measurements` — paginated, scoped to the authenticated user.
+- [x] Weight and BMI trend chart (Recharts) with BMI category reference bands.
+- [x] Manual measurement entry from the dashboard.
+- [x] `is_admin` flag on `users`; an admin-only dashboard section listing
       recent entries from `error_logs`, paginated and filterable by level.
-- [ ] `GET /api/admin/logs` behind an admin policy, with the context payload
+- [x] `GET /api/admin/logs` behind an admin policy, with the context payload
       redacted as described in [Architecture](ARCHITECTURE.md).
-- [ ] Scheduled pruning of `error_logs` beyond the retention window.
-- [ ] Feature tests: measurement pagination; a cross-user request returns
-      `403`; a non-admin requesting the log endpoint returns `403` while an
-      admin succeeds; the redaction actually removes what it claims to.
-- [ ] Component tests: the chart renders with zero, one, and many points.
+- [x] Scheduled pruning of `error_logs` beyond the retention window.
+- [x] Feature tests: measurement pagination and per-user scoping (there is no
+      `GET /api/measurements/{id}`, so cross-user access is prevented by the
+      list query's scope rather than a per-resource `403`); a non-admin
+      requesting the log endpoint returns `403` while an admin succeeds;
+      redaction is covered by M4's `ErrorLogTest`.
+- [x] Component tests: the chart renders with zero, one, and many points.
 
 **Definition of done:** measurement history is listed and plotted over time,
 no user can read another user's measurements, production errors are visible

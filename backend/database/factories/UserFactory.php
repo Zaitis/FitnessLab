@@ -30,6 +30,12 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            // Explicit rather than relying on the DB default: Eloquent's
+            // in-memory model after create() reflects what was assigned
+            // before the insert, not what the database defaulted
+            // afterward — omitting this leaves $user->is_admin null
+            // (not false) until the model is refreshed from the DB.
+            'is_admin' => false,
         ];
     }
 
@@ -40,6 +46,16 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Indicate that the model has admin access.
+     */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'is_admin' => true,
         ]);
     }
 }

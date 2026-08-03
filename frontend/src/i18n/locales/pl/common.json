@@ -71,7 +71,60 @@
   },
   "dashboard": {
     "welcome": "Witaj, {{name}}",
-    "placeholder": "Panel jest w budowie — historia pomiarów, plany i postępy pojawią się w kolejnych etapach.",
-    "emailVerified": "Twój adres e-mail został zweryfikowany."
+    "emailVerified": "Twój adres e-mail został zweryfikowany.",
+    "nav": {
+      "progress": "Postępy",
+      "training": "Plan treningowy",
+      "mealPlan": "Plan posiłków",
+      "adherence": "Realizacja",
+      "admin": "Admin"
+    }
+  },
+  "progress": {
+    "title": "Twoje postępy",
+    "chartTitle": "Trend wagi i BMI",
+    "empty": "Brak pomiarów — dodaj pierwszy poniżej.",
+    "history": "Historia",
+    "table": {
+      "date": "Data",
+      "weight": "Waga (kg)",
+      "bmi": "BMI",
+      "category": "Kategoria"
+    },
+    "chart": {
+      "bmiAxis": "BMI",
+      "weightAxis": "Waga (kg)"
+    },
+    "form": {
+      "title": "Dodaj pomiar",
+      "weightLabel": "Waga (kg)",
+      "heightLabel": "Wzrost (cm)",
+      "submit": "Zapisz pomiar",
+      "submitting": "Zapisywanie…",
+      "success": "Pomiar zapisany.",
+      "errors": {
+        "weight": "Podaj wagę w zakresie od 1 do 500 kg.",
+        "height": "Podaj wzrost w zakresie od 30 do 250 cm.",
+        "generic": "Coś poszło nie tak. Spróbuj ponownie."
+      }
+    }
+  },
+  "comingSoon": {
+    "training": "Generowanie planu treningowego pojawi się w kolejnym etapie.",
+    "mealPlan": "Generowanie planu posiłków pojawi się w kolejnym etapie.",
+    "adherence": "Kalendarz realizacji pojawi się w kolejnym etapie."
+  },
+  "admin": {
+    "logs": {
+      "title": "Logi błędów",
+      "levelFilter": "Poziom",
+      "allLevels": "Wszystkie poziomy",
+      "empty": "Brak wpisów.",
+      "table": {
+        "time": "Czas",
+        "level": "Poziom",
+        "message": "Wiadomość"
+      }
+    }
   }
 }

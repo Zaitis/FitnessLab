@@ -22,6 +22,7 @@ export const userFixture = {
   email: 'ada@example.com',
   locale: null,
   email_verified_at: null,
+  is_admin: false,
 };
 
 export const handlers: HttpHandler[] = [
@@ -62,4 +63,12 @@ export const handlers: HttpHandler[] = [
       { status: 201 },
     );
   }),
+
+  http.get(`${API_BASE_URL}/measurements`, () =>
+    HttpResponse.json({ data: [], current_page: 1, last_page: 1, total: 0 }),
+  ),
+
+  http.get(`${API_BASE_URL}/admin/logs`, () =>
+    HttpResponse.json({ data: [], current_page: 1, last_page: 1, total: 0 }),
+  ),
 ];

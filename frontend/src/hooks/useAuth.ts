@@ -7,6 +7,7 @@ export interface User {
   email: string;
   locale: string | null;
   email_verified_at: string | null;
+  is_admin: boolean;
 }
 
 export function useUser() {
