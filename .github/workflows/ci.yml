@@ -98,3 +98,64 @@ jobs:
 
       - name: Tests (Vitest)
         run: npx vitest run
+
+  build-and-push:
+    name: Build and push images
+    needs: [backend, frontend]
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ghcr.io/zaitis/fitnesslab-backend:latest
+            ghcr.io/zaitis/fitnesslab-backend:${{ github.sha }}
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          build-args: |
+            VITE_API_URL=https://fitnesslab-api.zaitis.dev/api
+          tags: |
+            ghcr.io/zaitis/fitnesslab-frontend:latest
+            ghcr.io/zaitis/fitnesslab-frontend:${{ github.sha }}
+
+  deploy:
+    name: Deploy to VPS
+    needs: build-and-push
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull images and restart the stack
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+            cd /var/www/fitnesslab
+            git pull
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml run --rm backend php artisan migrate --force
+            docker compose -f docker-compose.prod.yml up -d
+            docker image prune -f

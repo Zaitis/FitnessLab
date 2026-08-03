@@ -141,23 +141,28 @@ Deliberately placed here rather than at the end. Everything from this point
 ships to a public URL as it merges, which is what makes the remaining
 milestones worth doing in order.
 
-- [ ] Production Dockerfiles for backend and frontend; images built and
+- [x] Production Dockerfiles for backend and frontend; images built and
       pushed to GHCR by CI.
-- [ ] DNS: `fitnesslab.zaitis.dev` and `fitnesslab-api.zaitis.dev` pointed at
+- [x] DNS: `fitnesslab.zaitis.dev` and `fitnesslab-api.zaitis.dev` pointed at
       the VPS.
 - [ ] nginx serving both hosts; Certbot certificates for each, with renewal
-      verified rather than assumed.
-- [ ] Production configuration per
+      verified rather than assumed. **Configs are written
+      ([deploy/nginx/](../deploy/nginx/)) but not yet installed on the VPS —
+      one-time manual step, see [docs/DEPLOYMENT.md](DEPLOYMENT.md).**
+- [x] Production configuration per
       [ADR-004](adr/ADR-004-deployment-topology.md): `SESSION_DOMAIN`,
       a distinctly named `SESSION_COOKIE`, `SESSION_SECURE_COOKIE=true`,
       exact-match `SANCTUM_STATEFUL_DOMAINS` and CORS allow-list — no
       wildcard over `*.zaitis.dev`.
-- [ ] Redis and the queue worker running under supervision, restarting with
+- [x] Redis and the queue worker running under supervision, restarting with
       the stack. The `scheduler` container is in place but gains its first
       job in M9.
-- [ ] Deploy on merge to `main`: CI pulls the built image and restarts the
-      stack.
-- [ ] Error capture: a `stack` log channel writing `error` and above to both
+- [ ] Deploy on merge to `master`: CI pulls the built image and restarts the
+      stack. **Workflow is written and the build/push half is live; the SSH
+      deploy half needs `SSH_HOST`/`SSH_USER`/`SSH_PRIVATE_KEY` GitHub
+      secrets and a one-time VPS bootstrap before it can succeed — see
+      [docs/DEPLOYMENT.md](DEPLOYMENT.md).**
+- [x] Error capture: a `stack` log channel writing `error` and above to both
       the daily file and an `error_logs` table, so a production failure after
       go-live leaves a durable record instead of scrolling off a container's
       stdout. Capture only — the viewer arrives in M5.
@@ -170,7 +175,7 @@ anyone treats the site as somewhere to keep something.
 
 **Definition of done:** the site is publicly reachable over HTTPS in both
 locales, a real account can be registered and used on it, a password-reset
-email arrives in an inbox, and merging to `main` deploys automatically.
+email arrives in an inbox, and merging to `master` deploys automatically.
 
 ## M5 — Dashboard shell, measurement history, admin log viewer
 

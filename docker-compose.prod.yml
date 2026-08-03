@@ -1,0 +1,72 @@
+# Production stack for the VPS. Images are pre-built by CI and pushed to
+# GHCR — nothing here builds from source. The host's own nginx (see
+# deploy/nginx/) terminates TLS for both public hostnames and reverse
+# proxies to the `frontend` and `backend` containers, which only bind to
+# 127.0.0.1 and are never reachable directly from the internet.
+#
+# Deploy flow: `git pull` (keeps this file and deploy/ in sync), then
+# `docker compose -f docker-compose.prod.yml pull && up -d`. See
+# docs/DEPLOYMENT.md.
+#
+# Two env files, deliberately not merged: `.env` here (repo root, next to
+# this file) holds only POSTGRES_*, read directly by the postgres service
+# below. `backend/.env` holds the full Laravel config, including its own
+# DB_PASSWORD — which must be set to the same value as POSTGRES_PASSWORD
+# here, since Laravel and Postgres each read their own copy under their
+# own variable name. Neither file is in git.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+
+  backend:
+    image: ghcr.io/zaitis/fitnesslab-backend:latest
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - postgres
+      - redis
+    ports:
+      - "127.0.0.1:9000:9000"
+
+  queue:
+    image: ghcr.io/zaitis/fitnesslab-backend:latest
+    restart: unless-stopped
+    command: php artisan queue:work --tries=3 --sleep=3
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - postgres
+      - redis
+
+  scheduler:
+    image: ghcr.io/zaitis/fitnesslab-backend:latest
+    restart: unless-stopped
+    command: php artisan schedule:work
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - postgres
+      - redis
+
+  frontend:
+    image: ghcr.io/zaitis/fitnesslab-frontend:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+
+volumes:
+  postgres_data:
+  redis_data:
