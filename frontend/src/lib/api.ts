@@ -3,12 +3,13 @@ const API_BASE_URL =
 const API_ROOT = API_BASE_URL.replace(/\/api\/?$/, '');
 
 export class ApiError extends Error {
-  constructor(
-    message: string,
-    public status: number,
-    public errors?: Record<string, string[]>,
-  ) {
+  status: number;
+  errors?: Record<string, string[]>;
+
+  constructor(message: string, status: number, errors?: Record<string, string[]>) {
     super(message);
+    this.status = status;
+    this.errors = errors;
   }
 }
 

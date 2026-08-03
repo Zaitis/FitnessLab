@@ -244,8 +244,13 @@ Coverage targets, in priority order:
 Tests assert what a user perceives — visible text, roles, labels — never
 component internals or state variables.
 
-Type checking (`tsc --noEmit`) is part of the test command, not a separate
-optional step.
+Type checking (`tsc -b`) is part of the test command, not a separate
+optional step. Build mode (`-b`) matters here, not just style: this project
+splits `tsconfig.json` into `tsconfig.app.json` and `tsconfig.node.json` via
+project references, and bare `tsc --noEmit` does not walk referenced
+projects the way `tsc -b` does — it silently missed real type errors in
+`vite.config.ts` and a resolver-typing mismatch in `BmiForm.tsx` that only
+`npm run build` caught.
 
 ## End-to-end tests
 
@@ -277,7 +282,7 @@ container. The build fails on any of:
 | Static analysis | `phpstan analyse` (Larastan, level 6+) | M0 |
 | Backend tests | `pest --coverage --min=90` | M0 |
 | Frontend lint | `oxlint .` | M0 |
-| Type check | `tsc --noEmit` | M0 |
+| Type check | `tsc -b` | M0 |
 | Frontend tests | `vitest run` | M0 |
 | E2E | `playwright test` | M11 |
 

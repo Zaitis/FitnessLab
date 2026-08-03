@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "tsc --noEmit && vitest run",
+    "test": "tsc -b && vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {

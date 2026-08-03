@@ -15,7 +15,8 @@ const schema = z.object({
   heightCm: z.coerce.number().min(30).max(250),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormInput = z.input<typeof schema>;
+type FormValues = z.output<typeof schema>;
 
 interface BmiFormProps {
   onResult: (result: BmiCalculation) => void;
@@ -27,7 +28,7 @@ export function BmiForm({ onResult }: BmiFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<FormInput, unknown, FormValues>({ resolver: zodResolver(schema) });
 
   const mutation = useMutation({
     mutationFn: (values: FormValues) =>
