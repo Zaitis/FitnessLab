@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BmiController;
+use App\Http\Controllers\DisclaimerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,3 +13,5 @@ Route::get('/health', fn () => response()->json(['status' => 'ok']));
 
 Route::post('/bmi/calculate', [BmiController::class, 'calculate'])
     ->middleware('throttle:bmi');
+
+Route::get('/disclaimer', [DisclaimerController::class, 'show']);
