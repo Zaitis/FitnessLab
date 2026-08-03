@@ -32,7 +32,7 @@ exists, so no milestone can accumulate untested work.
       `scheduler`, `nginx`, `node`.
 - [x] Redis wired as the session, cache, rate-limiter, and queue store, with
       a FitnessLab-specific key prefix.
-- [ ] `config/supported_locales.php` (`pl`, `en`); `react-i18next` and
+- [x] `config/supported_locales.php` (`pl`, `en`); `react-i18next` and
       Laravel `lang/` wired with `laravel-lang/common` for Polish; key-parity
       tests in both applications.
 - [ ] SMTP configured against the existing `zaitis.dev` mail service, sending
