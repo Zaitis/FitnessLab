@@ -28,8 +28,12 @@ Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->name('password.store');
 
+// No 'auth' here either, for the same reason as above: this link is opened
+// from an email client, essentially never in the browser session the user
+// registered in. The signed URL plus the controller's hash check already
+// tie the request to one specific user's email.
 Route::get('/verify-email/{id}/{hash}', VerifyEmailController::class)
-    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
 
 Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])

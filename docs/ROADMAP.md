@@ -157,11 +157,8 @@ milestones worth doing in order.
 - [x] Redis and the queue worker running under supervision, restarting with
       the stack. The `scheduler` container is in place but gains its first
       job in M9.
-- [ ] Deploy on merge to `master`: CI pulls the built image and restarts the
-      stack. **Workflow is written and the build/push half is live; the SSH
-      deploy half needs `SSH_HOST`/`SSH_USER`/`SSH_PRIVATE_KEY` GitHub
-      secrets and a one-time VPS bootstrap before it can succeed — see
-      [docs/DEPLOYMENT.md](DEPLOYMENT.md).**
+- [x] Deploy on merge to `master`: CI pulls the built image and restarts the
+      stack. Verified end-to-end on a real push to `master`.
 - [x] Error capture: a `stack` log channel writing `error` and above to both
       the daily file and an `error_logs` table, so a production failure after
       go-live leaves a durable record instead of scrolling off a container's

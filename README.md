@@ -5,6 +5,8 @@
 **Take care of your health and your shape** — a full-stack demo application
 built with Laravel and React.
 
+🔗 **Live:** [fitnesslab.zaitis.dev](https://fitnesslab.zaitis.dev)
+
 > ### ⚠️ Demo project — not medical advice
 >
 > FitnessLab is a **portfolio project**. It is not built or operated by a
@@ -27,8 +29,8 @@ including for plans generated before the switch
 - Hero section with the project's purpose and a visible demo disclaimer.
 - **Try the demo account** — one click into a populated dashboard, no
   registration required.
-- **Anonymous BMI calculator** — no account required. Enter weight, height,
-  age, and sex; get a BMI value and weight category with full validation.
+- **Anonymous BMI calculator** — no account required. Enter weight and
+  height; get a BMI value and weight category with full validation.
 - After a result is shown, a call to action invites the visitor to create a
   free account to save the measurement and track progress. Registration is
   fully independent — an account can be created without using the calculator.
@@ -131,9 +133,12 @@ docker compose up -d
 
 🚧 In development — current milestone is tracked in the [Roadmap](docs/ROADMAP.md).
 
-The application goes live at M4, with only the calculator and accounts
-working, and grows in public from there. A live URL with three features beats
-a local project with ten.
+**Live now (through M4):** the BMI calculator, account registration and
+login, and measurement carry-over from an anonymous session into a new
+account. Everything else in "What it does" above — training/meal plans,
+progress tracking, adherence calendar, PDF export, the demo account — is
+still ahead, arriving milestone by milestone. A live URL with three features
+beats a local project with ten.
 
 ## License
 
