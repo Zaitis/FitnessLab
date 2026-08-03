@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BmiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -8,3 +9,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/health', fn () => response()->json(['status' => 'ok']));
+
+Route::post('/bmi/calculate', [BmiController::class, 'calculate'])
+    ->middleware('throttle:bmi');

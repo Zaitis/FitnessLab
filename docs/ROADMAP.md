@@ -67,17 +67,17 @@ disagrees with `composer.json` is worse than no documented stack.
 
 The domain core, built framework-free so it can be unit-tested in isolation.
 
-- [ ] `Weight` and `Height` value objects rejecting implausible input.
-- [ ] `BmiCategory` backed enum owning its thresholds.
-- [ ] `Bmi` readonly value object with `fromMeasurements()`.
-- [ ] `CalculateBmiAction` — no HTTP or database dependencies.
-- [ ] `CalculateBmiRequest` Form Request.
-- [ ] `POST /api/bmi/calculate` — public, stateless, rate-limited per IP.
-- [ ] Unit tests: every category boundary tested at the threshold and either
+- [x] `Weight` and `Height` value objects rejecting implausible input.
+- [x] `BmiCategory` backed enum owning its thresholds.
+- [x] `Bmi` readonly value object with `fromMeasurements()`.
+- [x] `CalculateBmiAction` — no HTTP or database dependencies.
+- [x] `CalculateBmiRequest` Form Request.
+- [x] `POST /api/bmi/calculate` — public, stateless, rate-limited per IP.
+- [x] Unit tests: every category boundary tested at the threshold and either
       side of it, via a Pest dataset; value-object invariants.
-- [ ] Feature tests: happy path, `422` on invalid input, `429` past the rate
+- [x] Feature tests: happy path, `422` on invalid input, `429` past the rate
       limit, and an assertion that no rows are written.
-- [ ] First architecture tests: `App\Domain` free of `Illuminate`, controllers
+- [x] First architecture tests: `App\Domain` free of `Illuminate`, controllers
       free of database access.
 
 **Definition of done:** the endpoint returns correct categories across the
