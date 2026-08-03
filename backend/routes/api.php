@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BmiController;
 use App\Http\Controllers\DisclaimerController;
+use App\Http\Controllers\MeasurementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,8 @@ Route::post('/bmi/calculate', [BmiController::class, 'calculate'])
     ->middleware('throttle:bmi');
 
 Route::get('/disclaimer', [DisclaimerController::class, 'show']);
+
+Route::post('/measurements', [MeasurementController::class, 'store'])
+    ->middleware('auth:sanctum');
+
+require __DIR__.'/auth.php';

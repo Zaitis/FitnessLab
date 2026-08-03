@@ -18,6 +18,24 @@ services:
     volumes:
       - redis_data:/data
 
+  queue:
+    build:
+      context: ./backend
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - ./backend:/var/www/html
+    command: php artisan queue:work --tries=3 --sleep=3
+    env_file:
+      - ./backend/.env
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis
+
 volumes:
   postgres_data:
   redis_data:
