@@ -65,7 +65,8 @@ services:
     image: ghcr.io/zaitis/fitnesslab-frontend:latest
     restart: unless-stopped
     ports:
-      - "127.0.0.1:8080:80"
+      # 8080 collided with another app already running on this host.
+      - "127.0.0.1:8097:80"
 
 volumes:
   postgres_data:
