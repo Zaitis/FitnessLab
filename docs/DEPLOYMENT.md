@@ -115,6 +115,39 @@ assuming it — the roadmap calls this out explicitly:
 sudo certbot renew --dry-run
 ```
 
+#### Security headers
+
+These are split across two layers deliberately, and the split is easy to get
+wrong when editing either file.
+
+**HSTS is set by the host configs** in `deploy/nginx/`, on *both* hostnames.
+Certbot's `--nginx` installer adds the TLS block and the HTTP→HTTPS redirect
+but never adds HSTS, so a config that looks finished after certbot still
+isn't. Both hosts need it because the session cookie is scoped to
+`.zaitis.dev` ([ADR-004](adr/ADR-004-deployment-topology.md)) — a protocol
+downgrade on either subdomain exposes the same cookie. `includeSubDomains`
+is deliberately omitted: it would commit every unrelated project under
+`zaitis.dev` to HTTPS-only, which is not this project's call to make.
+
+**CSP and the rest are set by the frontend container** in
+`frontend/docker/nginx.conf`, because that is the layer that knows what the
+SPA actually loads. `connect-src` names the API origin explicitly, since the
+SPA and API are different subdomains.
+
+One nginx trap worth stating plainly: `add_header` does **not** merge with
+enclosing blocks. Any `location` that sets a single header silently drops
+every header inherited from the `server` block. That is why
+`location /assets/` repeats `X-Content-Type-Options` — without the repeat,
+the hashed JS and CSS bundles would be the only responses served without it.
+
+After a config change, verify against the running site rather than the file:
+
+```bash
+curl -sI https://fitnesslab.zaitis.dev | grep -iE 'strict-transport|content-security|x-content-type|x-frame'
+curl -sI https://fitnesslab.zaitis.dev/assets/ | grep -i x-content-type
+curl -sI https://fitnesslab-api.zaitis.dev/api/health | grep -iE 'strict-transport|x-content-type'
+```
+
 ### 6. First bring-up
 
 ```bash
