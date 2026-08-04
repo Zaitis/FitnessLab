@@ -47,6 +47,12 @@ export const handlers: HttpHandler[] = [
     HttpResponse.json({ message: 'Unauthenticated.' }, { status: 401 }),
   ),
 
+  http.patch(`${API_BASE_URL}/user/locale`, async ({ request }) => {
+    const body = (await request.json()) as { locale: string };
+
+    return HttpResponse.json({ locale: body.locale });
+  }),
+
   http.post(`${API_BASE_URL}/login`, () => new HttpResponse(null, { status: 204 })),
 
   http.post(`${API_BASE_URL}/register`, () => new HttpResponse(null, { status: 204 })),

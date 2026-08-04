@@ -70,3 +70,16 @@ export function useLogout() {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['user'] }),
   });
 }
+
+export function useUpdateLocale() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (locale: string) =>
+      apiFetch<{ locale: string }>('/user/locale', {
+        method: 'PATCH',
+        body: JSON.stringify({ locale }),
+      }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['user'] }),
+  });
+}

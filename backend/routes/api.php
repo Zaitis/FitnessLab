@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ErrorLogController;
 use App\Http\Controllers\BmiController;
 use App\Http\Controllers\DisclaimerController;
 use App\Http\Controllers\MeasurementController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkoutPlanController;
 use App\Models\ErrorLog;
 use Illuminate\Http\Request;
@@ -12,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::patch('/user/locale', [UserController::class, 'updateLocale'])
+    ->middleware('auth:sanctum');
 
 Route::get('/health', fn () => response()->json(['status' => 'ok']));
 
