@@ -148,4 +148,10 @@ export const handlers: HttpHandler[] = [
       { status: 201 },
     );
   }),
+
+  http.get(`${API_BASE_URL}/adherence`, () => HttpResponse.json([])),
+
+  http.post(`${API_BASE_URL}/adherence`, () => HttpResponse.json({ checked: true })),
+
+  http.delete(`${API_BASE_URL}/adherence`, () => HttpResponse.json({ checked: false })),
 ];

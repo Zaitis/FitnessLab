@@ -128,8 +128,12 @@
       }
     }
   },
-  "comingSoon": {
-    "adherence": "Kalendarz realizacji pojawi się w kolejnym etapie."
+  "adherence": {
+    "title": "Kalendarz realizacji",
+    "noPlans": "Najpierw wygeneruj plan treningowy lub plan posiłków, aby móc tu odhaczać postępy.",
+    "workoutSection": "Ćwiczenia",
+    "nutritionSection": "Posiłki",
+    "restDay": "Brak zaplanowanych ćwiczeń na ten dzień."
   },
   "admin": {
     "logs": {

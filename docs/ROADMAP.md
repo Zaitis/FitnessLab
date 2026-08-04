@@ -257,15 +257,15 @@ the `measurement` field rather than guessing.
 
 ## M8 — Adherence calendar
 
-- [ ] `adherence_entries` table with a unique constraint on
+- [x] `adherence_entries` table with a unique constraint on
       `(user_id, entry_date, plan_item_id)`.
-- [ ] `ToggleAdherenceAction`; `POST`/`DELETE /api/adherence` endpoints.
-- [ ] `GET /api/adherence?month=` returning a month of entries in one request.
-- [ ] Calendar view (shadcn/ui Calendar) with per-day meal and exercise
+- [x] `ToggleAdherenceAction`; `POST`/`DELETE /api/adherence` endpoints.
+- [x] `GET /api/adherence?month=` returning a month of entries in one request.
+- [x] Calendar view (shadcn/ui Calendar) with per-day meal and exercise
       check-offs, using optimistic updates.
-- [ ] Feature tests: the unique constraint holds; toggling twice returns to
+- [x] Feature tests: the unique constraint holds; toggling twice returns to
       the original state; cross-user `403`.
-- [ ] Component tests: the mutation fires, the optimistic update renders, and
+- [x] Component tests: the mutation fires, the optimistic update renders, and
       a failed request rolls back.
 
 **Definition of done:** meals and exercises are checked off per day, the

@@ -128,8 +128,12 @@
       }
     }
   },
-  "comingSoon": {
-    "adherence": "The adherence calendar is coming in a later milestone."
+  "adherence": {
+    "title": "Adherence calendar",
+    "noPlans": "Generate a training or meal plan first, then check off your progress here.",
+    "workoutSection": "Exercises",
+    "nutritionSection": "Meals",
+    "restDay": "No exercises planned for this day."
   },
   "admin": {
     "logs": {
