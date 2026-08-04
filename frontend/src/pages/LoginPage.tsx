@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -69,6 +69,10 @@ export function LoginPage() {
       <Button type="submit" disabled={loginMutation.isPending}>
         {loginMutation.isPending ? t('auth.submitting') : t('auth.loginSubmit')}
       </Button>
+
+      <Link to="/forgot-password" className="text-sm underline underline-offset-2">
+        {t('auth.forgotPasswordLink')}
+      </Link>
 
       <p className="text-sm text-muted-foreground">
         {t('auth.noAccount')}{' '}

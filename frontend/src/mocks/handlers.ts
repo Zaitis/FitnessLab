@@ -59,6 +59,14 @@ export const handlers: HttpHandler[] = [
 
   http.post(`${API_BASE_URL}/logout`, () => new HttpResponse(null, { status: 204 })),
 
+  http.post(`${API_BASE_URL}/forgot-password`, () =>
+    HttpResponse.json({ status: 'We have emailed your password reset link.' }),
+  ),
+
+  http.post(`${API_BASE_URL}/reset-password`, () =>
+    HttpResponse.json({ status: 'Your password has been reset.' }),
+  ),
+
   http.post(`${API_BASE_URL}/measurements`, async ({ request }) => {
     const body = (await request.json()) as { weight_kg: number; height_cm: number };
     const heightInMeters = body.height_cm / 100;
@@ -148,4 +156,10 @@ export const handlers: HttpHandler[] = [
       { status: 201 },
     );
   }),
+
+  http.get(`${API_BASE_URL}/adherence`, () => HttpResponse.json([])),
+
+  http.post(`${API_BASE_URL}/adherence`, () => HttpResponse.json({ checked: true })),
+
+  http.delete(`${API_BASE_URL}/adherence`, () => HttpResponse.json({ checked: false })),
 ];

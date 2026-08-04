@@ -44,4 +44,15 @@ class NutritionPlan extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * UUIDs of every meal in this plan's snapshot — the set an adherence
+     * entry's plan_item_id is allowed to reference.
+     *
+     * @return list<string>
+     */
+    public function itemIds(): array
+    {
+        return array_column($this->generated_plan['items'], 'id');
+    }
 }

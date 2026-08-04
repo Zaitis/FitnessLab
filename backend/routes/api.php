@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdherenceController;
 use App\Http\Controllers\Admin\ErrorLogController;
 use App\Http\Controllers\BmiController;
 use App\Http\Controllers\DisclaimerController;
@@ -40,6 +41,15 @@ Route::apiResource('workout-plans', WorkoutPlanController::class)
 
 Route::apiResource('nutrition-plans', NutritionPlanController::class)
     ->only(['index', 'store', 'show'])
+    ->middleware('auth:sanctum');
+
+Route::get('/adherence', [AdherenceController::class, 'index'])
+    ->middleware('auth:sanctum');
+
+Route::post('/adherence', [AdherenceController::class, 'store'])
+    ->middleware('auth:sanctum');
+
+Route::delete('/adherence', [AdherenceController::class, 'destroy'])
     ->middleware('auth:sanctum');
 
 require __DIR__.'/auth.php';

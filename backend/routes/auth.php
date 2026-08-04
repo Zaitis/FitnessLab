@@ -17,15 +17,22 @@ use Illuminate\Support\Facades\Route;
 // target isn't covered by our CORS config, so the fetch() call fails
 // outright instead of returning a JSON response.
 Route::post('/register', [RegisteredUserController::class, 'store'])
+    ->middleware('throttle:register')
     ->name('register');
 
+// Login has its own per-email+IP limiter inside LoginRequest; this one is
+// the coarser per-IP backstop that a credential-stuffing run across many
+// different accounts would otherwise walk straight past.
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+    ->middleware('throttle:auth')
     ->name('login');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->middleware('throttle:auth')
     ->name('password.email');
 
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->middleware('throttle:auth')
     ->name('password.store');
 
 // No 'auth' here either, for the same reason as above: this link is opened

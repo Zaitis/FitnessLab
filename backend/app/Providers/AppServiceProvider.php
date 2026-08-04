@@ -16,10 +16,12 @@ use App\Infrastructure\Persistence\EloquentExerciseCatalogue;
 use App\Infrastructure\Persistence\EloquentMealTemplateCatalogue;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -66,7 +68,27 @@ class AppServiceProvider extends ServiceProvider
         // /meta regardless of this setting.
         JsonResource::withoutWrapping();
 
+        // An N+1 that only shows up under production data volumes should fail
+        // loudly here and in CI instead (.ai/laravel.md).
+        Model::preventLazyLoading(! $this->app->isProduction());
+
         RateLimiter::for('bmi', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
+
+        // Unauthenticated write endpoints that cost real money or reputation
+        // if abused. `forgot-password` is the sharpest of the three: without
+        // a limit it is an open relay for mailing arbitrary addresses through
+        // fitnesslab@zaitis.dev, which burns the domain's sending reputation
+        // that M0 deliberately set up SPF/DKIM/DMARC to protect.
+        RateLimiter::for('register', fn (Request $request) => Limit::perHour(5)->by($request->ip()));
+
+        // Shared by login, forgot-password and reset-password: a per-IP limit
+        // that a credential-stuffing run across many accounts can't walk past,
+        // plus a tighter per-email limit so one address can't be targeted or
+        // mail-bombed from a rotating IP pool.
+        RateLimiter::for('auth', fn (Request $request) => [
+            Limit::perMinute(10)->by($request->ip()),
+            Limit::perHour(5)->by(Str::lower($request->string('email')->value())),
+        ]);
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";

@@ -154,6 +154,36 @@ The public endpoint is throttled per IP because it is unauthenticated and
 computationally trivial — an obvious abuse target that costs nothing to
 protect (`.ai/security.md`).
 
+### Rate limiting the unauthenticated write surface
+
+Every endpoint a stranger can POST to is throttled, not just the calculator.
+The named limiters live in `AppServiceProvider`:
+
+| Limiter | Applied to | Limit |
+|---|---|---|
+| `bmi` | `POST /api/bmi/calculate` | 10/min per IP |
+| `register` | `POST /api/register` | 5/hour per IP |
+| `auth` | `login`, `forgot-password`, `reset-password` | 10/min per IP **and** 5/hour per email |
+
+The two-dimensional `auth` limiter matters more than the numbers. A per-IP
+limit alone is walked past by a rotating IP pool; a per-email limit alone is
+walked past by a credential-stuffing run that tries each address once. Login
+additionally keeps Breeze's own per-email+IP lockout inside `LoginRequest` —
+that one exists to protect a single account from a password guessing run,
+which is a different question from protecting the *service*.
+
+`forgot-password` is the sharpest of the three and the reason this section
+exists. Unthrottled, it is an open relay for mailing arbitrary addresses
+through `fitnesslab@zaitis.dev` — anyone could point it at a list and burn
+the domain's sending reputation, which is precisely the asset M0 set up SPF,
+DKIM and DMARC to build. The blast radius is not this application; it is
+every other project sending mail from `zaitis.dev`.
+
+That endpoint also returns an identical response whether or not the address
+has an account. Breeze ships it returning `422` for an unknown email, which
+makes it a free user-enumeration oracle — "does this person have an account
+here?", one address at a time. Nothing in the UI needed the distinction.
+
 ### Carrying an anonymous result into a new account
 
 A visitor who calculates BMI and then registers should not have to retype
