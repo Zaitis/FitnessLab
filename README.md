@@ -129,6 +129,7 @@ docker compose up -d
 | [Testing](docs/TESTING.md) | Test pyramid, what is covered at each level, CI gates |
 | [Tech Stack](docs/TECH-STACK.md) | Every dependency and the reasoning behind it |
 | [Roadmap](docs/ROADMAP.md) | Milestones and definitions of done |
+| [Security Review](docs/SECURITY-REVIEW.md) | Full audit against the security baseline, findings and fixes |
 | [ADRs](docs/adr/) | Architecture decision records |
 | [Terms & Disclaimer](docs/legal/TERMS-AND-DISCLAIMER.md) | Source copy for the in-app legal pages |
 
