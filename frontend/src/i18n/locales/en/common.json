@@ -20,7 +20,10 @@
   },
   "landing": {
     "heroTitle": "Take care of your health and your shape",
-    "heroSubtitle": "A free demo BMI calculator. Enter your weight and height, get an instant result — no account required."
+    "heroSubtitle": "A free demo BMI calculator. Enter your weight and height, get an instant result — no account required.",
+    "tryDemo": "Try the demo account",
+    "tryDemoPending": "Signing in…",
+    "tryDemoError": "Couldn't sign in to the demo account. Please try again shortly."
   },
   "bmiForm": {
     "title": "Calculate your BMI",
