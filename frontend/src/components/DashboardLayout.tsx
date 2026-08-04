@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { NavLink, Outlet, useSearchParams } from 'react-router-dom';
+import { NavLink, Outlet, useSearchParams } from 'react-router';
 import { useUser } from '@/hooks/useAuth';
 
 function navLinkClassName({ isActive }: { isActive: boolean }) {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router';
 import { useUser } from '@/hooks/useAuth';
 import { useErrorLogs } from '@/hooks/useErrorLogs';
 

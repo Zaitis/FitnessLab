@@ -159,7 +159,7 @@ routing work through it.
 `strict: true` with no `any`, per `.ai/react.md`. API response types are
 declared explicitly rather than inferred from `fetch`.
 
-### React Router v7 — routing
+### React Router v8 — routing
 
 Chosen over TanStack Router. TanStack Router has stronger type-safe route
 parameters, but React Router is what the overwhelming majority of React
@@ -170,6 +170,15 @@ little to act on.
 
 Used in declarative mode. The framework/data-loader mode overlaps with
 TanStack Query and would leave two systems responsible for server state.
+
+Imported from the `react-router` package, not `react-router-dom`: v8 merged
+the DOM bindings back into the core package. The project moved off v7 when
+`npm audit` — added as a CI gate at the same time — flagged
+[GHSA-qwww-vcr4-c8h2](https://github.com/advisories/GHSA-qwww-vcr4-c8h2)
+against every 7.12–8.2 release. That advisory is an RSC-mode CSRF bypass and
+this SPA never runs RSC, so it was not exploitable here; the upgrade was
+taken anyway because carrying a permanent audit exception costs more than a
+migration that turned out to be one import specifier per file.
 
 ### TanStack Query — server state
 

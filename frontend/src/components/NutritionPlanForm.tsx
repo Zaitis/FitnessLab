@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useGenerateNutritionPlan } from '@/hooks/useNutritionPlans';

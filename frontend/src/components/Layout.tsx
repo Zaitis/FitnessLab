@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useDisclaimer } from '@/hooks/useDisclaimer';
 import { AuthNav } from '@/components/AuthNav';
