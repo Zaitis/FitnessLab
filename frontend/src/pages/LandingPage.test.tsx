@@ -17,6 +17,7 @@ describe('LandingPage', () => {
 
     await user.type(screen.getByLabelText(/weight/i), '70');
     await user.type(screen.getByLabelText(/height/i), '175');
+    await user.type(screen.getByLabelText(/age/i), '30');
     await user.click(screen.getByRole('button', { name: /calculate/i }));
 
     expect(await screen.findByRole('link', { name: /create a free account/i })).toBeInTheDocument();

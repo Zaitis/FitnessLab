@@ -29,8 +29,11 @@ including for plans generated before the switch
 - Hero section with the project's purpose and a visible demo disclaimer.
 - **Try the demo account** — one click into a populated dashboard, no
   registration required.
-- **Anonymous BMI calculator** — no account required. Enter weight and
-  height; get a BMI value and weight category with full validation.
+- **Anonymous BMI calculator** — no account required. Enter weight, height,
+  age, sex, and activity level; get a BMI value and weight category with
+  full validation. The BMI figure itself only uses weight and height — the
+  rest is captured for the meal plan generator, which needs it for an
+  accurate calorie target.
 - After a result is shown, a call to action invites the visitor to create a
   free account to save the measurement and track progress. Registration is
   fully independent — an account can be created without using the calculator.
@@ -133,14 +136,16 @@ docker compose up -d
 
 🚧 In development — current milestone is tracked in the [Roadmap](docs/ROADMAP.md).
 
-**Live now (through M6):** the BMI calculator, account registration and
-login, measurement carry-over from an anonymous session into a new account,
-progress tracking with a weight/BMI trend chart, an admin error-log viewer,
-and a training plan generator (fat loss, muscle gain, or maintenance —
-strength exercises for gym or home, plus cardio). Meal plans, the adherence
-calendar, PDF export, and the demo account are still ahead, arriving
-milestone by milestone. A live URL with three features beats a local project
-with ten.
+**Live now (through M7):** the BMI calculator (weight, height, age, sex,
+activity level), account registration and login, measurement carry-over
+from an anonymous session into a new account, progress tracking with a
+weight/BMI trend chart, an admin error-log viewer, a training plan
+generator (fat loss, muscle gain, or maintenance — strength exercises for
+gym or home, plus cardio), and a meal plan generator (a 7-day, 5-meal-a-day
+plan with a daily calorie and rough macro target from a real BMR estimate).
+The adherence calendar, PDF export, and the demo account are still ahead,
+arriving milestone by milestone. A live URL with three features beats a
+local project with ten.
 
 ## License
 

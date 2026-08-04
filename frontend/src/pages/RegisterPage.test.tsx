@@ -42,7 +42,13 @@ describe('RegisterPage', () => {
   });
 
   it('submits the pending measurement exactly once after registering, then clears it', async () => {
-    savePendingMeasurement({ weightKg: 70, heightCm: 175 });
+    savePendingMeasurement({
+      weightKg: 70,
+      heightCm: 175,
+      age: 30,
+      sex: 'male',
+      activityLevel: 'moderate',
+    });
 
     const measurementRequests = vi.fn();
     server.use(
@@ -59,7 +65,13 @@ describe('RegisterPage', () => {
     await fillAndSubmit(user, 'ada@example.com');
 
     await waitFor(() => expect(measurementRequests).toHaveBeenCalledTimes(1));
-    expect(measurementRequests).toHaveBeenCalledWith({ weight_kg: 70, height_cm: 175 });
+    expect(measurementRequests).toHaveBeenCalledWith({
+      weight_kg: 70,
+      height_cm: 175,
+      age: 30,
+      sex: 'male',
+      activity_level: 'moderate',
+    });
     expect(readPendingMeasurement()).toBeNull();
   });
 

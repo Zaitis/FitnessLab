@@ -2,12 +2,18 @@
 
 namespace App\Providers;
 
+use App\Application\Nutrition\Actions\GenerateNutritionPlanAction;
 use App\Application\Workouts\Actions\GenerateWorkoutPlanAction;
+use App\Domain\Nutrition\Contracts\MealTemplateCatalogue;
+use App\Domain\Nutrition\Strategies\FatLossNutritionPlanStrategy;
+use App\Domain\Nutrition\Strategies\MaintenanceNutritionPlanStrategy;
+use App\Domain\Nutrition\Strategies\MuscleGainNutritionPlanStrategy;
 use App\Domain\Workouts\Contracts\ExerciseCatalogue;
 use App\Domain\Workouts\Strategies\FatLossWorkoutPlanStrategy;
 use App\Domain\Workouts\Strategies\MaintenanceWorkoutPlanStrategy;
 use App\Domain\Workouts\Strategies\MuscleGainWorkoutPlanStrategy;
 use App\Infrastructure\Persistence\EloquentExerciseCatalogue;
+use App\Infrastructure\Persistence\EloquentMealTemplateCatalogue;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -33,6 +39,18 @@ class AppServiceProvider extends ServiceProvider
         $this->app->when(GenerateWorkoutPlanAction::class)
             ->needs('$strategies')
             ->give(fn ($app) => $app->tagged('workout-plan-strategies'));
+
+        $this->app->bind(MealTemplateCatalogue::class, EloquentMealTemplateCatalogue::class);
+
+        $this->app->tag([
+            FatLossNutritionPlanStrategy::class,
+            MuscleGainNutritionPlanStrategy::class,
+            MaintenanceNutritionPlanStrategy::class,
+        ], 'nutrition-plan-strategies');
+
+        $this->app->when(GenerateNutritionPlanAction::class)
+            ->needs('$strategies')
+            ->give(fn ($app) => $app->tagged('nutrition-plan-strategies'));
     }
 
     /**

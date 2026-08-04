@@ -35,7 +35,13 @@ async function submitPendingMeasurement(): Promise<void> {
   try {
     await apiFetch('/measurements', {
       method: 'POST',
-      body: JSON.stringify({ weight_kg: pending.weightKg, height_cm: pending.heightCm }),
+      body: JSON.stringify({
+        weight_kg: pending.weightKg,
+        height_cm: pending.heightCm,
+        age: pending.age,
+        sex: pending.sex,
+        activity_level: pending.activityLevel,
+      }),
     });
   } catch {
     // Best-effort carry-over — registration itself already succeeded.

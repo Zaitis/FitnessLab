@@ -37,6 +37,7 @@ describe('BmiForm', () => {
 
     await user.type(screen.getByLabelText(/weight/i), '70');
     await user.type(screen.getByLabelText(/height/i), '175');
+    await user.type(screen.getByLabelText(/age/i), '30');
     await user.click(screen.getByRole('button', { name: /calculate/i }));
 
     expect(screen.getByRole('button')).toBeDisabled();
@@ -50,6 +51,7 @@ describe('BmiForm', () => {
 
     await user.type(screen.getByLabelText(/weight/i), '70');
     await user.type(screen.getByLabelText(/height/i), '175');
+    await user.type(screen.getByLabelText(/age/i), '30');
     await user.click(screen.getByRole('button', { name: /calculate/i }));
 
     await waitFor(() => expect(onResult).toHaveBeenCalledWith({ value: 22.9, category: 'normal' }));
@@ -67,6 +69,7 @@ describe('BmiForm', () => {
 
     await user.type(screen.getByLabelText(/weight/i), '70');
     await user.type(screen.getByLabelText(/height/i), '175');
+    await user.type(screen.getByLabelText(/age/i), '30');
     await user.click(screen.getByRole('button', { name: /calculate/i }));
 
     expect(await screen.findByText(/something went wrong/i)).toBeInTheDocument();

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ErrorLogController;
 use App\Http\Controllers\BmiController;
 use App\Http\Controllers\DisclaimerController;
 use App\Http\Controllers\MeasurementController;
+use App\Http\Controllers\NutritionPlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkoutPlanController;
 use App\Models\ErrorLog;
@@ -34,6 +35,10 @@ Route::get('/admin/logs', [ErrorLogController::class, 'index'])
     ->middleware(['auth:sanctum', 'can:viewAny,'.ErrorLog::class]);
 
 Route::apiResource('workout-plans', WorkoutPlanController::class)
+    ->only(['index', 'store', 'show'])
+    ->middleware('auth:sanctum');
+
+Route::apiResource('nutrition-plans', NutritionPlanController::class)
     ->only(['index', 'store', 'show'])
     ->middleware('auth:sanctum');
 

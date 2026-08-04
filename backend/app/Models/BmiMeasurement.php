@@ -13,6 +13,9 @@ use Illuminate\Support\Carbon;
  * @property int $user_id
  * @property float $weight_kg
  * @property float $height_cm
+ * @property int|null $age
+ * @property string|null $sex
+ * @property string|null $activity_level
  * @property float $bmi_value
  * @property string $category
  * @property Carbon $measured_on
@@ -26,6 +29,9 @@ class BmiMeasurement extends Model
         'user_id',
         'weight_kg',
         'height_cm',
+        'age',
+        'sex',
+        'activity_level',
         'bmi_value',
         'category',
         'measured_on',
@@ -39,6 +45,7 @@ class BmiMeasurement extends Model
         return [
             'weight_kg' => 'float',
             'height_cm' => 'float',
+            'age' => 'integer',
             'bmi_value' => 'float',
             'measured_on' => 'date',
         ];

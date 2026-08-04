@@ -1,8 +1,13 @@
+import type { ActivityLevel, Sex } from '@/lib/bmi';
+
 const STORAGE_KEY = 'fitnesslab.pendingMeasurement';
 
 export interface PendingMeasurement {
   weightKg: number;
   heightCm: number;
+  age: number;
+  sex: Sex;
+  activityLevel: ActivityLevel;
 }
 
 export function savePendingMeasurement(measurement: PendingMeasurement): void {

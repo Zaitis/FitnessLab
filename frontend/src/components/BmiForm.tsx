@@ -13,6 +13,9 @@ import { savePendingMeasurement } from '@/lib/pendingMeasurement';
 const schema = z.object({
   weightKg: z.coerce.number().min(1).max(500),
   heightCm: z.coerce.number().min(30).max(250),
+  age: z.coerce.number().int().min(1).max(120),
+  sex: z.enum(['male', 'female']),
+  activityLevel: z.enum(['sedentary', 'light', 'moderate', 'active', 'very_active']),
 });
 
 type FormInput = z.input<typeof schema>;
@@ -28,16 +31,29 @@ export function BmiForm({ onResult }: BmiFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormInput, unknown, FormValues>({ resolver: zodResolver(schema) });
+  } = useForm<FormInput, unknown, FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: { sex: 'male', activityLevel: 'moderate' },
+  });
 
   const mutation = useMutation({
+    // Age/sex/activity level aren't sent here — the BMI value itself never
+    // depends on them, and this endpoint persists nothing. They're carried
+    // through to the real POST /measurements call after registration
+    // instead, via the pending-measurement payload below.
     mutationFn: (values: FormValues) =>
       apiFetch<BmiCalculation>('/bmi/calculate', {
         method: 'POST',
         body: JSON.stringify({ weight_kg: values.weightKg, height_cm: values.heightCm }),
       }),
     onSuccess: (data, values) => {
-      savePendingMeasurement({ weightKg: values.weightKg, heightCm: values.heightCm });
+      savePendingMeasurement({
+        weightKg: values.weightKg,
+        heightCm: values.heightCm,
+        age: values.age,
+        sex: values.sex,
+        activityLevel: values.activityLevel,
+      });
       onResult(data);
     },
   });
@@ -76,6 +92,39 @@ export function BmiForm({ onResult }: BmiFormProps) {
         {errors.heightCm && (
           <p className="text-sm text-destructive">{t('bmiForm.errors.height')}</p>
         )}
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="age">{t('demographics.ageLabel')}</Label>
+        <Input id="age" type="number" aria-invalid={Boolean(errors.age)} {...register('age')} />
+        {errors.age && <p className="text-sm text-destructive">{t('demographics.errors.age')}</p>}
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="sex">{t('demographics.sexLabel')}</Label>
+        <select
+          id="sex"
+          className="rounded-md border border-input bg-transparent px-2 py-1.5 text-sm"
+          {...register('sex')}
+        >
+          <option value="male">{t('demographics.sexOptions.male')}</option>
+          <option value="female">{t('demographics.sexOptions.female')}</option>
+        </select>
+      </div>
+
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="activityLevel">{t('demographics.activityLabel')}</Label>
+        <select
+          id="activityLevel"
+          className="rounded-md border border-input bg-transparent px-2 py-1.5 text-sm"
+          {...register('activityLevel')}
+        >
+          <option value="sedentary">{t('demographics.activityOptions.sedentary')}</option>
+          <option value="light">{t('demographics.activityOptions.light')}</option>
+          <option value="moderate">{t('demographics.activityOptions.moderate')}</option>
+          <option value="active">{t('demographics.activityOptions.active')}</option>
+          <option value="very_active">{t('demographics.activityOptions.very_active')}</option>
+        </select>
       </div>
 
       {mutation.isError && (

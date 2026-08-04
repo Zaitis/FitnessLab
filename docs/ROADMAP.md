@@ -232,18 +232,28 @@ booting HTTP.
 
 ## M7 — Meal plan generator
 
-- [ ] `meal_templates` catalogue table with a seeder, translatable like
+- [x] `meal_templates` catalogue table with a seeder, translatable like
       `exercises`; `MealTemplateCatalogue` contract and its two
-      implementations.
-- [ ] `NutritionPlanStrategy` interface and per-goal implementations —
-      a parallel hierarchy, not shared with `Workouts`.
-- [ ] `GenerateNutritionPlanAction` taking the goal and the latest BMI
+      implementations. Seeded with 75 meals — 15 per meal time (breakfast,
+      second breakfast, lunch, afternoon snack, dinner).
+- [x] `NutritionPlanStrategy` interface and per-goal implementations —
+      a parallel hierarchy, not shared with `Workouts`. Calorie target via
+      Mifflin-St Jeor BMR × activity multiplier, goal-specific deficit/
+      surplus and a rough (not precisely 1:1) protein/fat/carb split.
+- [x] `GenerateNutritionPlanAction` taking the goal and the latest BMI
       measurement as input; daily calorie target stored in its own column.
-- [ ] Endpoints, Resource with disclaimer, and dashboard view mirroring M6.
-- [ ] Test coverage mirroring M6.
+      **Scope grew here**: generating an accurate calorie target needs age,
+      sex, and activity level, which BMI measurements didn't capture before
+      this milestone — `bmi_measurements` gained those three columns and
+      both measurement forms (landing-page calculator, dashboard entry) now
+      collect them.
+- [x] Endpoints, Resource with disclaimer, and dashboard view mirroring M6.
+      The plan is 7 days × 5 meals/day (all five meal times, not a subset).
+- [x] Test coverage mirroring M6.
 
 **Definition of done:** as M6, for meal plans, including the case where a
-user has no recorded measurement yet.
+user has no recorded measurement yet — generation returns a `422` naming
+the `measurement` field rather than guessing.
 
 ## M8 — Adherence calendar
 

@@ -113,4 +113,39 @@ export const handlers: HttpHandler[] = [
       { status: 201 },
     );
   }),
+
+  http.get(`${API_BASE_URL}/nutrition-plans`, () =>
+    HttpResponse.json({ data: [], current_page: 1, last_page: 1, total: 0 }),
+  ),
+
+  http.post(`${API_BASE_URL}/nutrition-plans`, async ({ request }) => {
+    const body = (await request.json()) as { goal: string };
+
+    return HttpResponse.json(
+      {
+        id: 1,
+        goal: body.goal,
+        daily_calorie_target: 2000,
+        daily_protein_target_g: 150,
+        daily_fat_target_g: 65,
+        daily_carbs_target_g: 200,
+        items: [
+          {
+            id: 'item-1',
+            day: 1,
+            meal_time: 'breakfast',
+            calories: 420,
+            protein_g: 20,
+            fat_g: 14,
+            carbs_g: 55,
+            name: 'Oatmeal with Banana and Honey',
+            description: 'Rolled oats with banana and honey.',
+          },
+        ],
+        disclaimer: disclaimerFixture.en.standard,
+        created_at: new Date().toISOString(),
+      },
+      { status: 201 },
+    );
+  }),
 ];

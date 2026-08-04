@@ -1,11 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiFetch } from '@/lib/api';
-import type { BmiCategory } from '@/lib/bmi';
+import type { ActivityLevel, BmiCategory, Sex } from '@/lib/bmi';
 
 export interface Measurement {
   id: number;
   weight_kg: number;
   height_cm: number;
+  age: number;
+  sex: Sex;
+  activity_level: ActivityLevel;
   value: number;
   category: BmiCategory;
   measured_on: string;
@@ -28,6 +31,9 @@ export function useMeasurements() {
 interface RecordMeasurementValues {
   weightKg: number;
   heightCm: number;
+  age: number;
+  sex: Sex;
+  activityLevel: ActivityLevel;
 }
 
 export function useRecordMeasurement() {
@@ -37,7 +43,13 @@ export function useRecordMeasurement() {
     mutationFn: (values: RecordMeasurementValues) =>
       apiFetch<Measurement>('/measurements', {
         method: 'POST',
-        body: JSON.stringify({ weight_kg: values.weightKg, height_cm: values.heightCm }),
+        body: JSON.stringify({
+          weight_kg: values.weightKg,
+          height_cm: values.heightCm,
+          age: values.age,
+          sex: values.sex,
+          activity_level: values.activityLevel,
+        }),
       }),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['measurements'] }),
   });

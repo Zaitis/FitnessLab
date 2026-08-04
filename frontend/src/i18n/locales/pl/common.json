@@ -34,6 +34,25 @@
       "generic": "Coś poszło nie tak. Spróbuj ponownie."
     }
   },
+  "demographics": {
+    "ageLabel": "Wiek",
+    "sexLabel": "Płeć",
+    "activityLabel": "Poziom aktywności",
+    "sexOptions": {
+      "male": "Mężczyzna",
+      "female": "Kobieta"
+    },
+    "activityOptions": {
+      "sedentary": "Siedzący tryb życia (mało lub brak ruchu)",
+      "light": "Lekka aktywność (ćwiczenia 1-3 dni w tygodniu)",
+      "moderate": "Umiarkowana aktywność (ćwiczenia 3-5 dni w tygodniu)",
+      "active": "Wysoka aktywność (ćwiczenia 6-7 dni w tygodniu)",
+      "very_active": "Bardzo wysoka aktywność (ciężkie treningi lub praca fizyczna)"
+    },
+    "errors": {
+      "age": "Podaj wiek w zakresie od 1 do 120 lat."
+    }
+  },
   "bmiResult": {
     "title": "Twój wynik",
     "valueLabel": "BMI",
@@ -110,7 +129,6 @@
     }
   },
   "comingSoon": {
-    "mealPlan": "Generowanie planu posiłków pojawi się w kolejnym etapie.",
     "adherence": "Kalendarz realizacji pojawi się w kolejnym etapie."
   },
   "admin": {
@@ -162,6 +180,37 @@
       "submitting": "Generowanie…",
       "errors": {
         "days": "Podaj liczbę dni w zakresie od 1 do 6.",
+        "generic": "Coś poszło nie tak. Spróbuj ponownie."
+      }
+    }
+  },
+  "nutritionPlan": {
+    "title": "Plan posiłków",
+    "summary": "{{calories}} kcal dziennie · {{protein}}g białka · {{fat}}g tłuszczu · {{carbs}}g węglowodanów",
+    "day": "Dzień {{day}}",
+    "calories": "{{calories}} kcal",
+    "history": "Poprzednie plany",
+    "historyEntry": "{{goal}} — {{date}}",
+    "mealTime": {
+      "breakfast": "Śniadanie",
+      "second_breakfast": "Drugie śniadanie",
+      "lunch": "Obiad",
+      "afternoon_snack": "Podwieczorek",
+      "dinner": "Kolacja"
+    },
+    "goals": {
+      "fat_loss": "Redukcja tkanki tłuszczowej",
+      "muscle_gain": "Budowa masy mięśniowej",
+      "maintenance": "Utrzymanie formy"
+    },
+    "form": {
+      "title": "Wygeneruj plan posiłków",
+      "goalLabel": "Cel",
+      "submit": "Generuj plan",
+      "submitting": "Generowanie…",
+      "errors": {
+        "needsMeasurement": "Najpierw zapisz pomiar wraz z wiekiem, płcią i poziomem aktywności.",
+        "needsMeasurementLink": "Przejdź do panelu",
         "generic": "Coś poszło nie tak. Spróbuj ponownie."
       }
     }

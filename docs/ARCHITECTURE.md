@@ -190,6 +190,9 @@ erDiagram
         bigint user_id FK
         decimal weight_kg
         decimal height_cm
+        smallint age
+        string sex
+        string activity_level
         decimal bmi_value
         string category
         date measured_on
@@ -207,7 +210,6 @@ erDiagram
         bigint id PK
         bigint user_id FK
         string goal
-        decimal bmi_value_snapshot
         int daily_calorie_target
         jsonb generated_plan
         timestamp created_at
@@ -232,6 +234,16 @@ JSONB translation columns holding every supported locale
 One further table, `error_logs`, is owned by no domain module and belongs to
 none of them — it holds captured application errors for the admin viewer
 described below.
+
+### Why age, sex, and activity level live on the measurement
+
+The BMI calculator itself never asked for these — the BMI formula doesn't
+use them, and M1 deliberately left them out. M7 needed them anyway: an
+accurate daily calorie target requires a real BMR estimate (Mifflin-St
+Jeor), which does. Rather than a separate profile form asked once and
+silently going stale, they're captured alongside weight and height on every
+measurement — cheap to ask again, and `GenerateNutritionPlanAction` always
+reads whichever measurement is most recent.
 
 ### Why generated plans are JSONB snapshots
 

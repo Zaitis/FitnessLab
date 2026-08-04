@@ -34,6 +34,25 @@
       "generic": "Something went wrong. Please try again."
     }
   },
+  "demographics": {
+    "ageLabel": "Age",
+    "sexLabel": "Sex",
+    "activityLabel": "Activity level",
+    "sexOptions": {
+      "male": "Male",
+      "female": "Female"
+    },
+    "activityOptions": {
+      "sedentary": "Sedentary (little or no exercise)",
+      "light": "Light (exercise 1-3 days a week)",
+      "moderate": "Moderate (exercise 3-5 days a week)",
+      "active": "Active (exercise 6-7 days a week)",
+      "very_active": "Very active (hard exercise or physical job)"
+    },
+    "errors": {
+      "age": "Enter an age between 1 and 120."
+    }
+  },
   "bmiResult": {
     "title": "Your result",
     "valueLabel": "BMI",
@@ -110,7 +129,6 @@
     }
   },
   "comingSoon": {
-    "mealPlan": "Meal plan generation is coming in a later milestone.",
     "adherence": "The adherence calendar is coming in a later milestone."
   },
   "admin": {
@@ -162,6 +180,37 @@
       "submitting": "Generating…",
       "errors": {
         "days": "Enter a number of days between 1 and 6.",
+        "generic": "Something went wrong. Please try again."
+      }
+    }
+  },
+  "nutritionPlan": {
+    "title": "Meal plan",
+    "summary": "{{calories}} kcal a day · {{protein}}g protein · {{fat}}g fat · {{carbs}}g carbs",
+    "day": "Day {{day}}",
+    "calories": "{{calories}} kcal",
+    "history": "Previous plans",
+    "historyEntry": "{{goal}} — {{date}}",
+    "mealTime": {
+      "breakfast": "Breakfast",
+      "second_breakfast": "Second breakfast",
+      "lunch": "Lunch",
+      "afternoon_snack": "Afternoon snack",
+      "dinner": "Dinner"
+    },
+    "goals": {
+      "fat_loss": "Fat loss",
+      "muscle_gain": "Muscle gain",
+      "maintenance": "Maintenance"
+    },
+    "form": {
+      "title": "Generate a meal plan",
+      "goalLabel": "Goal",
+      "submit": "Generate plan",
+      "submitting": "Generating…",
+      "errors": {
+        "needsMeasurement": "Record a measurement with your age, sex, and activity level first.",
+        "needsMeasurementLink": "Go to your dashboard",
         "generic": "Something went wrong. Please try again."
       }
     }
