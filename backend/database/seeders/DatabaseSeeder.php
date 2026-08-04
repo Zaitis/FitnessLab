@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ExerciseSeeder::class);
         $this->call(MealTemplateSeeder::class);
+        $this->call(DemoAccountSeeder::class);
     }
 }

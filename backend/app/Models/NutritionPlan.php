@@ -55,4 +55,17 @@ class NutritionPlan extends Model
     {
         return array_column($this->generated_plan['items'], 'id');
     }
+
+    /**
+     * UUIDs of the meals scheduled for one structural day of the plan.
+     *
+     * @return list<string>
+     */
+    public function itemIdsForDay(int $day): array
+    {
+        return array_column(
+            array_filter($this->generated_plan['items'], fn (array $item) => $item['day'] === $day),
+            'id',
+        );
+    }
 }

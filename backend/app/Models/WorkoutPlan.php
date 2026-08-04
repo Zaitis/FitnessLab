@@ -53,4 +53,17 @@ class WorkoutPlan extends Model
     {
         return array_column($this->generated_plan, 'id');
     }
+
+    /**
+     * UUIDs of the items scheduled for one structural day of the plan.
+     *
+     * @return list<string>
+     */
+    public function itemIdsForDay(int $day): array
+    {
+        return array_column(
+            array_filter($this->generated_plan, fn (array $item) => $item['day'] === $day),
+            'id',
+        );
+    }
 }
