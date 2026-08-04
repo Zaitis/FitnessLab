@@ -8,9 +8,9 @@ use App\Domain\Nutrition\Enums\Goal;
 use App\Http\Requests\StoreNutritionPlanRequest;
 use App\Http\Resources\NutritionPlanResource;
 use App\Models\NutritionPlan;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Gate;
 
 final class NutritionPlanController extends Controller
 {
@@ -26,11 +26,9 @@ final class NutritionPlanController extends Controller
         return new NutritionPlanResource($plan);
     }
 
-    public function show(Request $request, NutritionPlan $nutritionPlan): NutritionPlanResource|JsonResponse
+    public function show(NutritionPlan $nutritionPlan): NutritionPlanResource
     {
-        if ($nutritionPlan->user_id !== $request->user()->id) {
-            return response()->json(['message' => 'Forbidden.'], 403);
-        }
+        Gate::authorize('view', $nutritionPlan);
 
         return new NutritionPlanResource($nutritionPlan);
     }

@@ -11,9 +11,9 @@ use App\Domain\Workouts\Enums\Goal;
 use App\Http\Requests\StoreWorkoutPlanRequest;
 use App\Http\Resources\WorkoutPlanResource;
 use App\Models\WorkoutPlan;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Gate;
 
 final class WorkoutPlanController extends Controller
 {
@@ -34,11 +34,9 @@ final class WorkoutPlanController extends Controller
         return new WorkoutPlanResource($action->execute($request->user(), $criteria));
     }
 
-    public function show(Request $request, WorkoutPlan $workoutPlan): WorkoutPlanResource|JsonResponse
+    public function show(WorkoutPlan $workoutPlan): WorkoutPlanResource
     {
-        if ($workoutPlan->user_id !== $request->user()->id) {
-            return response()->json(['message' => 'Forbidden.'], 403);
-        }
+        Gate::authorize('view', $workoutPlan);
 
         return new WorkoutPlanResource($workoutPlan);
     }
