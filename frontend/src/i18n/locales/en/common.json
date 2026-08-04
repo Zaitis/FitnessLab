@@ -165,6 +165,7 @@
   },
   "workoutPlan": {
     "title": "Training plan",
+    "downloadPdf": "Download PDF",
     "summary": "{{level}} · {{days}} days a week",
     "day": "Day {{day}}",
     "setsReps": "{{sets}} × {{reps}}",
@@ -205,6 +206,7 @@
   },
   "nutritionPlan": {
     "title": "Meal plan",
+    "downloadPdf": "Download PDF",
     "summary": "{{calories}} kcal a day · {{protein}}g protein · {{fat}}g fat · {{carbs}}g carbs",
     "day": "Day {{day}}",
     "calories": "{{calories}} kcal",

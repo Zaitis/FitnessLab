@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import type { WorkoutPlan, WorkoutPlanItem } from '@/hooks/useWorkoutPlans';
+import { apiUrl } from '@/lib/api';
 
 interface WorkoutPlanViewProps {
   plan: WorkoutPlan;
@@ -21,14 +22,22 @@ export function WorkoutPlanView({ plan }: WorkoutPlanViewProps) {
 
   return (
     <div className="flex flex-col gap-4 rounded-xl border p-6">
-      <div>
-        <h2 className="text-xl font-semibold">{t(`workoutPlan.goals.${plan.goal}`)}</h2>
-        <p className="text-sm text-muted-foreground">
-          {t('workoutPlan.summary', {
-            level: t(`workoutPlan.experienceLevels.${plan.experience_level}`),
-            days: plan.days_per_week,
-          })}
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-semibold">{t(`workoutPlan.goals.${plan.goal}`)}</h2>
+          <p className="text-sm text-muted-foreground">
+            {t('workoutPlan.summary', {
+              level: t(`workoutPlan.experienceLevels.${plan.experience_level}`),
+              days: plan.days_per_week,
+            })}
+          </p>
+        </div>
+        <a
+          href={apiUrl(`/workout-plans/${plan.id}/export`)}
+          className="shrink-0 text-sm underline underline-offset-2"
+        >
+          {t('workoutPlan.downloadPdf')}
+        </a>
       </div>
 
       {Array.from(days.entries()).map(([day, items]) => (
