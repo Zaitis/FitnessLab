@@ -383,13 +383,21 @@ account* button on the landing page.
 Because its credentials are public, the account needs constraints that a
 normal user does not:
 
-- **Destructive account actions are blocked.** A middleware rejects password
-  changes, email changes, and account deletion for `is_demo` users —
-  otherwise the first visitor to change the password locks out everyone
-  after them.
-- **State resets on a schedule.** A nightly scheduled job truncates the demo
-  user's data and re-seeds it, so accumulated edits from visitors do not
-  degrade the experience. This is what the scheduler container exists for.
+- **Destructive account actions are blocked.** `PreventDemoAccountMutation`
+  rejects password changes, email changes, and account deletion for
+  `is_demo` users — otherwise the first visitor to change the password locks
+  out everyone after them. The locale switcher is deliberately not gated:
+  it isn't destructive, and blocking it would leave every visitor stuck with
+  the previous one's language choice.
+- **State resets on a schedule.** `ResetDemoAccountAction` truncates the
+  demo user's data and re-seeds it — a measurement history, a generated plan
+  of each kind, and adherence entries for yesterday (fully checked) and
+  today (half checked, so a visitor sees something ticked off immediately).
+  The `demo:reset` command runs it nightly via the scheduler; the same
+  action backs the one-time `DemoAccountSeeder` at initial setup, so there
+  is exactly one definition of what the account looks like. Credentials live
+  in `config/demo.php`, published in the README rather than kept secret,
+  since the whole point is that a reviewer can log in directly.
 - **It is a real user row**, not a bypass. It authenticates through the same
   Breeze and Sanctum path as anyone else, so no alternate login route exists
   to secure or to get wrong.

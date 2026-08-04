@@ -19,6 +19,18 @@ Route::get('/user', function (Request $request) {
 Route::patch('/user/locale', [UserController::class, 'updateLocale'])
     ->middleware('auth:sanctum');
 
+// The locale switcher above is deliberately NOT gated by
+// prevent-demo-mutation — it's not destructive, and blocking it would give
+// every visitor to the demo account the previous visitor's language choice.
+Route::patch('/user/password', [UserController::class, 'updatePassword'])
+    ->middleware(['auth:sanctum', 'prevent-demo-mutation']);
+
+Route::patch('/user/email', [UserController::class, 'updateEmail'])
+    ->middleware(['auth:sanctum', 'prevent-demo-mutation']);
+
+Route::delete('/user', [UserController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'prevent-demo-mutation']);
+
 Route::get('/health', fn () => response()->json(['status' => 'ok']));
 
 Route::post('/bmi/calculate', [BmiController::class, 'calculate'])

@@ -20,7 +20,10 @@
   },
   "landing": {
     "heroTitle": "Zadbaj o zdrowie i sylwetkę",
-    "heroSubtitle": "Bezpłatny demonstracyjny kalkulator BMI. Podaj wagę i wzrost, dostaniesz wynik od razu — bez zakładania konta."
+    "heroSubtitle": "Bezpłatny demonstracyjny kalkulator BMI. Podaj wagę i wzrost, dostaniesz wynik od razu — bez zakładania konta.",
+    "tryDemo": "Wypróbuj konto demo",
+    "tryDemoPending": "Logowanie…",
+    "tryDemoError": "Nie udało się zalogować na konto demo. Spróbuj ponownie za chwilę."
   },
   "bmiForm": {
     "title": "Oblicz swoje BMI",
