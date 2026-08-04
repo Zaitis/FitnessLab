@@ -172,6 +172,19 @@ duplicates every row. Re-run one only after clearing its table, or once the
 seeder is rewritten to upsert — not needed yet for catalogues that don't
 change per deploy.
 
+Once both catalogues exist (from M9 onward), seed the demo account — it
+draws from both, so it must run after them, not before:
+
+```bash
+docker compose -f docker-compose.prod.yml run --rm backend php artisan db:seed --class=DemoAccountSeeder --force
+```
+
+Unlike the two above, this one is a wrapper around `ResetDemoAccountAction`
+and is safe to re-run any number of times — it's the same action the
+nightly `demo:reset` schedule calls, so running it manually just triggers
+an extra reset a beat early. Only needed once; the schedule takes over from
+there.
+
 ### 7. GitHub Actions secrets
 
 Repo → Settings → Secrets and variables → Actions:

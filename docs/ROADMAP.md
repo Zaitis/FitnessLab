@@ -277,17 +277,17 @@ level.
 Placed after the features it showcases exist, so the button leads somewhere
 worth arriving at.
 
-- [ ] `is_demo` flag on `users`; seeder creating the account with measurement
+- [x] `is_demo` flag on `users`; seeder creating the account with measurement
       history, plans of both kinds, and a partially filled adherence calendar.
-- [ ] Middleware rejecting password change, email change, and account
+- [x] Middleware rejecting password change, email change, and account
       deletion for `is_demo` users.
-- [ ] *Try the demo account* button on the landing page.
-- [ ] Nightly scheduled job resetting the demo account to its seeded state;
+- [x] *Try the demo account* button on the landing page.
+- [x] Nightly scheduled job resetting the demo account to its seeded state;
       the `scheduler` container gets its first real work here.
-- [ ] Feature tests: destructive account actions return `403` for the demo
+- [x] Feature tests: destructive account actions return `403` for the demo
       user and succeed for an ordinary one; the reset job restores seeded
       state after the data is mutated.
-- [ ] README updated with the demo credentials.
+- [x] README updated with the demo credentials.
 
 **Definition of done:** one click from the landing page reaches a populated
 dashboard on the live site, and nothing a visitor does there can lock out the

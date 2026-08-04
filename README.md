@@ -137,16 +137,32 @@ docker compose up -d
 
 🚧 In development — current milestone is tracked in the [Roadmap](docs/ROADMAP.md).
 
-**Live now (through M7):** the BMI calculator (weight, height, age, sex,
+**Live now (through M9):** the BMI calculator (weight, height, age, sex,
 activity level), account registration and login, measurement carry-over
 from an anonymous session into a new account, progress tracking with a
 weight/BMI trend chart, an admin error-log viewer, a training plan
 generator (fat loss, muscle gain, or maintenance — strength exercises for
-gym or home, plus cardio), and a meal plan generator (a 7-day, 5-meal-a-day
-plan with a daily calorie and rough macro target from a real BMR estimate).
-The adherence calendar, PDF export, and the demo account are still ahead,
-arriving milestone by milestone. A live URL with three features beats a
-local project with ten.
+gym or home, plus cardio), a meal plan generator (a 7-day, 5-meal-a-day
+plan with a daily calorie and rough macro target from a real BMR estimate),
+an adherence calendar for checking off individual meals and exercises day
+by day, and a demo account. PDF export is still ahead, arriving milestone
+by milestone. A live URL with three features beats a local project with ten.
+
+### Demo account
+
+No registration needed — log in directly with:
+
+| | |
+|---|---|
+| Email | `demo@fitnesslab.zaitis.dev` |
+| Password | `FitnessLabDemo!2026` |
+
+Or use the **Try the demo account** button on the landing page. The account
+resets to its seeded state (a measurement history, a training plan, a meal
+plan, and a partially checked-off adherence calendar) every night — nothing
+a visitor does there persists or affects the next visitor. Its password,
+email, and the account itself cannot be changed or deleted, by design (see
+[Architecture](docs/ARCHITECTURE.md)).
 
 ## License
 
