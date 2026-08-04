@@ -84,8 +84,20 @@
     "noAccount": "Don't have an account?",
     "loginLink": "Log in",
     "registerLink": "Sign up",
+    "forgotPasswordLink": "Forgot your password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordIntro": "Enter the email address you signed up with and we'll send you a link to set a new password.",
+    "forgotPasswordSubmit": "Send reset link",
+    "forgotPasswordSent": "If that address has an account, a password reset link is on its way. The link expires in 60 minutes.",
+    "backToLogin": "Back to log in",
+    "resetPasswordTitle": "Set a new password",
+    "resetPasswordIntro": "Choose a new password for {{email}}.",
+    "resetPasswordSubmit": "Save new password",
+    "resetPasswordInvalidLink": "This password reset link is incomplete. Request a new one.",
+    "newPasswordLabel": "New password",
     "errors": {
-      "passwordMismatch": "Passwords do not match."
+      "passwordMismatch": "Passwords do not match.",
+      "passwordTooShort": "Password must be at least 8 characters."
     }
   },
   "dashboard": {

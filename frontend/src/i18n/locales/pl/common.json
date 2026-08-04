@@ -84,8 +84,20 @@
     "noAccount": "Nie masz jeszcze konta?",
     "loginLink": "Zaloguj się",
     "registerLink": "Zarejestruj się",
+    "forgotPasswordLink": "Nie pamiętasz hasła?",
+    "forgotPasswordTitle": "Zresetuj hasło",
+    "forgotPasswordIntro": "Podaj adres e-mail użyty przy rejestracji, a wyślemy Ci link do ustawienia nowego hasła.",
+    "forgotPasswordSubmit": "Wyślij link resetujący",
+    "forgotPasswordSent": "Jeśli do tego adresu przypisane jest konto, link do zmiany hasła jest już w drodze. Link wygasa po 60 minutach.",
+    "backToLogin": "Wróć do logowania",
+    "resetPasswordTitle": "Ustaw nowe hasło",
+    "resetPasswordIntro": "Wybierz nowe hasło dla {{email}}.",
+    "resetPasswordSubmit": "Zapisz nowe hasło",
+    "resetPasswordInvalidLink": "Ten link do zmiany hasła jest niekompletny. Poproś o nowy.",
+    "newPasswordLabel": "Nowe hasło",
     "errors": {
-      "passwordMismatch": "Hasła nie są identyczne."
+      "passwordMismatch": "Hasła nie są identyczne.",
+      "passwordTooShort": "Hasło musi mieć co najmniej 8 znaków."
     }
   },
   "dashboard": {

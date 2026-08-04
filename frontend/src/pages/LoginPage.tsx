@@ -70,6 +70,10 @@ export function LoginPage() {
         {loginMutation.isPending ? t('auth.submitting') : t('auth.loginSubmit')}
       </Button>
 
+      <Link to="/forgot-password" className="text-sm underline underline-offset-2">
+        {t('auth.forgotPasswordLink')}
+      </Link>
+
       <p className="text-sm text-muted-foreground">
         {t('auth.noAccount')}{' '}
         <Link to="/register" className="underline underline-offset-2">

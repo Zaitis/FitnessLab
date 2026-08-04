@@ -71,6 +71,33 @@ export function useLogout() {
   });
 }
 
+export function useForgotPassword() {
+  return useMutation({
+    mutationFn: (email: string) =>
+      apiFetch<{ status: string }>('/forgot-password', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      }),
+  });
+}
+
+interface ResetPasswordValues {
+  token: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}
+
+export function useResetPassword() {
+  return useMutation({
+    mutationFn: (values: ResetPasswordValues) =>
+      apiFetch<{ status: string }>('/reset-password', {
+        method: 'POST',
+        body: JSON.stringify(values),
+      }),
+  });
+}
+
 export function useUpdateLocale() {
   const queryClient = useQueryClient();
 
