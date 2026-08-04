@@ -123,6 +123,19 @@ docker compose -f docker-compose.prod.yml run --rm backend php artisan migrate -
 docker compose -f docker-compose.prod.yml up -d
 ```
 
+Seed the exercise catalogue once the `workout_plans`/`exercises` tables exist
+(from M6 onward):
+
+```bash
+docker compose -f docker-compose.prod.yml run --rm backend php artisan db:seed --class=ExerciseSeeder --force
+```
+
+Deliberately a one-time manual step, not part of the automated deploy
+script: `ExerciseSeeder` isn't idempotent (`Exercise::create()`, not
+`updateOrCreate()`), so running it twice duplicates every row. Re-run it
+only after clearing the `exercises` table, or once the seeder is rewritten
+to upsert — not needed yet for a catalogue that doesn't change per deploy.
+
 ### 7. GitHub Actions secrets
 
 Repo → Settings → Secrets and variables → Actions:
