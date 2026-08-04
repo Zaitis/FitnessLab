@@ -68,6 +68,15 @@ rather than repeated test bodies, and the **architecture plugin**, which
 converts the module boundaries in [Architecture](ARCHITECTURE.md) into build
 failures. Pest runs on PHPUnit underneath, so nothing is given up.
 
+### smalot/pdfparser — testing PDF output
+
+Dev-only. Feature tests for PDF export need to assert the rendered document
+actually contains the disclaimer text, not just that a response with the
+right `Content-Type` came back — a byte count alone wouldn't catch a broken
+template or a silently-dropped watermark. This parses the binary back into
+text so the assertion is `expect($text)->toContain($disclaimer)` rather
+than trusting the PDF was built correctly.
+
 ### Larastan · Laravel Pint
 
 Static analysis at level 6 minimum per `.ai/laravel.md`, and PSR-12
