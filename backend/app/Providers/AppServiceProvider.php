@@ -16,6 +16,7 @@ use App\Infrastructure\Persistence\EloquentExerciseCatalogue;
 use App\Infrastructure\Persistence\EloquentMealTemplateCatalogue;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\RateLimiter;
@@ -66,6 +67,10 @@ class AppServiceProvider extends ServiceProvider
         // unaffected: PaginatedResourceResponse always includes data/links
         // /meta regardless of this setting.
         JsonResource::withoutWrapping();
+
+        // An N+1 that only shows up under production data volumes should fail
+        // loudly here and in CI instead (.ai/laravel.md).
+        Model::preventLazyLoading(! $this->app->isProduction());
 
         RateLimiter::for('bmi', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
 

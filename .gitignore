@@ -2,3 +2,12 @@
 .claude
 .cursor
 CLAUDE.md
+
+# The VPS keeps the postgres credentials in a repo-root .env next to
+# docker-compose.prod.yml, and the deploy runs `git pull` in that working
+# tree. Without this line the file sits there untracked-but-not-ignored,
+# one `git add -A` away from being committed.
+.env
+.env.*
+!.env.example
+!.env.production.example

@@ -61,6 +61,9 @@ jobs:
           PGPASSWORD: secret
         run: psql -h 127.0.0.1 -p 5435 -U fitnesslab -d fitnesslab -c "CREATE DATABASE fitnesslab_testing OWNER fitnesslab;"
 
+      - name: Dependency audit (composer)
+        run: composer audit
+
       - name: Code style (Pint)
         run: vendor/bin/pint --test
 
@@ -89,6 +92,13 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      # `high` rather than the default `low`: the build should stop for a
+      # real vulnerability, not for a transitive advisory in a dev-only
+      # toolchain package that has no fix yet. A gate that cries wolf gets
+      # switched off, which is worse than a narrower one that doesn't.
+      - name: Dependency audit (npm)
+        run: npm audit --audit-level=high
 
       - name: Lint (oxlint)
         run: npm run lint
