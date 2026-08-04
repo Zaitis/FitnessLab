@@ -21,19 +21,15 @@ class PasswordResetLinkController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
+        Password::sendResetLink($request->only('email'));
 
-        if ($status != Password::RESET_LINK_SENT) {
-            throw ValidationException::withMessages([
-                'email' => [__($status)],
-            ]);
-        }
-
-        return response()->json(['status' => __($status)]);
+        // Deliberately the same response whether or not that address has an
+        // account. Breeze ships this endpoint returning a 422 for an unknown
+        // email, which turns it into a free user-enumeration oracle: anyone
+        // could ask "does this person have a FitnessLab account?" one address
+        // at a time. The user-facing copy is unchanged either way — "if that
+        // address has an account, a link is on its way" — so nothing is lost
+        // but the leak.
+        return response()->json(['status' => __(Password::RESET_LINK_SENT)]);
     }
 }
