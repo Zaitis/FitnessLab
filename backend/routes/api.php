@@ -51,8 +51,14 @@ Route::apiResource('workout-plans', WorkoutPlanController::class)
     ->only(['index', 'store', 'show'])
     ->middleware('auth:sanctum');
 
+Route::get('/workout-plans/{workoutPlan}/export', [WorkoutPlanController::class, 'export'])
+    ->middleware('auth:sanctum');
+
 Route::apiResource('nutrition-plans', NutritionPlanController::class)
     ->only(['index', 'store', 'show'])
+    ->middleware('auth:sanctum');
+
+Route::get('/nutrition-plans/{nutritionPlan}/export', [NutritionPlanController::class, 'export'])
     ->middleware('auth:sanctum');
 
 Route::get('/adherence', [AdherenceController::class, 'index'])

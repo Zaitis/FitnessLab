@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Application\Documents\Actions\ExportPlanToPdfAction;
 use App\Application\Nutrition\Actions\GenerateNutritionPlanAction;
 use App\Application\Nutrition\Actions\ListNutritionPlansAction;
 use App\Domain\Nutrition\Enums\Goal;
@@ -10,6 +11,7 @@ use App\Http\Resources\NutritionPlanResource;
 use App\Models\NutritionPlan;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
 final class NutritionPlanController extends Controller
@@ -31,5 +33,17 @@ final class NutritionPlanController extends Controller
         Gate::authorize('view', $nutritionPlan);
 
         return new NutritionPlanResource($nutritionPlan);
+    }
+
+    public function export(NutritionPlan $nutritionPlan, ExportPlanToPdfAction $action): Response
+    {
+        Gate::authorize('view', $nutritionPlan);
+
+        $document = $action->execute($nutritionPlan);
+
+        return new Response($document->contents, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$document->filename.'"',
+        ]);
     }
 }

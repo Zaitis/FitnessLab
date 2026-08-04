@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Application\Nutrition\Actions\GenerateNutritionPlanAction;
 use App\Application\Workouts\Actions\GenerateWorkoutPlanAction;
+use App\Domain\Documents\Contracts\PdfExporterInterface;
 use App\Domain\Nutrition\Contracts\MealTemplateCatalogue;
 use App\Domain\Nutrition\Strategies\FatLossNutritionPlanStrategy;
 use App\Domain\Nutrition\Strategies\MaintenanceNutritionPlanStrategy;
@@ -12,8 +13,10 @@ use App\Domain\Workouts\Contracts\ExerciseCatalogue;
 use App\Domain\Workouts\Strategies\FatLossWorkoutPlanStrategy;
 use App\Domain\Workouts\Strategies\MaintenanceWorkoutPlanStrategy;
 use App\Domain\Workouts\Strategies\MuscleGainWorkoutPlanStrategy;
+use App\Infrastructure\Pdf\DompdfPlanExporter;
 use App\Infrastructure\Persistence\EloquentExerciseCatalogue;
 use App\Infrastructure\Persistence\EloquentMealTemplateCatalogue;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
@@ -53,6 +56,13 @@ class AppServiceProvider extends ServiceProvider
         $this->app->when(GenerateNutritionPlanAction::class)
             ->needs('$strategies')
             ->give(fn ($app) => $app->tagged('nutrition-plan-strategies'));
+
+        // laravel-dompdf only registers its wrapper under the string key
+        // 'dompdf.wrapper', not against its own class name — this makes the
+        // concrete class constructor-injectable like everything else here.
+        $this->app->bind(PDF::class, fn ($app) => $app->make('dompdf.wrapper'));
+
+        $this->app->bind(PdfExporterInterface::class, DompdfPlanExporter::class);
     }
 
     /**
