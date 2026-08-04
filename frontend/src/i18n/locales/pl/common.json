@@ -110,7 +110,6 @@
     }
   },
   "comingSoon": {
-    "training": "Generowanie planu treningowego pojawi się w kolejnym etapie.",
     "mealPlan": "Generowanie planu posiłków pojawi się w kolejnym etapie.",
     "adherence": "Kalendarz realizacji pojawi się w kolejnym etapie."
   },
@@ -124,6 +123,46 @@
         "time": "Czas",
         "level": "Poziom",
         "message": "Wiadomość"
+      }
+    }
+  },
+  "workoutPlan": {
+    "title": "Plan treningowy",
+    "summary": "{{level}} · {{days}} dni w tygodniu",
+    "day": "Dzień {{day}}",
+    "setsReps": "{{sets}} × {{reps}}",
+    "duration": "{{minutes}} min",
+    "history": "Poprzednie plany",
+    "historyEntry": "{{goal}} — {{date}}",
+    "itemType": {
+      "strength": "Siłowe",
+      "cardio": "Cardio"
+    },
+    "goals": {
+      "fat_loss": "Redukcja tkanki tłuszczowej",
+      "muscle_gain": "Budowa masy mięśniowej",
+      "maintenance": "Utrzymanie formy"
+    },
+    "experienceLevels": {
+      "beginner": "Początkujący",
+      "intermediate": "Średniozaawansowany",
+      "advanced": "Zaawansowany"
+    },
+    "locations": {
+      "gym": "Siłownia",
+      "home": "Dom"
+    },
+    "form": {
+      "title": "Wygeneruj plan treningowy",
+      "goalLabel": "Cel",
+      "experienceLabel": "Poziom zaawansowania",
+      "daysLabel": "Dni w tygodniu",
+      "locationLabel": "Lokalizacja",
+      "submit": "Generuj plan",
+      "submitting": "Generowanie…",
+      "errors": {
+        "days": "Podaj liczbę dni w zakresie od 1 do 6.",
+        "generic": "Coś poszło nie tak. Spróbuj ponownie."
       }
     }
   }

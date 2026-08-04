@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ErrorLogController;
 use App\Http\Controllers\BmiController;
 use App\Http\Controllers\DisclaimerController;
 use App\Http\Controllers\MeasurementController;
+use App\Http\Controllers\WorkoutPlanController;
 use App\Models\ErrorLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,5 +28,9 @@ Route::post('/measurements', [MeasurementController::class, 'store'])
 
 Route::get('/admin/logs', [ErrorLogController::class, 'index'])
     ->middleware(['auth:sanctum', 'can:viewAny,'.ErrorLog::class]);
+
+Route::apiResource('workout-plans', WorkoutPlanController::class)
+    ->only(['index', 'store', 'show'])
+    ->middleware('auth:sanctum');
 
 require __DIR__.'/auth.php';

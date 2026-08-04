@@ -133,12 +133,14 @@ docker compose up -d
 
 🚧 In development — current milestone is tracked in the [Roadmap](docs/ROADMAP.md).
 
-**Live now (through M4):** the BMI calculator, account registration and
-login, and measurement carry-over from an anonymous session into a new
-account. Everything else in "What it does" above — training/meal plans,
-progress tracking, adherence calendar, PDF export, the demo account — is
-still ahead, arriving milestone by milestone. A live URL with three features
-beats a local project with ten.
+**Live now (through M6):** the BMI calculator, account registration and
+login, measurement carry-over from an anonymous session into a new account,
+progress tracking with a weight/BMI trend chart, an admin error-log viewer,
+and a training plan generator (fat loss, muscle gain, or maintenance —
+strength exercises for gym or home, plus cardio). Meal plans, the adherence
+calendar, PDF export, and the demo account are still ahead, arriving
+milestone by milestone. A live URL with three features beats a local project
+with ten.
 
 ## License
 

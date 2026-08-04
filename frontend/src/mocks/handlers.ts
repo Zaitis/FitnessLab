@@ -71,4 +71,40 @@ export const handlers: HttpHandler[] = [
   http.get(`${API_BASE_URL}/admin/logs`, () =>
     HttpResponse.json({ data: [], current_page: 1, last_page: 1, total: 0 }),
   ),
+
+  http.get(`${API_BASE_URL}/workout-plans`, () =>
+    HttpResponse.json({ data: [], current_page: 1, last_page: 1, total: 0 }),
+  ),
+
+  http.post(`${API_BASE_URL}/workout-plans`, async ({ request }) => {
+    const body = (await request.json()) as {
+      goal: string;
+      experience_level: string;
+      days_per_week: number;
+    };
+
+    return HttpResponse.json(
+      {
+        id: 1,
+        goal: body.goal,
+        experience_level: body.experience_level,
+        days_per_week: body.days_per_week,
+        items: [
+          {
+            id: 'item-1',
+            day: 1,
+            type: 'strength',
+            name: 'Bench Press',
+            instructions: 'Press the bar up from chest height.',
+            sets: 3,
+            reps: 10,
+            duration_minutes: null,
+          },
+        ],
+        disclaimer: disclaimerFixture.en.standard,
+        created_at: new Date().toISOString(),
+      },
+      { status: 201 },
+    );
+  }),
 ];

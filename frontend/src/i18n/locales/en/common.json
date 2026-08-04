@@ -110,7 +110,6 @@
     }
   },
   "comingSoon": {
-    "training": "Training plan generation is coming in a later milestone.",
     "mealPlan": "Meal plan generation is coming in a later milestone.",
     "adherence": "The adherence calendar is coming in a later milestone."
   },
@@ -124,6 +123,46 @@
         "time": "Time",
         "level": "Level",
         "message": "Message"
+      }
+    }
+  },
+  "workoutPlan": {
+    "title": "Training plan",
+    "summary": "{{level}} · {{days}} days a week",
+    "day": "Day {{day}}",
+    "setsReps": "{{sets}} × {{reps}}",
+    "duration": "{{minutes}} min",
+    "history": "Previous plans",
+    "historyEntry": "{{goal}} — {{date}}",
+    "itemType": {
+      "strength": "Strength",
+      "cardio": "Cardio"
+    },
+    "goals": {
+      "fat_loss": "Fat loss",
+      "muscle_gain": "Muscle gain",
+      "maintenance": "Maintenance"
+    },
+    "experienceLevels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "locations": {
+      "gym": "Gym",
+      "home": "Home"
+    },
+    "form": {
+      "title": "Generate a training plan",
+      "goalLabel": "Goal",
+      "experienceLabel": "Experience level",
+      "daysLabel": "Days per week",
+      "locationLabel": "Location",
+      "submit": "Generate plan",
+      "submitting": "Generating…",
+      "errors": {
+        "days": "Enter a number of days between 1 and 6.",
+        "generic": "Something went wrong. Please try again."
       }
     }
   }

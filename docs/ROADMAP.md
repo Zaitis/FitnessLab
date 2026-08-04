@@ -199,29 +199,32 @@ without SSH access to the server, and it is live.
 
 ## M6 — Training plan generator
 
-- [ ] `exercises` catalogue table with a seeder — rules as data, not code;
+- [x] `exercises` catalogue table with a seeder — rules as data, not code;
       user-visible fields as JSONB translation columns via
-      `spatie/laravel-translatable`.
-- [ ] `WorkoutPlanCriteria` typed input object.
-- [ ] `ExerciseCatalogue` contract in `App\Domain`, with an Eloquent
+      `spatie/laravel-translatable`. Seeded with 28 strength exercises (gym
+      and home, across all muscle groups) plus 3 cardio activities (walking,
+      jogging, swimming) — cardio was a deliberate scope addition since fat
+      loss depends on it.
+- [x] `WorkoutPlanCriteria` typed input object.
+- [x] `ExerciseCatalogue` contract in `App\Domain`, with an Eloquent
       implementation in `App\Infrastructure` and an in-memory one for tests
       ([Design Patterns §4](DESIGN-PATTERNS.md)).
-- [ ] `WorkoutPlanStrategy` interface with implementations for fat loss,
+- [x] `WorkoutPlanStrategy` interface with implementations for fat loss,
       muscle gain, and maintenance ([Design Patterns §1](DESIGN-PATTERNS.md)).
-- [ ] `GenerateWorkoutPlanAction`; snapshot persisted to
+- [x] `GenerateWorkoutPlanAction`; snapshot persisted to
       `workout_plans.generated_plan`, with a UUID on every plan item and
       catalogue text embedded for every supported locale
       ([ADR-005](adr/ADR-005-internationalisation.md)).
-- [ ] `POST /api/workout-plans`, `GET /api/workout-plans`,
+- [x] `POST /api/workout-plans`, `GET /api/workout-plans`,
       `GET /api/workout-plans/{id}` with ownership authorization.
-- [ ] `WorkoutPlanResource` attaching the disclaimer.
-- [ ] Dashboard form and plan view.
-- [ ] Unit tests: the goal × level × days matrix as a Pest dataset against an
+- [x] `WorkoutPlanResource` attaching the disclaimer.
+- [x] Dashboard form and plan view.
+- [x] Unit tests: the goal × level × days matrix as a Pest dataset against an
       in-memory catalogue — no database; determinism for identical input;
       every plan item carries text in every supported locale.
-- [ ] Feature tests: happy path, validation, `401`, cross-user `403`,
+- [x] Feature tests: happy path, validation, `401`, cross-user `403`,
       snapshot matches the response, disclaimer present.
-- [ ] Architecture test: `Workouts` does not reference other modules.
+- [x] Architecture test: `Workouts` does not reference other modules.
 
 **Definition of done:** every valid input combination produces a coherent
 plan, covered by the dataset matrix, with generation logic reachable without

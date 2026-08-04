@@ -2,9 +2,16 @@
 
 namespace App\Providers;
 
+use App\Application\Workouts\Actions\GenerateWorkoutPlanAction;
+use App\Domain\Workouts\Contracts\ExerciseCatalogue;
+use App\Domain\Workouts\Strategies\FatLossWorkoutPlanStrategy;
+use App\Domain\Workouts\Strategies\MaintenanceWorkoutPlanStrategy;
+use App\Domain\Workouts\Strategies\MuscleGainWorkoutPlanStrategy;
+use App\Infrastructure\Persistence\EloquentExerciseCatalogue;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,7 +22,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(ExerciseCatalogue::class, EloquentExerciseCatalogue::class);
+
+        $this->app->tag([
+            FatLossWorkoutPlanStrategy::class,
+            MuscleGainWorkoutPlanStrategy::class,
+            MaintenanceWorkoutPlanStrategy::class,
+        ], 'workout-plan-strategies');
+
+        $this->app->when(GenerateWorkoutPlanAction::class)
+            ->needs('$strategies')
+            ->give(fn ($app) => $app->tagged('workout-plan-strategies'));
     }
 
     /**
@@ -23,6 +40,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Every other endpoint in this API returns a flat JSON body with no
+        // envelope (see MeasurementController, BmiController) — matching
+        // that here means a JsonResource response doesn't stand out as the
+        // one endpoint wrapped in {"data": ...}. Paginated collections are
+        // unaffected: PaginatedResourceResponse always includes data/links
+        // /meta regardless of this setting.
+        JsonResource::withoutWrapping();
+
         RateLimiter::for('bmi', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
 
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
