@@ -5,9 +5,9 @@ the landing page and the dashboard shell (all four tabs), built as its own
 prototype outside this codebase. `landing-preview.webp` is its rendered
 landing page.
 
-Not yet adopted — deliberately deferred until after M12/M13 (admin CRUD)
-so the two pieces of work don't land on top of each other. See M14 in
-[Roadmap](../ROADMAP.md).
+Adopted in M14 — see [Roadmap](../ROADMAP.md). Deliberately sequenced
+after M12/M13 (admin CRUD) so the two pieces of work didn't land on top
+of each other.
 
 Key tokens, for whoever picks this up:
 

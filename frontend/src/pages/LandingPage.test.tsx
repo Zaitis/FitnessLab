@@ -34,18 +34,25 @@ function renderPageWithRouting() {
 }
 
 describe('LandingPage', () => {
-  it('shows the registration cta only after a bmi result exists', async () => {
+  it('shows the result-specific registration cta only after a bmi result exists', async () => {
+    // The hero's own "Create a free account" link is always present (M14) —
+    // this test is about BmiResult's distinct, longer CTA that only appears
+    // once a result exists, so it matches on that CTA's full, unique text.
     const user = userEvent.setup();
     renderPage();
 
-    expect(screen.queryByRole('link', { name: /create a free account/i })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /save this result and track it over time/i }),
+    ).not.toBeInTheDocument();
 
     await user.type(screen.getByLabelText(/weight/i), '70');
     await user.type(screen.getByLabelText(/height/i), '175');
     await user.type(screen.getByLabelText(/age/i), '30');
     await user.click(screen.getByRole('button', { name: /calculate/i }));
 
-    expect(await screen.findByRole('link', { name: /create a free account/i })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('link', { name: /save this result and track it over time/i }),
+    ).toBeInTheDocument();
   });
 
   it('signs in and reaches the dashboard with one click on the demo button', async () => {

@@ -21,9 +21,26 @@
   "landing": {
     "heroTitle": "Zadbaj o zdrowie i sylwetkę",
     "heroSubtitle": "Bezpłatny demonstracyjny kalkulator BMI. Podaj wagę i wzrost, dostaniesz wynik od razu — bez zakładania konta.",
+    "heroCreateAccount": "Załóż darmowe konto",
+    "heroTryCalculator": "Wypróbuj kalkulator BMI",
+    "heroMockupCta": "Generuj plan treningowy",
     "tryDemo": "Wypróbuj konto demo",
     "tryDemoPending": "Logowanie…",
-    "tryDemoError": "Nie udało się zalogować na konto demo. Spróbuj ponownie za chwilę."
+    "tryDemoError": "Nie udało się zalogować na konto demo. Spróbuj ponownie za chwilę.",
+    "features": {
+      "bmi": {
+        "title": "Kalkulator BMI",
+        "description": "Szybki wskaźnik masy ciała na podstawie wagi, wzrostu i wieku."
+      },
+      "training": {
+        "title": "Plan treningowy",
+        "description": "Dopasowany do celu, poziomu i liczby dni w tygodniu — siłownia lub dom."
+      },
+      "meals": {
+        "title": "Plan posiłków",
+        "description": "Propozycje posiłków dopasowane do kalorii i preferencji żywieniowych."
+      }
+    }
   },
   "bmiForm": {
     "title": "Oblicz swoje BMI",

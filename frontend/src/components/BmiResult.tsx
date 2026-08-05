@@ -23,7 +23,13 @@ export function BmiResult({ result }: BmiResultProps) {
           {t(`bmiResult.categories.${result.category}`)}
         </span>
       </p>
-      <Link to="/register" className={buttonVariants({ variant: 'default' })}>
+      <Link
+        to="/register"
+        className={buttonVariants({
+          variant: 'default',
+          className: '!h-auto !whitespace-normal py-2',
+        })}
+      >
         {t('bmiResult.cta')}
       </Link>
     </section>

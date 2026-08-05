@@ -3,7 +3,11 @@ import { Navigate, NavLink, Outlet } from 'react-router';
 import { useUser } from '@/hooks/useAuth';
 
 function navLinkClassName({ isActive }: { isActive: boolean }) {
-  return `text-sm ${isActive ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`;
+  return `border-b-2 pb-3 text-sm font-medium ${
+    isActive
+      ? 'border-primary text-foreground'
+      : 'border-transparent text-muted-foreground hover:text-foreground'
+  }`;
 }
 
 export function AdminLayout() {
@@ -20,7 +24,7 @@ export function AdminLayout() {
 
   return (
     <div className="flex flex-col gap-6">
-      <nav className="flex flex-wrap gap-4 border-b pb-3">
+      <nav className="flex flex-wrap gap-6 border-b">
         <NavLink to="/dashboard/admin" end className={navLinkClassName}>
           {t('admin.nav.logs')}
         </NavLink>
