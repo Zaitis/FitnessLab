@@ -22,7 +22,10 @@ test('anonymous BMI result carries over into a newly registered account', async 
   await expect(page.getByRole('heading', { name: 'Your result' })).toBeVisible();
   await expect(page.getByText('22.9')).toBeVisible();
 
-  await page.getByRole('link', { name: /create a free account/i }).click();
+  // The hero also carries its own "Create a free account" link (M14) — this
+  // journey is specifically about the result card's CTA, so it matches on
+  // that CTA's full, unique text rather than the ambiguous shared prefix.
+  await page.getByRole('link', { name: /save this result and track it over time/i }).click();
   await expect(page.getByRole('heading', { name: 'Create your account' })).toBeVisible();
 
   await page.getByLabel('Name').fill('Landing Journey User');
