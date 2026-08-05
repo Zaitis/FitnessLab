@@ -1,0 +1,77 @@
+# Stack for the E2E CI gate (M11) — builds the SAME Dockerfiles production
+# uses (backend/Dockerfile, frontend/Dockerfile) from the current checkout,
+# rather than pulling published GHCR images (a PR hasn't published any yet)
+# or running `php artisan serve` / `npm run dev` (neither is what production
+# actually runs). "Production-equivalent" per docs/TESTING.md means the same
+# php-fpm+nginx topology, not the same registry.
+#
+# Not used for local development — see docker-compose.yml for that.
+#
+# Explicit project name: without one, Compose defaults to the containing
+# directory's name — "fitnesslab", the exact same default docker-compose.yml
+# gets — and this file's postgres/redis services would recreate (and
+# detach, though not delete) the dev stack's containers and their named
+# volumes on `up`. Confirmed the hard way while first wiring this up.
+name: fitnesslab-e2e
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: fitnesslab
+      POSTGRES_USER: fitnesslab
+      POSTGRES_PASSWORD: secret
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fitnesslab"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./e2e/docker/backend.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # Sidecar translating HTTP to the backend's FastCGI port — see
+  # e2e/docker/backend-nginx.conf for why this mirrors the real deploy
+  # topology instead of exposing php-fpm directly.
+  backend-nginx:
+    image: nginx:1.27-alpine
+    volumes:
+      - ./e2e/docker/backend-nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8000:80"
+    depends_on:
+      - backend
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:8000/api
+    environment:
+      # Overrides the Dockerfile's production default so the image's own
+      # CSP (connect-src) actually allows talking to this stack's backend
+      # instead of silently blocking every request — see
+      # frontend/docker/nginx.conf.template.
+      API_ORIGIN: http://localhost:8000
+    ports:
+      - "4173:80"
+    depends_on:
+      - backend-nginx

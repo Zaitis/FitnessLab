@@ -100,6 +100,15 @@ requires ([ADR-004](docs/adr/ADR-004-deployment-topology.md)).
 Full rationale for each choice, including the ones deliberately rejected,
 is in [Tech Stack](docs/TECH-STACK.md).
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Landing page with the anonymous BMI calculator](docs/screenshots/landing.png) | ![Progress tracking with a weight/BMI trend chart](docs/screenshots/progress.png) |
+| Landing page — anonymous BMI calculator | Progress tracking |
+| ![Generated training plan with a Download PDF link](docs/screenshots/training-plan.png) | ![Adherence calendar with checked-off exercises and meals](docs/screenshots/adherence.png) |
+| Training plan generator | Adherence calendar |
+
 ## Repository layout
 
 ```
@@ -114,11 +123,42 @@ FitnessLab/
 
 ## Getting started
 
-_Populated during M0 — see [Roadmap](docs/ROADMAP.md)._
+`docker-compose.yml` runs only the stateful services (Postgres, Redis, a
+queue worker) — the backend and frontend run on the host via their own dev
+servers, which is faster to iterate on than rebuilding a container per
+change. See [`docker-compose.prod.yml`](docker-compose.prod.yml) for how the
+same two apps run as built images in production, and
+[`e2e/README.md`](e2e/README.md) if you want to run the full stack,
+production-Dockerfile-and-all, locally.
 
 ```bash
 docker compose up -d
+
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+# .env.example defaults to sqlite; point it at the compose Postgres instead:
+#   DB_CONNECTION=pgsql
+#   DB_HOST=127.0.0.1
+#   DB_PORT=5435
+#   DB_DATABASE=fitnesslab
+#   DB_USERNAME=fitnesslab
+#   DB_PASSWORD=secret
+php artisan migrate --seed
+php artisan serve --port=8000
+
+# in a second terminal
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
 ```
+
+The frontend dev server prints its own port (typically `5173`) — open that
+in a browser. Backend tests: `cd backend && vendor/bin/pest`. Frontend
+tests: `cd frontend && npx vitest run`. Full end-to-end suite, plus the two
+real Docker-only bugs it caught: [`e2e/README.md`](e2e/README.md).
 
 ## Documentation
 
@@ -135,18 +175,20 @@ docker compose up -d
 
 ## Status
 
-🚧 In development — current milestone is tracked in the [Roadmap](docs/ROADMAP.md).
+✅ Feature-complete — all eleven roadmap milestones are done; see
+[Roadmap](docs/ROADMAP.md) for the full history.
 
-**Live now (through M9):** the BMI calculator (weight, height, age, sex,
-activity level), account registration and login, measurement carry-over
-from an anonymous session into a new account, progress tracking with a
-weight/BMI trend chart, an admin error-log viewer, a training plan
-generator (fat loss, muscle gain, or maintenance — strength exercises for
-gym or home, plus cardio), a meal plan generator (a 7-day, 5-meal-a-day
-plan with a daily calorie and rough macro target from a real BMR estimate),
-an adherence calendar for checking off individual meals and exercises day
-by day, and a demo account. PDF export is still ahead, arriving milestone
-by milestone. A live URL with three features beats a local project with ten.
+**Live now:** the BMI calculator (weight, height, age, sex, activity
+level), account registration and login, measurement carry-over from an
+anonymous session into a new account, progress tracking with a weight/BMI
+trend chart, an admin error-log viewer, a training plan generator (fat
+loss, muscle gain, or maintenance — strength exercises for gym or home,
+plus cardio), a meal plan generator (a 7-day, 5-meal-a-day plan with a
+daily calorie and rough macro target from a real BMR estimate), an
+adherence calendar for checking off individual meals and exercises day by
+day, a demo account, and PDF export for any generated plan. A Playwright
+suite covers the four critical end-to-end journeys as a CI gate, running
+against the same Docker images production runs.
 
 ### Demo account
 

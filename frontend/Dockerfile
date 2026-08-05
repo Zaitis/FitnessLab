@@ -22,6 +22,12 @@ RUN npm run build
 FROM nginx:1.27-alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+# .template under /etc/nginx/templates/ is the official nginx image's own
+# convention — its entrypoint envsubst's it into conf.d at container start.
+# Default matches production; only the E2E stack overrides it, to build
+# and run this exact image against a non-production API origin.
+ENV API_ORIGIN=https://fitnesslab-api.zaitis.dev
+COPY docker/nginx.conf.template /etc/nginx/templates/default.conf.template
 
 EXPOSE 80

@@ -109,6 +109,79 @@ jobs:
       - name: Tests (Vitest)
         run: npx vitest run
 
+  e2e:
+    name: E2E
+    runs-on: ubuntu-latest
+    needs: [backend, frontend]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Builds the same Dockerfiles production uses, from this checkout —
+      # not published GHCR images (a PR hasn't published any yet) and not
+      # `php artisan serve`/`npm run dev` (neither is what production
+      # actually runs). See docker-compose.e2e.yml for the full reasoning,
+      # including a CSP bug this stack itself caught: the frontend image's
+      # Content-Security-Policy used to hardcode the production API origin,
+      # which silently made the production image unusable against any other
+      # origin until it was templated per e2e/docker.
+      - name: Build and start the stack
+        run: docker compose -f docker-compose.e2e.yml up -d --build
+
+      - name: Wait for the API to be healthy
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8000/api/health > /dev/null; then
+              echo "API is up"
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "API never became healthy" >&2
+          docker compose -f docker-compose.e2e.yml logs
+          exit 1
+
+      - name: Migrate and seed
+        run: |
+          docker compose -f docker-compose.e2e.yml exec -T backend php artisan migrate --force
+          docker compose -f docker-compose.e2e.yml exec -T backend php artisan db:seed --force
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: e2e/package-lock.json
+
+      - name: Install Playwright
+        working-directory: e2e
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        working-directory: e2e
+        env:
+          BASE_URL: http://localhost:4173
+          CI: "true"
+        run: npx playwright test
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: e2e/playwright-report/
+          retention-days: 7
+
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose -f docker-compose.e2e.yml logs
+
+      - name: Tear down the stack
+        if: always()
+        run: docker compose -f docker-compose.e2e.yml down -v
+
   # Built per-architecture on native runners rather than one job cross-
   # building both platforms under QEMU emulation — Vite's build (Node/V8
   # under full user-mode emulation) took over 35 minutes and was still
@@ -117,7 +190,7 @@ jobs:
   # runners, so there's no need to emulate at all.
   build-and-push:
     name: Build and push images (${{ matrix.arch }})
-    needs: [backend, frontend]
+    needs: [backend, frontend, e2e]
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     strategy:
       matrix:

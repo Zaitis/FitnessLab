@@ -1,3 +1,17 @@
+# API_ORIGIN defaults to production in the Dockerfile (`ENV API_ORIGIN=...`)
+# and is only ever overridden for the E2E stack (docker-compose.e2e.yml),
+# which builds this exact image against a non-production API origin.
+# `.template` + /etc/nginx/templates/ is nginx's own official image
+# convention: its entrypoint envsubst's this file into conf.d at container
+# start, substituting only variables that are actually set in the
+# environment — nginx's own `$uri`/`$request_uri`/etc. below are left
+# alone since they aren't real env vars, just nginx config syntax.
+#
+# Found the hard way: this file used to hardcode the production API
+# origin directly in the CSP, which silently made the production image
+# unusable against any other origin — every fetch the SPA made was
+# blocked by its own CSP the first time this image was built for E2E.
+
 server {
     listen 80;
     server_name _;
@@ -12,7 +26,7 @@ server {
     # ES modules, styles are a compiled stylesheet, and the only cross-
     # origin call is the API. connect-src must list the API origin because
     # the SPA and API are on different subdomains.
-    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://fitnesslab-api.zaitis.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ${API_ORIGIN}; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" always;
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-Frame-Options "DENY" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
