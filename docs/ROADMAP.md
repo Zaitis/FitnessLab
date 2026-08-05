@@ -161,8 +161,7 @@ milestones worth doing in order.
       the daily file and an `error_logs` table, so a production failure after
       go-live leaves a durable record instead of scrolling off a container's
       stdout. Capture only — the viewer arrives in M5.
-- [ ] README updated with the live link and screenshots. **Live link is in;
-      screenshots still to come.**
+- [x] README updated with the live link and screenshots.
 
 No database backups at this stage, deliberately. The terms promise nothing
 about retention, the only data at risk is demo data, and a backup pipeline is
@@ -320,9 +319,9 @@ Last because its journeys span features that do not exist until now. Adding
 them earlier would mean writing browser tests against screens still being
 designed.
 
-- [ ] Playwright covering the four journeys in [Testing](TESTING.md).
-- [ ] E2E added as a CI gate, running against the built images.
-- [ ] Final pass over the README: setup instructions, architecture summary,
+- [x] Playwright covering the four journeys in [Testing](TESTING.md).
+- [x] E2E added as a CI gate, running against the built images.
+- [x] Final pass over the README: setup instructions, architecture summary,
       screenshots current.
 
 **Definition of done:** the four end-to-end journeys pass in CI against a
