@@ -3,7 +3,11 @@ import { NavLink, Outlet, useSearchParams } from 'react-router';
 import { useUser } from '@/hooks/useAuth';
 
 function navLinkClassName({ isActive }: { isActive: boolean }) {
-  return `text-sm ${isActive ? 'font-semibold text-foreground' : 'text-muted-foreground hover:text-foreground'}`;
+  return `border-b-2 pb-3 text-sm font-medium ${
+    isActive
+      ? 'border-primary text-foreground'
+      : 'border-transparent text-muted-foreground hover:text-foreground'
+  }`;
 }
 
 export function DashboardLayout() {
@@ -23,7 +27,7 @@ export function DashboardLayout() {
         <h1 className="text-2xl font-bold">{t('dashboard.welcome', { name: user?.name ?? '' })}</h1>
       </div>
 
-      <nav className="flex flex-wrap gap-4 border-b pb-3">
+      <nav className="flex flex-wrap gap-6 border-b">
         <NavLink to="/dashboard" end className={navLinkClassName}>
           {t('dashboard.nav.progress')}
         </NavLink>

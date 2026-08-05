@@ -17,10 +17,10 @@ interface MeasurementChartProps {
 }
 
 const CATEGORY_BANDS = [
-  { category: 'underweight', from: 0, to: 18.5, color: '#60a5fa' },
-  { category: 'normal', from: 18.5, to: 25, color: '#4ade80' },
-  { category: 'overweight', from: 25, to: 30, color: '#fbbf24' },
-  { category: 'obese', from: 30, to: 60, color: '#f87171' },
+  { category: 'underweight', from: 0, to: 18.5, color: 'oklch(75% 0.1 230)' },
+  { category: 'normal', from: 18.5, to: 25, color: 'oklch(52% 0.13 150)' },
+  { category: 'overweight', from: 25, to: 30, color: 'oklch(80% 0.15 90)' },
+  { category: 'obese', from: 30, to: 60, color: 'oklch(70% 0.18 35)' },
 ] as const;
 
 export function MeasurementChart({ measurements }: MeasurementChartProps) {
@@ -37,7 +37,7 @@ export function MeasurementChart({ measurements }: MeasurementChartProps) {
     <div className="h-80 w-full" role="img" aria-label={t('progress.chartTitle')}>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={chronological} margin={{ top: 8, right: 8, bottom: 8, left: 8 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#71717a33" />
+          <CartesianGrid strokeDasharray="3 3" stroke="oklch(90% 0.02 85)" />
           {CATEGORY_BANDS.map((band) => (
             <ReferenceArea
               key={band.category}
@@ -49,18 +49,18 @@ export function MeasurementChart({ measurements }: MeasurementChartProps) {
               ifOverflow="hidden"
             />
           ))}
-          <XAxis dataKey="measured_on" stroke="#71717a" tick={{ fontSize: 12 }} />
+          <XAxis dataKey="measured_on" stroke="oklch(45% 0.02 150)" tick={{ fontSize: 12 }} />
           <YAxis
             yAxisId="bmi"
             domain={[0, maxBmi]}
-            stroke="#71717a"
+            stroke="oklch(45% 0.02 150)"
             tick={{ fontSize: 12 }}
             label={{ value: t('progress.chart.bmiAxis'), angle: -90, position: 'insideLeft' }}
           />
           <YAxis
             yAxisId="weight"
             orientation="right"
-            stroke="#71717a"
+            stroke="oklch(45% 0.02 150)"
             tick={{ fontSize: 12 }}
             label={{ value: t('progress.chart.weightAxis'), angle: 90, position: 'insideRight' }}
           />
@@ -71,7 +71,7 @@ export function MeasurementChart({ measurements }: MeasurementChartProps) {
             type="monotone"
             dataKey="value"
             name={t('progress.chart.bmiAxis')}
-            stroke="#3b82f6"
+            stroke="oklch(52% 0.13 150)"
             strokeWidth={2}
             dot
           />
@@ -80,7 +80,7 @@ export function MeasurementChart({ measurements }: MeasurementChartProps) {
             type="monotone"
             dataKey="weight_kg"
             name={t('progress.chart.weightAxis')}
-            stroke="#a855f7"
+            stroke="oklch(60% 0.19 35)"
             strokeWidth={2}
             dot
           />
