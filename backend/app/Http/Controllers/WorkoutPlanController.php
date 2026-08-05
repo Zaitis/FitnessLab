@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Application\Documents\Actions\ExportPlanToPdfAction;
 use App\Application\Workouts\Actions\GenerateWorkoutPlanAction;
 use App\Application\Workouts\Actions\ListWorkoutPlansAction;
 use App\Domain\Workouts\Criteria\WorkoutPlanCriteria;
@@ -13,6 +14,7 @@ use App\Http\Resources\WorkoutPlanResource;
 use App\Models\WorkoutPlan;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 
 final class WorkoutPlanController extends Controller
@@ -39,5 +41,17 @@ final class WorkoutPlanController extends Controller
         Gate::authorize('view', $workoutPlan);
 
         return new WorkoutPlanResource($workoutPlan);
+    }
+
+    public function export(WorkoutPlan $workoutPlan, ExportPlanToPdfAction $action): Response
+    {
+        Gate::authorize('view', $workoutPlan);
+
+        $document = $action->execute($workoutPlan);
+
+        return new Response($document->contents, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="'.$document->filename.'"',
+        ]);
     }
 }

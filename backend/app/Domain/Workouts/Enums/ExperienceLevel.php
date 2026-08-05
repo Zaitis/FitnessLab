@@ -25,4 +25,24 @@ enum ExperienceLevel: string
     {
         return $this->rank() <= $other->rank();
     }
+
+    /**
+     * Owned here rather than duplicated wherever this level is displayed —
+     * mirrors the frontend's react-i18next copy for the PDF export.
+     */
+    public function label(string $locale): string
+    {
+        return match ($locale) {
+            'pl' => match ($this) {
+                self::Beginner => 'Początkujący',
+                self::Intermediate => 'Średniozaawansowany',
+                self::Advanced => 'Zaawansowany',
+            },
+            default => match ($this) {
+                self::Beginner => 'Beginner',
+                self::Intermediate => 'Intermediate',
+                self::Advanced => 'Advanced',
+            },
+        };
+    }
 }

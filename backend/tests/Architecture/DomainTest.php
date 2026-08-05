@@ -27,5 +27,8 @@ arch('value objects are immutable')
         'App\Domain\Measurements\ValueObjects\Weight',
         'App\Domain\Measurements\ValueObjects\Height',
         'App\Domain\Measurements\ValueObjects\Bmi',
+        'App\Domain\Documents\ValueObjects\PlanExportData',
+        'App\Domain\Documents\ValueObjects\PlanExportSection',
+        'App\Domain\Documents\ValueObjects\PdfDocument',
     ])
     ->toBeReadonly();

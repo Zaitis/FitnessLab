@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import type { NutritionPlan, NutritionPlanItem } from '@/hooks/useNutritionPlans';
+import { apiUrl } from '@/lib/api';
 
 interface NutritionPlanViewProps {
   plan: NutritionPlan;
@@ -21,16 +22,24 @@ export function NutritionPlanView({ plan }: NutritionPlanViewProps) {
 
   return (
     <div className="flex flex-col gap-4 rounded-xl border p-6">
-      <div>
-        <h2 className="text-xl font-semibold">{t(`nutritionPlan.goals.${plan.goal}`)}</h2>
-        <p className="text-sm text-muted-foreground">
-          {t('nutritionPlan.summary', {
-            calories: plan.daily_calorie_target,
-            protein: plan.daily_protein_target_g,
-            fat: plan.daily_fat_target_g,
-            carbs: plan.daily_carbs_target_g,
-          })}
-        </p>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-semibold">{t(`nutritionPlan.goals.${plan.goal}`)}</h2>
+          <p className="text-sm text-muted-foreground">
+            {t('nutritionPlan.summary', {
+              calories: plan.daily_calorie_target,
+              protein: plan.daily_protein_target_g,
+              fat: plan.daily_fat_target_g,
+              carbs: plan.daily_carbs_target_g,
+            })}
+          </p>
+        </div>
+        <a
+          href={apiUrl(`/nutrition-plans/${plan.id}/export`)}
+          className="shrink-0 text-sm underline underline-offset-2"
+        >
+          {t('nutritionPlan.downloadPdf')}
+        </a>
       </div>
 
       {Array.from(days.entries()).map(([day, items]) => (

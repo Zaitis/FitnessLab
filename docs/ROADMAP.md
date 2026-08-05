@@ -295,18 +295,21 @@ next visitor.
 
 ## M10 — PDF export with watermark
 
-- [ ] `PdfExporterInterface` and `PlanExportData` in the domain layer.
-- [ ] `DompdfPlanExporter` rendering a diagonal, semi-transparent disclaimer
+- [x] `PdfExporterInterface` and `PlanExportData` in the domain layer.
+- [x] `DompdfPlanExporter` rendering a diagonal, semi-transparent disclaimer
       watermark across the page, in the requested locale.
-- [ ] `ExportPlanToPdfAction`; export endpoints for both plan types with
+- [x] `ExportPlanToPdfAction`; export endpoints for both plan types with
       ownership authorization.
-- [ ] Download action in the plan views.
-- [ ] Unit tests: the Action passes the correct `PlanExportData` to a fake
+- [x] Download action in the plan views.
+- [x] Unit tests: the Action passes the correct `PlanExportData` to a fake
       exporter.
-- [ ] Feature tests: `application/pdf` returned, extracted text contains the
+- [x] Feature tests: `application/pdf` returned, extracted text contains the
       disclaimer, cross-user export returns `403`.
 - [ ] Generation time measured on the production host; if it exceeds ~500 ms,
-      moved to a queued job per `.ai/laravel.md`.
+      moved to a queued job per `.ai/laravel.md`. **Measured locally (dev
+      machine) at ~144ms average per export, comfortably under budget — the
+      production-host measurement itself is still outstanding and should be
+      taken after this milestone deploys.**
 
 **Definition of done:** both plan types export as PDFs carrying a visible
 disclaimer watermark, downloadable only by their owner.

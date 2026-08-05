@@ -2,6 +2,16 @@ const API_BASE_URL =
   (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:8000/api';
 const API_ROOT = API_BASE_URL.replace(/\/api\/?$/, '');
 
+/**
+ * For plain `<a href>` downloads (PDF export) rather than a fetch() call —
+ * a normal top-level navigation carries the session cookie under
+ * SameSite=Lax without needing `credentials: 'include'`, so no CSRF
+ * handshake or JSON handling is needed here.
+ */
+export function apiUrl(path: string): string {
+  return `${API_BASE_URL}${path}`;
+}
+
 export class ApiError extends Error {
   status: number;
   errors?: Record<string, string[]>;

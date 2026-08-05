@@ -24,4 +24,29 @@ enum MealTime: string
             self::Dinner => 0.25,
         };
     }
+
+    /**
+     * Owned here rather than duplicated wherever this meal time is
+     * displayed — mirrors the frontend's react-i18next copy for the PDF
+     * export.
+     */
+    public function label(string $locale): string
+    {
+        return match ($locale) {
+            'pl' => match ($this) {
+                self::Breakfast => 'Śniadanie',
+                self::SecondBreakfast => 'Drugie śniadanie',
+                self::Lunch => 'Obiad',
+                self::AfternoonSnack => 'Podwieczorek',
+                self::Dinner => 'Kolacja',
+            },
+            default => match ($this) {
+                self::Breakfast => 'Breakfast',
+                self::SecondBreakfast => 'Second breakfast',
+                self::Lunch => 'Lunch',
+                self::AfternoonSnack => 'Afternoon snack',
+                self::Dinner => 'Dinner',
+            },
+        };
+    }
 }
