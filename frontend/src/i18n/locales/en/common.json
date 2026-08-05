@@ -21,9 +21,26 @@
   "landing": {
     "heroTitle": "Take care of your health and your shape",
     "heroSubtitle": "A free demo BMI calculator. Enter your weight and height, get an instant result — no account required.",
+    "heroCreateAccount": "Create a free account",
+    "heroTryCalculator": "Try the BMI calculator",
+    "heroMockupCta": "Generate training plan",
     "tryDemo": "Try the demo account",
     "tryDemoPending": "Signing in…",
-    "tryDemoError": "Couldn't sign in to the demo account. Please try again shortly."
+    "tryDemoError": "Couldn't sign in to the demo account. Please try again shortly.",
+    "features": {
+      "bmi": {
+        "title": "BMI calculator",
+        "description": "A quick body-mass indicator from your weight, height, and age."
+      },
+      "training": {
+        "title": "Training plan",
+        "description": "Matched to your goal, level, and days per week — gym or home."
+      },
+      "meals": {
+        "title": "Meal plan",
+        "description": "Meal suggestions matched to your calorie target and preferences."
+      }
+    }
   },
   "bmiForm": {
     "title": "Calculate your BMI",
