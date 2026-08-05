@@ -377,6 +377,28 @@ layout M12 establishes.
 
 **Definition of done:** as M12, for meal templates.
 
+## M14 — Visual redesign
+
+Deliberately after the admin panel, not alongside it — landing on both at
+once risks neither landing cleanly. A full redesign of the landing page and
+dashboard shell exists as a Claude Design prototype; see
+[`docs/design/`](design/) for the reference file and its key tokens
+(palette, type, the organic "blob" motif).
+
+- [ ] Palette and type swapped in via the existing shadcn CSS-variable
+      theme (`frontend/src/index.css`) — no new theming system needed.
+- [ ] Landing page, dashboard shell/nav, and all four dashboard tabs
+      restyled to match the prototype.
+- [ ] The admin section (M12/M13) restyled to match — applied once, after
+      admin functionality already exists, rather than styled twice.
+- [ ] Copy stays in `react-i18next`/`lang/` keys — the prototype's
+      hardcoded Polish strings are a reference, not a copy source.
+- [ ] Existing component and E2E tests still pass; selectors that assert on
+      specific class names (if any) updated rather than loosened.
+
+**Definition of done:** every existing page matches the prototype's visual
+language, with no regressions in the component or E2E suites.
+
 ---
 
 ## Deliberately out of scope
