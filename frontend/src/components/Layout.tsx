@@ -2,6 +2,7 @@ import { Link, Outlet } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { useDisclaimer } from '@/hooks/useDisclaimer';
 import { AuthNav } from '@/components/AuthNav';
+import { CherryLogo } from '@/components/CherryLogo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
 export function Layout() {
@@ -17,7 +18,8 @@ export function Layout() {
           </p>
         )}
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
-          <Link to="/" className="text-lg font-semibold">
+          <Link to="/" className="group flex items-center gap-2 text-lg font-semibold">
+            <CherryLogo className="size-6" />
             {t('app.name')}
           </Link>
           <nav className="flex items-center gap-4">

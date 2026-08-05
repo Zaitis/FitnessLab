@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 import { BmiForm } from '@/components/BmiForm';
 import { BmiResult } from '@/components/BmiResult';
+import { CherryLogo } from '@/components/CherryLogo';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { useLogin } from '@/hooks/useAuth';
 import type { BmiCalculation } from '@/lib/bmi';
@@ -54,7 +55,7 @@ export function LandingPage() {
         />
 
         <div className="relative z-10 grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="flex flex-col items-start gap-5">
+          <div className="animate-fade-in-up flex flex-col items-start gap-5">
             <h1 className="text-4xl sm:text-5xl">{t('landing.heroTitle')}</h1>
             <p className="text-lg text-muted-foreground">{t('landing.heroSubtitle')}</p>
 
@@ -82,11 +83,14 @@ export function LandingPage() {
             </div>
           </div>
 
-          <div className="flex justify-center" aria-hidden>
+          <div
+            className="animate-fade-in-up flex justify-center [animation-delay:150ms]"
+            aria-hidden
+          >
             <div className="w-64 rounded-[38px] bg-foreground p-3.5 shadow-2xl">
               <div className="flex flex-col gap-4 rounded-3xl bg-card p-5">
                 <div className="flex items-center gap-2">
-                  <div className="blob size-5 bg-gradient-to-br from-primary to-[oklch(72%_0.16_100)]" />
+                  <CherryLogo className="size-5" />
                   <span className="font-heading text-sm font-extrabold">{t('app.name')}</span>
                 </div>
 
@@ -120,16 +124,20 @@ export function LandingPage() {
         </div>
       </section>
 
-      <div id="calc" className="mx-auto flex w-full max-w-md scroll-mt-20 flex-col gap-6">
+      <div
+        id="calc"
+        className="animate-fade-in-up mx-auto flex w-full max-w-md scroll-mt-20 flex-col gap-6 [animation-delay:100ms]"
+      >
         <BmiForm onResult={setResult} />
         {result && <BmiResult result={result} />}
       </div>
 
       <section className="grid gap-6 sm:grid-cols-3">
-        {FEATURES.map(({ key, blobClass }) => (
+        {FEATURES.map(({ key, blobClass }, index) => (
           <div
             key={key}
-            className="rounded-2xl border bg-card p-7 transition-transform hover:-translate-y-1 hover:shadow-lg"
+            style={{ animationDelay: `${150 + index * 100}ms` }}
+            className="animate-fade-in-up rounded-2xl border bg-card p-7 transition-transform hover:-translate-y-1 hover:shadow-lg"
           >
             <div className={`size-11 ${blobClass}`} aria-hidden />
             <h3 className="mt-4 mb-2 text-lg">{t(`landing.features.${key}.title`)}</h3>
