@@ -151,6 +151,10 @@
     "restDay": "Brak zaplanowanych ćwiczeń na ten dzień."
   },
   "admin": {
+    "nav": {
+      "logs": "Logi",
+      "exercises": "Ćwiczenia"
+    },
     "logs": {
       "title": "Logi błędów",
       "levelFilter": "Poziom",
@@ -160,6 +164,59 @@
         "time": "Czas",
         "level": "Poziom",
         "message": "Wiadomość"
+      }
+    },
+    "exercises": {
+      "title": "Ćwiczenia",
+      "empty": "Brak ćwiczeń.",
+      "addNew": "Dodaj ćwiczenie",
+      "cancel": "Anuluj",
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "confirmDelete": "Usunąć to ćwiczenie? Tej operacji nie można cofnąć.",
+      "table": {
+        "name": "Nazwa",
+        "type": "Typ",
+        "location": "Lokalizacja",
+        "difficulty": "Poziom",
+        "muscleGroup": "Partia mięśniowa",
+        "details": "Serie/powtórzenia lub czas trwania",
+        "actions": "Akcje"
+      },
+      "types": {
+        "strength": "Siłowe",
+        "cardio": "Cardio"
+      },
+      "locations": {
+        "gym": "Siłownia",
+        "home": "Dom",
+        "outdoor": "Na zewnątrz"
+      },
+      "muscleGroups": {
+        "chest": "Klatka piersiowa",
+        "back": "Plecy",
+        "legs": "Nogi",
+        "shoulders": "Barki",
+        "arms": "Ramiona",
+        "core": "Brzuch"
+      },
+      "form": {
+        "titleCreate": "Dodaj ćwiczenie",
+        "titleEdit": "Edytuj ćwiczenie",
+        "typeLabel": "Typ",
+        "locationLabel": "Lokalizacja",
+        "difficultyLabel": "Poziom",
+        "muscleGroupLabel": "Partia mięśniowa",
+        "setsLabel": "Serie",
+        "repsLabel": "Powtórzenia",
+        "durationLabel": "Czas trwania (min)",
+        "nameLabel": "Nazwa",
+        "instructionsLabel": "Instrukcje",
+        "submit": "Zapisz",
+        "submitting": "Zapisywanie…",
+        "errors": {
+          "generic": "Coś poszło nie tak. Spróbuj ponownie."
+        }
       }
     }
   },

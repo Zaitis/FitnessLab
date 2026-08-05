@@ -151,6 +151,10 @@
     "restDay": "No exercises planned for this day."
   },
   "admin": {
+    "nav": {
+      "logs": "Logs",
+      "exercises": "Exercises"
+    },
     "logs": {
       "title": "Error logs",
       "levelFilter": "Level",
@@ -160,6 +164,59 @@
         "time": "Time",
         "level": "Level",
         "message": "Message"
+      }
+    },
+    "exercises": {
+      "title": "Exercises",
+      "empty": "No exercises yet.",
+      "addNew": "Add exercise",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "confirmDelete": "Delete this exercise? This cannot be undone.",
+      "table": {
+        "name": "Name",
+        "type": "Type",
+        "location": "Location",
+        "difficulty": "Difficulty",
+        "muscleGroup": "Muscle group",
+        "details": "Sets/reps or duration",
+        "actions": "Actions"
+      },
+      "types": {
+        "strength": "Strength",
+        "cardio": "Cardio"
+      },
+      "locations": {
+        "gym": "Gym",
+        "home": "Home",
+        "outdoor": "Outdoor"
+      },
+      "muscleGroups": {
+        "chest": "Chest",
+        "back": "Back",
+        "legs": "Legs",
+        "shoulders": "Shoulders",
+        "arms": "Arms",
+        "core": "Core"
+      },
+      "form": {
+        "titleCreate": "Add exercise",
+        "titleEdit": "Edit exercise",
+        "typeLabel": "Type",
+        "locationLabel": "Location",
+        "difficultyLabel": "Difficulty",
+        "muscleGroupLabel": "Muscle group",
+        "setsLabel": "Sets",
+        "repsLabel": "Reps",
+        "durationLabel": "Duration (minutes)",
+        "nameLabel": "Name",
+        "instructionsLabel": "Instructions",
+        "submit": "Save",
+        "submitting": "Saving…",
+        "errors": {
+          "generic": "Something went wrong. Please try again."
+        }
       }
     }
   },

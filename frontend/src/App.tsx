@@ -1,10 +1,12 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router';
+import { AdminLayout } from '@/components/AdminLayout';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { Layout } from '@/components/Layout';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import { queryClient } from '@/lib/queryClient';
 import { AdherencePage } from '@/pages/AdherencePage';
+import { AdminExercisesPage } from '@/pages/AdminExercisesPage';
 import { AdminLogsPage } from '@/pages/AdminLogsPage';
 import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage';
 import { LandingPage } from '@/pages/LandingPage';
@@ -38,7 +40,10 @@ function App() {
                 <Route path="training" element={<TrainingPlanPage />} />
                 <Route path="meal-plan" element={<MealPlanPage />} />
                 <Route path="adherence" element={<AdherencePage />} />
-                <Route path="admin" element={<AdminLogsPage />} />
+                <Route path="admin" element={<AdminLayout />}>
+                  <Route index element={<AdminLogsPage />} />
+                  <Route path="exercises" element={<AdminExercisesPage />} />
+                </Route>
               </Route>
             </Route>
             <Route path="*" element={<NotFoundPage />} />

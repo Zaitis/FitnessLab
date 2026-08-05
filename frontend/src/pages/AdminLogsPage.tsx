@@ -1,24 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Navigate } from 'react-router';
-import { useUser } from '@/hooks/useAuth';
 import { useErrorLogs } from '@/hooks/useErrorLogs';
 
 const LEVELS = ['emergency', 'alert', 'critical', 'error', 'warning', 'notice', 'info', 'debug'];
 
 export function AdminLogsPage() {
   const { t } = useTranslation();
-  const { data: user, isLoading: isUserLoading } = useUser();
   const [level, setLevel] = useState<string | null>(null);
   const { data, isLoading } = useErrorLogs(level);
-
-  if (isUserLoading) {
-    return null;
-  }
-
-  if (!user?.is_admin) {
-    return <Navigate to="/dashboard" replace />;
-  }
 
   const entries = data?.data ?? [];
 
