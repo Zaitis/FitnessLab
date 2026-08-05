@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdherenceController;
 use App\Http\Controllers\Admin\ErrorLogController;
+use App\Http\Controllers\Admin\ExerciseController as AdminExerciseController;
+use App\Http\Controllers\Admin\MealTemplateController as AdminMealTemplateController;
 use App\Http\Controllers\BmiController;
 use App\Http\Controllers\DisclaimerController;
 use App\Http\Controllers\MeasurementController;
@@ -9,6 +11,8 @@ use App\Http\Controllers\NutritionPlanController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkoutPlanController;
 use App\Models\ErrorLog;
+use App\Models\Exercise;
+use App\Models\MealTemplate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -46,6 +50,30 @@ Route::post('/measurements', [MeasurementController::class, 'store'])
 
 Route::get('/admin/logs', [ErrorLogController::class, 'index'])
     ->middleware(['auth:sanctum', 'can:viewAny,'.ErrorLog::class]);
+
+Route::get('/admin/exercises', [AdminExerciseController::class, 'index'])
+    ->middleware(['auth:sanctum', 'can:viewAny,'.Exercise::class]);
+
+Route::post('/admin/exercises', [AdminExerciseController::class, 'store'])
+    ->middleware(['auth:sanctum', 'can:create,'.Exercise::class]);
+
+Route::put('/admin/exercises/{exercise}', [AdminExerciseController::class, 'update'])
+    ->middleware(['auth:sanctum', 'can:update,exercise']);
+
+Route::delete('/admin/exercises/{exercise}', [AdminExerciseController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'can:delete,exercise']);
+
+Route::get('/admin/meal-templates', [AdminMealTemplateController::class, 'index'])
+    ->middleware(['auth:sanctum', 'can:viewAny,'.MealTemplate::class]);
+
+Route::post('/admin/meal-templates', [AdminMealTemplateController::class, 'store'])
+    ->middleware(['auth:sanctum', 'can:create,'.MealTemplate::class]);
+
+Route::put('/admin/meal-templates/{mealTemplate}', [AdminMealTemplateController::class, 'update'])
+    ->middleware(['auth:sanctum', 'can:update,mealTemplate']);
+
+Route::delete('/admin/meal-templates/{mealTemplate}', [AdminMealTemplateController::class, 'destroy'])
+    ->middleware(['auth:sanctum', 'can:delete,mealTemplate']);
 
 Route::apiResource('workout-plans', WorkoutPlanController::class)
     ->only(['index', 'store', 'show'])

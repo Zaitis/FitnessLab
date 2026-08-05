@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; }
+  a { color: {{ primaryColor }}; text-decoration: none; }
+  a:hover { color: {{ primaryDark }}; text-decoration: underline; }
+  @keyframes floatA { 0% { transform: translateY(0) rotate(-4deg); } 100% { transform: translateY(-24px) rotate(4deg); } }
+  @keyframes floatB { 0% { transform: translateY(0) rotate(3deg); } 100% { transform: translateY(-16px) rotate(-3deg); } }
+  @keyframes fadeInUp { 0% { opacity: 0; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
+  input, select { font-family: 'Work Sans', sans-serif; }
+  ::placeholder { color: oklch(65% 0.01 85); }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:oklch(96.5% 0.02 85); font-family:'Work Sans', sans-serif; color:oklch(20% 0.02 150); position:relative; overflow-x:hidden;">
+
+  <div style="background:oklch(96% 0.07 30); border-bottom:1px solid oklch(88% 0.06 30); text-align:center; padding:10px 16px; font-size:13px; font-weight:600; color:oklch(45% 0.15 30); letter-spacing:0.02em;">
+    PROJEKT DEMONSTRACYJNY — TO NIE JEST PORADA MEDYCZNA
+  </div>
+
+  <div style="display:flex; align-items:center; justify-content:space-between; padding:18px 40px; background:oklch(99% 0.008 85); border-bottom:1px solid oklch(90% 0.02 85); position:relative; z-index:5;">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <div style="width:36px; height:36px; border-radius:38% 62% 55% 45%/50% 40% 60% 50%; background:linear-gradient(135deg, {{ primaryColor }}, oklch(72% 0.16 100)); display:flex; align-items:center; justify-content:center;">
+        <svg width="20" height="14" viewBox="0 0 40 24" fill="none"><polyline points="0,14 9,14 13,4 18,20 23,10 27,14 40,14" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+      <span style="font-family:'Sora', sans-serif; font-weight:800; font-size:20px; letter-spacing:-0.01em;">FitnessLab</span>
+    </div>
+    <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; align-items:center; gap:24px; font-size:14px; font-weight:500;">
+        <a href="#footer" style="color:oklch(45% 0.02 150);">Regulamin i zastrzeżenie</a>
+        <a href="#" onClick="{{ onLoginClick }}" style="color:oklch(45% 0.02 150);">Zaloguj się</a>
+        <button onClick="{{ onRegisterClick }}" style="background:{{ primaryColor }}; color:#fff; border:none; padding:10px 20px; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; font-family:'Work Sans',sans-serif;">Zarejestruj się</button>
+        <select style="border:1px solid oklch(88% 0.02 85); border-radius:8px; padding:8px 10px; font-size:13px; background:#fff;"><option>Polski</option></select>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; align-items:center; gap:24px; font-size:14px; font-weight:500;">
+        <a href="#" style="color:oklch(45% 0.02 150);">Regulamin i zastrzeżenie</a>
+        <span style="color:oklch(30% 0.02 150); font-weight:600;">{{ userName }}</span>
+        <a href="#" onClick="{{ onLogoutClick }}" style="color:oklch(45% 0.02 150);">Wyloguj się</a>
+        <select style="border:1px solid oklch(88% 0.02 85); border-radius:8px; padding:8px 10px; font-size:13px; background:#fff;"><option>Polski</option></select>
+      </div>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+  <div>
+    <div style="position:relative; padding:80px 40px 60px; overflow:hidden;">
+      <div style="{{ blobHeroStyle }}"></div>
+      <div style="{{ blobHeroStyle2 }}"></div>
+      <div style="{{ blobHeroStyle3 }}"></div>
+      <div style="max-width:1180px; margin:0 auto; position:relative; z-index:2; display:grid; grid-template-columns:1.1fr 1fr; gap:50px; align-items:center;">
+        <div style="animation:fadeInUp 0.7s ease both;">
+          <h1 style="font-family:'Sora', sans-serif; font-size:50px; font-weight:800; line-height:1.1; margin:0 0 20px;">Zadbaj o zdrowie <span style="color:{{ primaryColor }};">i sylwetkę</span></h1>
+          <p style="font-size:18px; line-height:1.6; color:oklch(38% 0.02 150); margin:0 0 32px;">Bezpłatny demonstracyjny kalkulator BMI, generator planu treningowego i planu posiłków. Podaj kilka informacji o sobie i zobacz wynik od razu — bez zakładania konta.</p>
+          <div style="display:flex; gap:16px; flex-wrap:wrap;">
+            <button onClick="{{ onRegisterClick }}" style="background:{{ primaryColor }}; color:#fff; border:none; padding:16px 30px; border-radius:12px; font-weight:700; font-size:16px; cursor:pointer; box-shadow:0 10px 24px -8px {{ primaryColor }}; transition:transform 0.15s ease, box-shadow 0.15s ease;" style-hover="transform:translateY(-2px) scale(1.03); box-shadow:0 14px 28px -8px {{ primaryColor }};">Załóż darmowe konto</button>
+            <a href="#calc" style="background:#fff; color:oklch(20% 0.02 150); border:1px solid oklch(88% 0.02 85); padding:16px 30px; border-radius:12px; font-weight:700; font-size:16px; transition:transform 0.15s ease, border-color 0.15s ease;" style-hover="transform:translateY(-2px) scale(1.03); border-color:{{ primaryColor }};">Wypróbuj kalkulator BMI</a>
+          </div>
+        </div>
+        <div style="animation:fadeInUp 0.8s 0.15s ease both; display:flex; justify-content:center;">
+          <div style="width:280px; background:oklch(15% 0.01 150); border-radius:38px; padding:14px; box-shadow:0 30px 60px -20px oklch(20% 0.02 150 / 0.35);">
+            <div style="background:#fff; border-radius:26px; padding:22px 18px; overflow:hidden;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:18px;">
+                <div style="width:22px; height:22px; border-radius:38% 62% 55% 45%/50% 40% 60% 50%; background:linear-gradient(135deg, {{ primaryColor }}, oklch(72% 0.16 100));"></div>
+                <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:13px;">FitnessLab</span>
+              </div>
+              <div style="font-size:11px; color:oklch(50% 0.02 150); margin-bottom:2px;">Witaj, Krzysztof</div>
+              <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:15px; margin-bottom:16px;">Twoje postępy</div>
+              <div style="display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+                <div style="width:120px; height:120px; border-radius:50%; background:conic-gradient({{ primaryColor }} 0% 71%, oklch(92% 0.01 85) 71% 100%); display:flex; align-items:center; justify-content:center;">
+                  <div style="width:92px; height:92px; border-radius:50%; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                    <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:24px;">23.4</span>
+                    <span style="font-size:10px; color:oklch(50% 0.02 150);">BMI</span>
+                  </div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:flex-end; gap:6px; height:44px; margin-bottom:16px;">
+                <div style="flex:1; height:60%; background:{{ greenSoft }}; border-radius:4px;"></div>
+                <div style="flex:1; height:75%; background:{{ greenSoft }}; border-radius:4px;"></div>
+                <div style="flex:1; height:50%; background:{{ greenSoft }}; border-radius:4px;"></div>
+                <div style="flex:1; height:90%; background:{{ primaryColor }}; border-radius:4px;"></div>
+              </div>
+              <div style="background:{{ primaryColor }}; color:#fff; text-align:center; padding:10px; border-radius:10px; font-size:12px; font-weight:700;">Generuj plan treningowy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="calc" style="max-width:600px; margin:20px auto 70px; padding:0 24px; position:relative; z-index:2;">
+      <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:20px; padding:36px; box-shadow:0 20px 45px -20px oklch(20% 0.03 150 / 0.15); animation:fadeInUp 0.7s 0.1s ease both;">
+        <h2 style="font-family:'Sora', sans-serif; font-size:24px; font-weight:700; margin:0 0 24px;">Oblicz swoje BMI</h2>
+        <form onSubmit="{{ onCalcSubmit }}">
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Waga (kg)
+              <input type="number" value="{{ calc.waga }}" onChange="{{ onCalcWagaChange }}" placeholder="np. 78" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; transition:border-color 0.15s ease;" style-focus="border-color:{{ primaryColor }}; outline:none;" />
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Wzrost (cm)
+              <input type="number" value="{{ calc.wzrost }}" onChange="{{ onCalcWzrostChange }}" placeholder="np. 178" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Wiek
+              <input type="number" value="{{ calc.wiek }}" onChange="{{ onCalcWiekChange }}" placeholder="np. 30" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Płeć
+              <select value="{{ calc.plec }}" onChange="{{ onCalcPlecChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                <option>Mężczyzna</option><option>Kobieta</option>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Poziom aktywności
+              <select value="{{ calc.aktywnosc }}" onChange="{{ onCalcAktywnoscChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                <option>Niska aktywność</option>
+                <option>Umiarkowana aktywność (ćwiczenia 3-5 dni w tygodniu)</option>
+                <option>Wysoka aktywność</option>
+              </select>
+            </label>
+            <button type="submit" style="background:{{ primaryColor }}; color:#fff; border:none; padding:16px; border-radius:12px; font-weight:700; font-size:16px; cursor:pointer; margin-top:4px;">Oblicz</button>
+          </div>
+        </form>
+        <sc-if value="{{ bmiResult }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:24px; padding:20px; border-radius:14px; background:{{ bmiCategory.bg }}; text-align:center; animation:fadeInUp 0.4s ease both;">
+            <div style="font-size:13px; font-weight:600; color:oklch(40% 0.02 150); text-transform:uppercase; letter-spacing:0.04em;">Twoje BMI</div>
+            <div style="font-family:'Sora',sans-serif; font-size:40px; font-weight:800; margin:4px 0;">{{ bmiDisplay }}</div>
+            <div style="font-weight:700; color:{{ bmiCategory.color }};">{{ bmiCategory.label }}</div>
+            <button onClick="{{ onRegisterClick }}" style="margin-top:14px; background:oklch(20% 0.02 150); color:#fff; border:none; padding:12px 22px; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer;">Zapisz wynik — załóż konto</button>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="max-width:1080px; margin:0 auto 80px; padding:0 24px; display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:24px;">
+      <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; animation:fadeInUp 0.7s 0.15s ease both; transition:transform 0.2s ease, box-shadow 0.2s ease;" style-hover="transform:translateY(-4px) scale(1.02); box-shadow:0 16px 30px -14px oklch(20% 0.02 150 / 0.25);">
+        <div style="width:44px; height:44px; border-radius:40% 60% 55% 45%/50% 45% 55% 50%; background:{{ greenSoft }};"></div>
+        <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:16px 0 8px;">Kalkulator BMI</h3>
+        <p style="font-size:14px; color:oklch(42% 0.02 150); line-height:1.5; margin:0;">Szybki wskaźnik masy ciała na podstawie wagi, wzrostu i wieku.</p>
+      </div>
+      <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; animation:fadeInUp 0.7s 0.25s ease both; transition:transform 0.2s ease, box-shadow 0.2s ease;" style-hover="transform:translateY(-4px) scale(1.02); box-shadow:0 16px 30px -14px oklch(20% 0.02 150 / 0.25);">
+        <div style="width:44px; height:44px; border-radius:45% 55% 60% 40%/55% 40% 60% 45%; background:{{ coralSoft }};"></div>
+        <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:16px 0 8px;">Plan treningowy</h3>
+        <p style="font-size:14px; color:oklch(42% 0.02 150); line-height:1.5; margin:0;">Dopasowany do celu, poziomu i liczby dni w tygodniu — siłownia lub dom.</p>
+      </div>
+      <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; animation:fadeInUp 0.7s 0.35s ease both; transition:transform 0.2s ease, box-shadow 0.2s ease;" style-hover="transform:translateY(-4px) scale(1.02); box-shadow:0 16px 30px -14px oklch(20% 0.02 150 / 0.25);">
+        <div style="width:44px; height:44px; border-radius:50% 50% 40% 60%/60% 40% 50% 50%; background:{{ yellowSoft }};"></div>
+        <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:16px 0 8px;">Plan posiłków</h3>
+        <p style="font-size:14px; color:oklch(42% 0.02 150); line-height:1.5; margin:0;">Propozycje posiłków dopasowane do kalorii i preferencji żywieniowych.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:1000px; margin:0 auto; padding:36px 24px 80px; position:relative; z-index:2;">
+    <h1 style="font-family:'Sora',sans-serif; font-size:30px; font-weight:800; margin:0 0 20px;">Witaj, {{ userName }}</h1>
+    <div style="display:flex; gap:28px; border-bottom:1px solid oklch(90% 0.02 85); margin-bottom:32px; font-size:15px; font-weight:600;">
+      <button onClick="{{ onTabPostepy }}" style="{{ tabStylePostepy }}">Postępy</button>
+      <button onClick="{{ onTabTrening }}" style="{{ tabStyleTrening }}">Plan treningowy</button>
+      <button onClick="{{ onTabPosilki }}" style="{{ tabStylePosilki }}">Plan posiłków</button>
+      <button onClick="{{ onTabRealizacja }}" style="{{ tabStyleRealizacja }}">Realizacja</button>
+    </div>
+
+    <sc-if value="{{ isTabPostepy }}" hint-placeholder-val="{{ true }}">
+      <div style="animation:fadeInUp 0.4s ease both;">
+        <h2 style="font-family:'Sora',sans-serif; font-size:22px; margin:0 0 20px;">Twoje postępy</h2>
+
+        <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; margin-bottom:24px;">
+          <h3 style="font-family:'Sora',sans-serif; font-size:16px; margin:0 0 16px;">Wykres BMI w czasie</h3>
+          <svg viewBox="0 0 {{ chartWidth }} {{ chartHeight }}" style="width:100%; height:180px; overflow:visible;">
+            <defs>
+              <linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="{{ primaryColor }}" stop-opacity="0.35"></stop>
+                <stop offset="100%" stop-color="{{ primaryColor }}" stop-opacity="0"></stop>
+              </linearGradient>
+            </defs>
+            <path d="{{ chartAreaPath }}" fill="url(#chartFill)"></path>
+            <polyline points="{{ chartPoints }}" fill="none" stroke="{{ primaryColor }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <sc-for list="{{ chartDots }}" as="dot" hint-placeholder-count="5">
+              <circle cx="{{ dot.cx }}" cy="{{ dot.cy }}" r="5" fill="#fff" stroke="{{ primaryColor }}" stroke-width="3"><title>{{ dot.label }}</title></circle>
+            </sc-for>
+          </svg>
+        </div>
+
+        <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; margin-bottom:28px;">
+          <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:oklch(45% 0.02 150); margin-bottom:8px;">
+            <span>Niedowaga</span><span>Prawidłowa</span><span>Nadwaga</span><span>Otyłość</span>
+          </div>
+          <div style="position:relative; height:16px; border-radius:999px; background:linear-gradient(90deg, oklch(75% 0.1 230) 0 18%, {{ primaryColor }} 18% 45%, oklch(80% 0.15 90) 45% 65%, oklch(70% 0.18 35) 65% 100%);">
+            <div style="{{ bmiMarkerStyle }}"></div>
+          </div>
+          <div style="text-align:center; margin-top:22px;">
+            <span style="font-size:13px; color:oklch(45% 0.02 150);">Ostatni pomiar: </span>
+            <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:20px;">BMI {{ latestBmi }}</span>
+            <span style="font-weight:700; color:{{ latestCategory.color }};"> · {{ latestCategory.label }}</span>
+          </div>
+        </div>
+
+        <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; margin-bottom:28px;">
+          <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:0 0 18px;">Dodaj pomiar</h3>
+          <form onSubmit="{{ onMeasSubmit }}">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Waga (kg)
+                <input type="number" value="{{ meas.waga }}" onChange="{{ onMeasWagaChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Wzrost (cm)
+                <input type="number" value="{{ meas.wzrost }}" onChange="{{ onMeasWzrostChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Wiek
+                <input type="number" value="{{ meas.wiek }}" onChange="{{ onMeasWiekChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Płeć
+                <select value="{{ meas.plec }}" onChange="{{ onMeasPlecChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                  <option>Mężczyzna</option><option>Kobieta</option>
+                </select>
+              </label>
+            </div>
+            <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600; margin-top:16px;">Poziom aktywności
+              <select value="{{ meas.aktywnosc }}" onChange="{{ onMeasAktywnoscChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                <option>Niska aktywność</option>
+                <option>Umiarkowana aktywność (ćwiczenia 3-5 dni w tygodniu)</option>
+                <option>Wysoka aktywność</option>
+              </select>
+            </label>
+            <button type="submit" style="margin-top:18px; width:100%; background:{{ primaryColor }}; color:#fff; border:none; padding:14px; border-radius:10px; font-weight:700; font-size:15px; cursor:pointer;">Zapisz pomiar</button>
+          </form>
+        </div>
+
+        <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:0 0 14px;">Historia</h3>
+        <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; overflow:hidden;">
+          <div style="display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; padding:14px 20px; font-size:13px; font-weight:700; color:oklch(45% 0.02 150); border-bottom:1px solid oklch(90% 0.02 85);">
+            <span>Data</span><span>Waga (kg)</span><span>BMI</span><span>Kategoria</span>
+          </div>
+          <sc-for list="{{ history }}" as="row" hint-placeholder-count="1">
+            <div style="display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr; padding:14px 20px; font-size:14px; border-bottom:1px solid oklch(93% 0.01 85);">
+              <span>{{ row.data }}</span><span>{{ row.waga }}</span><span>{{ row.bmi }}</span><span style="font-weight:600; color:{{ row.kolor }};">{{ row.kategoria }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTabTrening }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:fadeInUp 0.4s ease both;">
+        <h2 style="font-family:'Sora',sans-serif; font-size:22px; margin:0 0 20px;">Plan treningowy</h2>
+        <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; margin-bottom:28px;">
+          <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:0 0 18px;">Wygeneruj plan treningowy</h3>
+          <form onSubmit="{{ onTrainingSubmit }}">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Cel
+                <select value="{{ training.cel }}" onChange="{{ onTrainingCelChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                  <option>Redukcja tkanki tłuszczowej</option><option>Budowa masy mięśniowej</option><option>Poprawa kondycji</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Poziom zaawansowania
+                <select value="{{ training.poziom }}" onChange="{{ onTrainingPoziomChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                  <option>Początkujący</option><option>Średniozaawansowany</option><option>Zaawansowany</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Dni w tygodniu
+                <input type="number" value="{{ training.dni }}" onChange="{{ onTrainingDniChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Lokalizacja
+                <select value="{{ training.lokalizacja }}" onChange="{{ onTrainingLokalizacjaChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                  <option>Siłownia</option><option>Dom</option>
+                </select>
+              </label>
+              <button type="submit" style="background:{{ primaryColor }}; color:#fff; border:none; padding:14px; border-radius:10px; font-weight:700; font-size:15px; cursor:pointer;">Generuj plan</button>
+            </div>
+          </form>
+        </div>
+
+        <sc-if value="{{ generatedTraining }}" hint-placeholder-val="{{ false }}">
+          <div style="background:{{ greenSoft }}; border-radius:16px; padding:24px; margin-bottom:28px; animation:fadeInUp 0.4s ease both;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:17px; margin:0 0 12px;">{{ generatedTraining.cel }} · {{ generatedTraining.dni }} dni/tydz. · {{ generatedTraining.lokalizacja }}</h3>
+            <sc-for list="{{ generatedTraining.cwiczenia }}" as="ex" hint-placeholder-count="4">
+              <div style="padding:8px 0; font-size:15px; display:flex; gap:10px; align-items:center;"><span style="width:6px; height:6px; border-radius:50%; background:{{ primaryColor }}; display:inline-block;"></span>{{ ex }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:0 0 14px;">Poprzednie plany</h3>
+        <sc-for list="{{ trainingPlans }}" as="plan" hint-placeholder-count="2">
+          <div style="font-size:14px; color:oklch(40% 0.02 150); padding:6px 0;">{{ plan.cel }} — {{ plan.data }}</div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTabPosilki }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:fadeInUp 0.4s ease both;">
+        <h2 style="font-family:'Sora',sans-serif; font-size:22px; margin:0 0 20px;">Plan posiłków</h2>
+        <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:28px; margin-bottom:28px;">
+          <h3 style="font-family:'Sora',sans-serif; font-size:18px; margin:0 0 18px;">Wygeneruj plan posiłków</h3>
+          <form onSubmit="{{ onMealSubmit }}">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Cel dietetyczny
+                <select value="{{ meal.cel }}" onChange="{{ onMealCelChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                  <option>Redukcja tkanki tłuszczowej</option><option>Utrzymanie wagi</option><option>Budowa masy mięśniowej</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Liczba posiłków dziennie
+                <input type="number" value="{{ meal.posilki }}" onChange="{{ onMealPosilkiChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Preferencje
+                <select value="{{ meal.preferencje }}" onChange="{{ onMealPreferencjeChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px; background:#fff;">
+                  <option>Bez ograniczeń</option><option>Wegetariańskie</option><option>Wegańskie</option>
+                </select>
+              </label>
+              <label style="display:flex; flex-direction:column; gap:6px; font-size:14px; font-weight:600;">Kalorie dziennie
+                <input type="number" value="{{ meal.kalorie }}" onChange="{{ onMealKalorieChange }}" style="padding:12px 14px; border-radius:10px; border:1px solid oklch(88% 0.02 85); font-size:15px;" />
+              </label>
+              <button type="submit" style="background:{{ primaryColor }}; color:#fff; border:none; padding:14px; border-radius:10px; font-weight:700; font-size:15px; cursor:pointer;">Generuj plan</button>
+            </div>
+          </form>
+        </div>
+
+        <sc-if value="{{ generatedMeal }}" hint-placeholder-val="{{ false }}">
+          <div style="background:{{ coralSoft }}; border-radius:16px; padding:24px; margin-bottom:28px; animation:fadeInUp 0.4s ease both;">
+            <h3 style="font-family:'Sora',sans-serif; font-size:17px; margin:0 0 12px;">{{ generatedMeal.cel }} · {{ generatedMeal.kalorie }} kcal · {{ generatedMeal.preferencje }}</h3>
+            <sc-for list="{{ generatedMeal.posilki }}" as="m" hint-placeholder-count="4">
+              <div style="padding:8px 0; font-size:15px; display:flex; gap:10px; align-items:center;"><span style="width:6px; height:6px; border-radius:50%; background:oklch(60% 0.18 35); display:inline-block;"></span>{{ m }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isTabRealizacja }}" hint-placeholder-val="{{ false }}">
+      <div style="animation:fadeInUp 0.4s ease both;">
+        <h2 style="font-family:'Sora',sans-serif; font-size:22px; margin:0 0 20px;">Kalendarz realizacji</h2>
+        <div style="display:grid; grid-template-columns:280px 1fr; gap:28px; align-items:start;">
+          <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; font-family:'Sora',sans-serif; font-weight:700; margin-bottom:14px;">
+              <span style="cursor:pointer; color:oklch(60% 0.02 150);">‹</span><span>Sierpień 2026</span><span style="cursor:pointer; color:oklch(60% 0.02 150);">›</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; font-size:12px; color:oklch(55% 0.02 150); text-align:center; margin-bottom:6px;">
+              <span>Nd</span><span>Pn</span><span>Wt</span><span>Śr</span><span>Cz</span><span>Pt</span><span>Sb</span>
+            </div>
+            <sc-for list="{{ calendarWeeks }}" as="week" hint-placeholder-count="5">
+              <div style="display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:4px;">
+                <sc-for list="{{ week }}" as="day" hint-placeholder-count="7">
+                  <div style="{{ day.style }}">{{ day.num }}</div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+          <div>
+            <h3 style="font-family:'Sora',sans-serif; font-size:17px; margin:0 0 16px;">Wtorek, 4 sierpnia 2026</h3>
+            <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:22px; margin-bottom:20px;">
+              <h4 style="margin:0 0 14px; font-size:15px; font-family:'Sora',sans-serif;">Ćwiczenia</h4>
+              <sc-for list="{{ exercises }}" as="item" hint-placeholder-count="3">
+                <label style="display:flex; align-items:center; gap:10px; padding:6px 0; font-size:14px; cursor:pointer; {{ item.textStyle }}">
+                  <input type="checkbox" checked="{{ item.checked }}" onChange="{{ item.toggle }}" style="width:17px; height:17px; accent-color:{{ primaryColor }};" />{{ item.label }}
+                </label>
+              </sc-for>
+            </div>
+            <div style="background:#fff; border:1px solid oklch(90% 0.02 85); border-radius:16px; padding:22px;">
+              <h4 style="margin:0 0 14px; font-size:15px; font-family:'Sora',sans-serif;">Posiłki</h4>
+              <sc-for list="{{ meals }}" as="item" hint-placeholder-count="5">
+                <label style="display:flex; align-items:center; gap:10px; padding:6px 0; font-size:14px; cursor:pointer; {{ item.textStyle }}">
+                  <input type="checkbox" checked="{{ item.checked }}" onChange="{{ item.toggle }}" style="width:17px; height:17px; accent-color:{{ primaryColor }};" />{{ item.label }}
+                </label>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </sc-if>
+
+  <div id="footer" style="max-width:900px; margin:0 auto; padding:40px 24px 60px; border-top:1px solid oklch(90% 0.02 85); font-size:13px; color:oklch(48% 0.02 150); line-height:1.6;">
+    <p>FitnessLab to bezpłatny projekt demonstracyjny, zbudowany po to, by pokazać warsztat programistyczny. Jego autor nie jest dietetykiem, specjalistą do spraw żywienia ani certyfikowanym trenerem. Nic tutaj nie jest poradą medyczną — przed podjęciem jakichkolwiek działań skonsultuj się z wykwalifikowanym specjalistą.</p>
+    <p><a href="#">Przeczytaj pełny regulamin i zastrzeżenie</a></p>
+    <p style="margin:0;">FitnessLab to bezpłatny projekt portfolio.</p>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;oklch(52% 0.13 150)&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;oklch(52% 0.13 150)&quot;,&quot;oklch(60% 0.19 35)&quot;,&quot;oklch(55% 0.16 250)&quot;,&quot;oklch(60% 0.17 320)&quot;],&quot;section&quot;:&quot;Wygląd&quot;},&quot;blobAnimation&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Wygląd&quot;},&quot;defaultView&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;landing&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;landing&quot;,&quot;dashboard&quot;],&quot;section&quot;:&quot;Prototyp&quot;}}">
+class Component extends DCLogic {
+  state = {
+    view: this.props.defaultView === 'dashboard' ? 'dashboard' : 'landing',
+    tab: 'postepy',
+    userName: 'Krzysztof',
+    calc: { waga: '', wzrost: '', wiek: '', plec: 'Mężczyzna', aktywnosc: 'Umiarkowana aktywność (ćwiczenia 3-5 dni w tygodniu)' },
+    bmiResult: null,
+    bmiDisplay: 0,
+    latestDisplay: 0,
+    meas: { waga: '', wzrost: '', wiek: '', plec: 'Mężczyzna', aktywnosc: 'Umiarkowana aktywność (ćwiczenia 3-5 dni w tygodniu)' },
+    history: [
+      { data: '2026-08-04', waga: 82, bmi: 25.6 },
+      { data: '2026-07-21', waga: 86, bmi: 26.9 },
+      { data: '2026-07-07', waga: 90, bmi: 28.2 },
+      { data: '2026-06-23', waga: 95, bmi: 29.8 },
+      { data: '2026-06-09', waga: 102, bmi: 31.9 }
+    ],
+    training: { cel: 'Redukcja tkanki tłuszczowej', poziom: 'Początkujący', dni: 3, lokalizacja: 'Siłownia' },
+    trainingPlans: [
+      { cel: 'Redukcja tkanki tłuszczowej', data: '2026-08-04' },
+      { cel: 'Redukcja tkanki tłuszczowej', data: '2026-08-04' }
+    ],
+    generatedTraining: null,
+    meal: { cel: 'Redukcja tkanki tłuszczowej', posilki: 4, preferencje: 'Bez ograniczeń', kalorie: 2000 },
+    generatedMeal: null,
+    exercises: [
+      { label: 'Spacer', checked: false },
+      { label: 'Wyciskanie sztangi leżąc', checked: false },
+      { label: 'Wyciskanie hantli na ławce skośnej', checked: false }
+    ],
+    meals: [
+      { label: 'Owsianka z bananem i miodem', checked: false },
+      { label: 'Mieszanka orzechów i suszonych owoców', checked: false },
+      { label: 'Wołowina stir-fry z warzywami', checked: false },
+      { label: 'Hummus z pitą', checked: false },
+      { label: 'Grillowany łosoś z gotowanymi na parze warzywami', checked: false }
+    ]
+  };
+
+  setField(group, field, value) {
+    this.setState(s => ({ [group]: { ...s[group], [field]: value } }));
+  }
+
+  category(bmi) {
+    if (bmi < 18.5) return { label: 'Niedowaga', color: 'oklch(50% 0.14 230)', bg: 'oklch(94% 0.04 230)' };
+    if (bmi < 25) return { label: 'Prawidłowa', color: 'oklch(42% 0.13 150)', bg: 'oklch(93% 0.05 150)' };
+    if (bmi < 30) return { label: 'Nadwaga', color: 'oklch(55% 0.15 80)', bg: 'oklch(92% 0.08 90)' };
+    return { label: 'Otyłość', color: 'oklch(55% 0.19 35)', bg: 'oklch(93% 0.06 35)' };
+  }
+
+  computeBmi(waga, wzrost) {
+    const w = parseFloat(waga), h = parseFloat(wzrost) / 100;
+    if (!w || !h) return null;
+    return Math.round((w / (h * h)) * 10) / 10;
+  }
+
+  componentDidMount() {
+    this._blobPhase = 0;
+    this.animateNumber('latestDisplay', this.state.history[0].bmi);
+  }
+
+  animateNumber(key, target, duration = 700) {
+    const start = performance.now();
+    const from = this.state[key] || 0;
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      this.setState({ [key]: Math.round((from + (target - from) * eased) * 10) / 10 });
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  render_onCalcSubmit = (e) => {
+    e.preventDefault();
+    const bmi = this.computeBmi(this.state.calc.waga, this.state.calc.wzrost);
+    if (bmi) {
+      this.setState({ bmiResult: bmi, bmiDisplay: 0 });
+      this.animateNumber('bmiDisplay', bmi);
+    }
+  };
+
+  render_onMeasSubmit = (e) => {
+    e.preventDefault();
+    const bmi = this.computeBmi(this.state.meas.waga, this.state.meas.wzrost);
+    if (!bmi) return;
+    this.setState(s => ({
+      history: [{ data: '2026-08-04', waga: parseFloat(s.meas.waga), bmi }, ...s.history]
+    }));
+    this.animateNumber('latestDisplay', bmi);
+  };
+
+  exerciseSets = {
+    'Siłownia': ['Wyciskanie sztangi leżąc', 'Przysiady ze sztangą', 'Wiosłowanie hantlami', 'Wyciskanie hantli na ławce skośnej'],
+    'Dom': ['Pompki', 'Przysiady z ciężarem ciała', 'Plank', 'Wykroki']
+  };
+
+  render_onTrainingSubmit = (e) => {
+    e.preventDefault();
+    const t = this.state.training;
+    const cwiczenia = ['Spacer', ...(this.exerciseSets[t.lokalizacja] || this.exerciseSets['Siłownia'])];
+    const record = { cel: t.cel, poziom: t.poziom, dni: t.dni, lokalizacja: t.lokalizacja, cwiczenia };
+    this.setState(s => ({ generatedTraining: record, trainingPlans: [{ cel: t.cel, data: '2026-08-04' }, ...s.trainingPlans] }));
+  };
+
+  mealSets = {
+    'Wegetariańskie': ['Owsianka z bananem i miodem', 'Sałatka z fetą i pomidorami', 'Hummus z warzywami', 'Omlet ze szpinakiem'],
+    'Wegańskie': ['Owsianka na mleku roślinnym', 'Tofu stir-fry z warzywami', 'Sałatka z ciecierzycą', 'Curry z soczewicą'],
+    'Bez ograniczeń': ['Owsianka z bananem i miodem', 'Wołowina stir-fry z warzywami', 'Grillowany łosoś z warzywami', 'Kurczak z ryżem i brokułami']
+  };
+
+  render_onMealSubmit = (e) => {
+    e.preventDefault();
+    const m = this.state.meal;
+    const posilki = (this.mealSets[m.preferencje] || this.mealSets['Bez ograniczeń']).slice(0, Math.max(3, Math.min(6, parseInt(m.posilki) || 4)));
+    this.setState({ generatedMeal: { cel: m.cel, kalorie: m.kalorie, preferencje: m.preferencje, posilki } });
+  };
+
+  calendarData() {
+    const rows = [
+      [null, null, 28, 29, 30, 31, 1],
+      [2, 3, 4, 5, 6, 7, 8],
+      [9, 10, 11, 12, 13, 14, 15],
+      [16, 17, 18, 19, 20, 21, 22],
+      [23, 24, 25, 26, 27, 28, 29],
+      [30, 31, null, null, null, null, null]
+    ];
+    const primary = this.props.accentColor || 'oklch(52% 0.13 150)';
+    return rows.map(week => week.map(num => {
+      if (num === null) return { num: '', style: 'aspect-ratio:1; display:flex; align-items:center; justify-content:center;' };
+      const isToday = num === 4;
+      return {
+        num,
+        style: `aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:50%; font-size:13px; font-weight:${isToday ? 700 : 400}; background:${isToday ? primary : 'transparent'}; color:${isToday ? '#fff' : 'oklch(25% 0.02 150)'};`
+      };
+    }));
+  }
+
+  renderVals() {
+    const primary = this.props.accentColor || 'oklch(52% 0.13 150)';
+    const primaryDark = 'oklch(38% 0.13 150)';
+    const animOn = this.props.blobAnimation !== false;
+    const view = this.state.view;
+    const tab = this.state.tab;
+    const bmiResult = this.state.bmiResult;
+    const bmiCategory = bmiResult ? this.category(bmiResult) : { label: '', color: '#000', bg: '#fff' };
+    const latest = this.state.history[0];
+    const latestCategory = this.category(latest.bmi);
+    const markerPct = Math.max(2, Math.min(98, ((latest.bmi - 15) / (40 - 15)) * 100));
+
+    const chartHistory = [...this.state.history].reverse();
+    const cW = 600, cH = 180, pad = 16;
+    const bmis = chartHistory.map(r => r.bmi);
+    const cMin = Math.min(...bmis) - 1.5, cMax = Math.max(...bmis) + 1.5;
+    const chartCoords = chartHistory.map((r, i) => {
+      const x = chartHistory.length > 1 ? pad + (i / (chartHistory.length - 1)) * (cW - pad * 2) : cW / 2;
+      const y = pad + (1 - (r.bmi - cMin) / (cMax - cMin)) * (cH - pad * 2);
+      return { x, y, bmi: r.bmi, data: r.data };
+    });
+    const chartPoints = chartCoords.map(c => `${c.x},${c.y}`).join(' ');
+    const chartAreaPath = `M${chartCoords[0].x},${cH - pad} L${chartCoords.map(c => `${c.x},${c.y}`).join(' L')} L${chartCoords[chartCoords.length - 1].x},${cH - pad} Z`;
+    const chartDots = chartCoords.map(c => ({ cx: c.x, cy: c.y, label: `${c.data.slice(5)}: BMI ${c.bmi}` }));
+
+    const tabBase = 'background:none; border:none; padding:0 0 14px; cursor:pointer; font-family:Work Sans,sans-serif;';
+    const tabStyle = (name) => `${tabBase} color:${tab === name ? 'oklch(20% 0.02 150)' : 'oklch(55% 0.02 150)'}; border-bottom:2px solid ${tab === name ? primary : 'transparent'};`;
+
+    const history = this.state.history.map(r => ({ ...r, kategoria: this.category(r.bmi).label, kolor: this.category(r.bmi).color }));
+
+    const withToggle = (list, key) => list.map((it, i) => ({
+      label: it.label, checked: it.checked,
+      textStyle: it.checked ? 'text-decoration:line-through; color:oklch(55% 0.02 150);' : '',
+      toggle: () => this.setState(s => ({ [key]: s[key].map((x, j) => j === i ? { ...x, checked: !x.checked } : x) }))
+    }));
+
+    return {
+      primaryColor: primary, primaryDark,
+      greenSoft: 'oklch(90% 0.06 150)', coralSoft: 'oklch(93% 0.07 35)', yellowSoft: 'oklch(90% 0.1 95)',
+      isLanding: view === 'landing', isDashboard: view === 'dashboard',
+      userName: this.state.userName,
+      onLoginClick: (e) => { e.preventDefault(); this.setState({ view: 'dashboard' }); },
+      onLogoutClick: (e) => { e.preventDefault(); this.setState({ view: 'landing', bmiResult: null }); },
+      onRegisterClick: () => this.setState({ view: 'dashboard' }),
+      blobHeroStyle: `position:absolute; top:-40px; left:8%; width:180px; height:180px; border-radius:42% 58% 60% 40%/50% 45% 55% 50%; background:${this.props.accentColor ? this.props.accentColor : 'oklch(88% 0.08 150)'}; opacity:0.5; ${animOn ? 'animation:floatA 7s ease-in-out infinite alternate;' : ''}`,
+      blobHeroStyle2: `position:absolute; top:60px; right:10%; width:140px; height:140px; border-radius:60% 40% 45% 55%/45% 55% 45% 55%; background:oklch(88% 0.09 35); opacity:0.5; ${animOn ? 'animation:floatB 8s ease-in-out infinite alternate;' : ''}`,
+      blobHeroStyle3: `position:absolute; bottom:-30px; left:40%; width:120px; height:120px; border-radius:50% 50% 40% 60%/55% 45% 55% 45%; background:oklch(88% 0.12 95); opacity:0.5; ${animOn ? 'animation:floatA 9s ease-in-out infinite alternate-reverse;' : ''}`,
+      calc: this.state.calc,
+      onCalcWagaChange: (e) => this.setField('calc', 'waga', e.target.value),
+      onCalcWzrostChange: (e) => this.setField('calc', 'wzrost', e.target.value),
+      onCalcWiekChange: (e) => this.setField('calc', 'wiek', e.target.value),
+      onCalcPlecChange: (e) => this.setField('calc', 'plec', e.target.value),
+      onCalcAktywnoscChange: (e) => this.setField('calc', 'aktywnosc', e.target.value),
+      onCalcSubmit: this.render_onCalcSubmit,
+      bmiResult, bmiCategory,
+      meas: this.state.meas,
+      onMeasWagaChange: (e) => this.setField('meas', 'waga', e.target.value),
+      onMeasWzrostChange: (e) => this.setField('meas', 'wzrost', e.target.value),
+      onMeasWiekChange: (e) => this.setField('meas', 'wiek', e.target.value),
+      onMeasPlecChange: (e) => this.setField('meas', 'plec', e.target.value),
+      onMeasAktywnoscChange: (e) => this.setField('meas', 'aktywnosc', e.target.value),
+      onMeasSubmit: this.render_onMeasSubmit,
+      history, latestBmi: this.state.latestDisplay, latestCategory,
+      bmiMarkerStyle: `position:absolute; top:-4px; left:${markerPct}%; width:24px; height:24px; margin-left:-12px; border-radius:50%; background:#fff; border:4px solid ${primary}; box-shadow:0 2px 6px oklch(20% 0.02 150 / 0.3);`,
+      chartPoints, chartAreaPath, chartDots, chartWidth: cW, chartHeight: cH,
+      bmiDisplay: this.state.bmiDisplay,
+      tabStylePostepy: tabStyle('postepy'), tabStyleTrening: tabStyle('trening'), tabStylePosilki: tabStyle('posilki'), tabStyleRealizacja: tabStyle('realizacja'),
+      onTabPostepy: () => this.setState({ tab: 'postepy' }),
+      onTabTrening: () => this.setState({ tab: 'trening' }),
+      onTabPosilki: () => this.setState({ tab: 'posilki' }),
+      onTabRealizacja: () => this.setState({ tab: 'realizacja' }),
+      isTabPostepy: tab === 'postepy', isTabTrening: tab === 'trening', isTabPosilki: tab === 'posilki', isTabRealizacja: tab === 'realizacja',
+      training: this.state.training,
+      onTrainingCelChange: (e) => this.setField('training', 'cel', e.target.value),
+      onTrainingPoziomChange: (e) => this.setField('training', 'poziom', e.target.value),
+      onTrainingDniChange: (e) => this.setField('training', 'dni', e.target.value),
+      onTrainingLokalizacjaChange: (e) => this.setField('training', 'lokalizacja', e.target.value),
+      onTrainingSubmit: this.render_onTrainingSubmit,
+      generatedTraining: this.state.generatedTraining, trainingPlans: this.state.trainingPlans,
+      meal: this.state.meal,
+      onMealCelChange: (e) => this.setField('meal', 'cel', e.target.value),
+      onMealPosilkiChange: (e) => this.setField('meal', 'posilki', e.target.value),
+      onMealPreferencjeChange: (e) => this.setField('meal', 'preferencje', e.target.value),
+      onMealKalorieChange: (e) => this.setField('meal', 'kalorie', e.target.value),
+      onMealSubmit: this.render_onMealSubmit,
+      generatedMeal: this.state.generatedMeal,
+      calendarWeeks: this.calendarData(),
+      exercises: withToggle(this.state.exercises, 'exercises'),
+      meals: withToggle(this.state.meals, 'meals')
+    };
+  }
+}
+
+</script>
+</body>
+</html>

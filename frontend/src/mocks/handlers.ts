@@ -16,6 +16,30 @@ export const disclaimerFixture = {
   },
 };
 
+export const exerciseFixture = {
+  id: 1,
+  type: 'strength' as const,
+  location: 'gym' as const,
+  difficulty: 'beginner' as const,
+  muscle_group: 'chest' as const,
+  sets: 3,
+  reps: 10,
+  duration_minutes: null,
+  name: { en: 'Push-up', pl: 'Pompka' },
+  instructions: { en: 'Lower and push back up.', pl: 'Opuść i wypchnij się z powrotem.' },
+};
+
+export const mealTemplateFixture = {
+  id: 1,
+  meal_time: 'breakfast' as const,
+  calories: 400,
+  protein_g: 20,
+  fat_g: 15,
+  carbs_g: 45,
+  name: { en: 'Oatmeal with Banana', pl: 'Owsianka z bananem' },
+  description: { en: 'Rolled oats with banana.', pl: 'Płatki owsiane z bananem.' },
+};
+
 export const userFixture = {
   id: 1,
   name: 'Ada Lovelace',
@@ -84,6 +108,41 @@ export const handlers: HttpHandler[] = [
 
   http.get(`${API_BASE_URL}/admin/logs`, () =>
     HttpResponse.json({ data: [], current_page: 1, last_page: 1, total: 0 }),
+  ),
+
+  http.get(`${API_BASE_URL}/admin/exercises`, () => HttpResponse.json([])),
+
+  http.post(`${API_BASE_URL}/admin/exercises`, async ({ request }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+
+    return HttpResponse.json({ id: 1, ...body }, { status: 201 });
+  }),
+
+  http.put(`${API_BASE_URL}/admin/exercises/:id`, async ({ request, params }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+
+    return HttpResponse.json({ id: Number(params.id), ...body });
+  }),
+
+  http.delete(`${API_BASE_URL}/admin/exercises/:id`, () => new HttpResponse(null, { status: 204 })),
+
+  http.get(`${API_BASE_URL}/admin/meal-templates`, () => HttpResponse.json([])),
+
+  http.post(`${API_BASE_URL}/admin/meal-templates`, async ({ request }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+
+    return HttpResponse.json({ id: 1, ...body }, { status: 201 });
+  }),
+
+  http.put(`${API_BASE_URL}/admin/meal-templates/:id`, async ({ request, params }) => {
+    const body = (await request.json()) as Record<string, unknown>;
+
+    return HttpResponse.json({ id: Number(params.id), ...body });
+  }),
+
+  http.delete(
+    `${API_BASE_URL}/admin/meal-templates/:id`,
+    () => new HttpResponse(null, { status: 204 }),
   ),
 
   http.get(`${API_BASE_URL}/workout-plans`, () =>

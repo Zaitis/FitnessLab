@@ -327,6 +327,78 @@ designed.
 **Definition of done:** the four end-to-end journeys pass in CI against a
 production-equivalent stack.
 
+## M12 — Admin panel: exercise catalogue management
+
+The `exercises` catalogue has only ever been editable through
+`ExerciseSeeder` — adding or correcting an entry meant a code change and a
+deploy. This gives it the same CRUD surface the rest of the admin section
+already has a foothold for (M5's admin log viewer).
+
+- [x] `ExercisePolicy` (`viewAny`/`create`/`update`/`delete`, all `is_admin`),
+      mirroring `ErrorLogPolicy`.
+- [x] `App\Application\Workouts\Actions`: `ListExercisesAction`,
+      `CreateExerciseAction`, `UpdateExerciseAction`, `DeleteExerciseAction` —
+      one final, single-purpose action per operation, matching the rest of
+      the codebase rather than a generic CRUD service.
+- [x] `GET/POST /api/admin/exercises`, `PUT/DELETE /api/admin/exercises/{exercise}`,
+      behind the policy. Full catalogue returned unpaginated — it's a few
+      dozen rows, not a few thousand.
+- [x] Validation across `ExerciseType`/`ExerciseLocation`/`ExperienceLevel`/
+      `MuscleGroup`, translatable `name`/`instructions` required in every
+      locale in `config/supported_locales.php`, and the strength/cardio field
+      split (`sets`+`reps` vs `duration_minutes`) enforced instead of merely
+      nullable.
+- [x] Admin frontend: exercise table, create/edit form with a locale tab per
+      supported language, delete with confirmation.
+- [x] Feature tests: `401`/`403`/`422`/happy path for all four endpoints.
+- [x] Component tests for the admin exercise form and table.
+
+**Definition of done:** an admin adds, edits, and removes a catalogue
+exercise entirely through the UI — no seeder, no deploy — and a newly added
+exercise is eligible for the next generated plan.
+
+## M13 — Admin panel: meal template catalogue management
+
+Mirrors M12 for `meal_templates` (`meal_time`, `calories`/`protein_g`/
+`fat_g`/`carbs_g`, translatable `name`/`description`), reusing the admin
+layout M12 establishes.
+
+- [x] `MealTemplatePolicy`, matching `ExercisePolicy`.
+- [x] `App\Application\Nutrition\Actions`: `ListMealTemplatesAction`,
+      `CreateMealTemplateAction`, `UpdateMealTemplateAction`,
+      `DeleteMealTemplateAction`.
+- [x] `GET/POST /api/admin/meal-templates`,
+      `PUT/DELETE /api/admin/meal-templates/{mealTemplate}`, behind the
+      policy.
+- [x] Validation: `meal_time` enum, macro fields as non-negative numbers,
+      translatable `name`/`description` required in every supported locale.
+- [x] Admin frontend: meal template table and form, mirroring M12.
+- [x] Feature and component test coverage mirroring M12.
+
+**Definition of done:** as M12, for meal templates.
+
+## M14 — Visual redesign
+
+Deliberately after the admin panel, not alongside it — landing on both at
+once risks neither landing cleanly. A full redesign of the landing page and
+dashboard shell exists as a Claude Design prototype; see
+[`docs/design/`](design/) for the reference file and its key tokens
+(palette, type, the organic "blob" motif).
+
+- [ ] Palette and type swapped in via the existing shadcn CSS-variable
+      theme (`frontend/src/index.css`) — no new theming system needed.
+- [ ] Landing page, dashboard shell/nav, and all four dashboard tabs
+      restyled to match the prototype.
+- [ ] The admin section (M12/M13) restyled to match — applied once, after
+      admin functionality already exists, rather than styled twice.
+- [ ] Copy stays in `react-i18next`/`lang/` keys — the prototype's
+      hardcoded Polish strings are a reference, not a copy source.
+- [ ] Existing component and E2E tests still pass; selectors that assert on
+      specific class names (if any) updated rather than loosened.
+
+**Definition of done:** every existing page matches the prototype's visual
+language, with no regressions in the component or E2E suites.
+
 ---
 
 ## Deliberately out of scope
