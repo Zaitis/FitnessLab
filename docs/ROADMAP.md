@@ -334,24 +334,24 @@ The `exercises` catalogue has only ever been editable through
 deploy. This gives it the same CRUD surface the rest of the admin section
 already has a foothold for (M5's admin log viewer).
 
-- [ ] `ExercisePolicy` (`viewAny`/`create`/`update`/`delete`, all `is_admin`),
+- [x] `ExercisePolicy` (`viewAny`/`create`/`update`/`delete`, all `is_admin`),
       mirroring `ErrorLogPolicy`.
-- [ ] `App\Application\Workouts\Actions`: `ListExercisesAction`,
+- [x] `App\Application\Workouts\Actions`: `ListExercisesAction`,
       `CreateExerciseAction`, `UpdateExerciseAction`, `DeleteExerciseAction` —
       one final, single-purpose action per operation, matching the rest of
       the codebase rather than a generic CRUD service.
-- [ ] `GET/POST /api/admin/exercises`, `PUT/DELETE /api/admin/exercises/{exercise}`,
+- [x] `GET/POST /api/admin/exercises`, `PUT/DELETE /api/admin/exercises/{exercise}`,
       behind the policy. Full catalogue returned unpaginated — it's a few
       dozen rows, not a few thousand.
-- [ ] Validation across `ExerciseType`/`ExerciseLocation`/`ExperienceLevel`/
+- [x] Validation across `ExerciseType`/`ExerciseLocation`/`ExperienceLevel`/
       `MuscleGroup`, translatable `name`/`instructions` required in every
       locale in `config/supported_locales.php`, and the strength/cardio field
       split (`sets`+`reps` vs `duration_minutes`) enforced instead of merely
       nullable.
-- [ ] Admin frontend: exercise table, create/edit form with a locale tab per
+- [x] Admin frontend: exercise table, create/edit form with a locale tab per
       supported language, delete with confirmation.
-- [ ] Feature tests: `401`/`403`/`422`/happy path for all four endpoints.
-- [ ] Component tests for the admin exercise form and table.
+- [x] Feature tests: `401`/`403`/`422`/happy path for all four endpoints.
+- [x] Component tests for the admin exercise form and table.
 
 **Definition of done:** an admin adds, edits, and removes a catalogue
 exercise entirely through the UI — no seeder, no deploy — and a newly added
