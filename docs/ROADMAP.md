@@ -385,16 +385,18 @@ dashboard shell exists as a Claude Design prototype; see
 [`docs/design/`](design/) for the reference file and its key tokens
 (palette, type, the organic "blob" motif).
 
-- [ ] Palette and type swapped in via the existing shadcn CSS-variable
+- [x] Palette and type swapped in via the existing shadcn CSS-variable
       theme (`frontend/src/index.css`) — no new theming system needed.
-- [ ] Landing page, dashboard shell/nav, and all four dashboard tabs
+- [x] Landing page, dashboard shell/nav, and all four dashboard tabs
       restyled to match the prototype.
-- [ ] The admin section (M12/M13) restyled to match — applied once, after
-      admin functionality already exists, rather than styled twice.
-- [ ] Copy stays in `react-i18next`/`lang/` keys — the prototype's
+- [x] The admin section (M12/M13) restyled to match — inherited from the
+      same theme swap and shared nav-tab component as the rest of the
+      dashboard, rather than styled twice.
+- [x] Copy stays in `react-i18next`/`lang/` keys — the prototype's
       hardcoded Polish strings are a reference, not a copy source.
-- [ ] Existing component and E2E tests still pass; selectors that assert on
-      specific class names (if any) updated rather than loosened.
+- [x] Existing component and E2E tests still pass; the one test asserting
+      on "create a free account" text updated to disambiguate against the
+      new permanent hero CTA, not loosened.
 
 **Definition of done:** every existing page matches the prototype's visual
 language, with no regressions in the component or E2E suites.
