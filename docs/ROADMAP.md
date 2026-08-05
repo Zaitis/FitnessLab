@@ -327,6 +327,56 @@ designed.
 **Definition of done:** the four end-to-end journeys pass in CI against a
 production-equivalent stack.
 
+## M12 — Admin panel: exercise catalogue management
+
+The `exercises` catalogue has only ever been editable through
+`ExerciseSeeder` — adding or correcting an entry meant a code change and a
+deploy. This gives it the same CRUD surface the rest of the admin section
+already has a foothold for (M5's admin log viewer).
+
+- [ ] `ExercisePolicy` (`viewAny`/`create`/`update`/`delete`, all `is_admin`),
+      mirroring `ErrorLogPolicy`.
+- [ ] `App\Application\Workouts\Actions`: `ListExercisesAction`,
+      `CreateExerciseAction`, `UpdateExerciseAction`, `DeleteExerciseAction` —
+      one final, single-purpose action per operation, matching the rest of
+      the codebase rather than a generic CRUD service.
+- [ ] `GET/POST /api/admin/exercises`, `PUT/DELETE /api/admin/exercises/{exercise}`,
+      behind the policy. Full catalogue returned unpaginated — it's a few
+      dozen rows, not a few thousand.
+- [ ] Validation across `ExerciseType`/`ExerciseLocation`/`ExperienceLevel`/
+      `MuscleGroup`, translatable `name`/`instructions` required in every
+      locale in `config/supported_locales.php`, and the strength/cardio field
+      split (`sets`+`reps` vs `duration_minutes`) enforced instead of merely
+      nullable.
+- [ ] Admin frontend: exercise table, create/edit form with a locale tab per
+      supported language, delete with confirmation.
+- [ ] Feature tests: `401`/`403`/`422`/happy path for all four endpoints.
+- [ ] Component tests for the admin exercise form and table.
+
+**Definition of done:** an admin adds, edits, and removes a catalogue
+exercise entirely through the UI — no seeder, no deploy — and a newly added
+exercise is eligible for the next generated plan.
+
+## M13 — Admin panel: meal template catalogue management
+
+Mirrors M12 for `meal_templates` (`meal_time`, `calories`/`protein_g`/
+`fat_g`/`carbs_g`, translatable `name`/`description`), reusing the admin
+layout M12 establishes.
+
+- [ ] `MealTemplatePolicy`, matching `ExercisePolicy`.
+- [ ] `App\Application\Nutrition\Actions`: `ListMealTemplatesAction`,
+      `CreateMealTemplateAction`, `UpdateMealTemplateAction`,
+      `DeleteMealTemplateAction`.
+- [ ] `GET/POST /api/admin/meal-templates`,
+      `PUT/DELETE /api/admin/meal-templates/{mealTemplate}`, behind the
+      policy.
+- [ ] Validation: `meal_time` enum, macro fields as non-negative numbers,
+      translatable `name`/`description` required in every supported locale.
+- [ ] Admin frontend: meal template table and form, mirroring M12.
+- [ ] Feature and component test coverage mirroring M12.
+
+**Definition of done:** as M12, for meal templates.
+
 ---
 
 ## Deliberately out of scope
