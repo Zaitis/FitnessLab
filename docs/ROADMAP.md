@@ -363,17 +363,17 @@ Mirrors M12 for `meal_templates` (`meal_time`, `calories`/`protein_g`/
 `fat_g`/`carbs_g`, translatable `name`/`description`), reusing the admin
 layout M12 establishes.
 
-- [ ] `MealTemplatePolicy`, matching `ExercisePolicy`.
-- [ ] `App\Application\Nutrition\Actions`: `ListMealTemplatesAction`,
+- [x] `MealTemplatePolicy`, matching `ExercisePolicy`.
+- [x] `App\Application\Nutrition\Actions`: `ListMealTemplatesAction`,
       `CreateMealTemplateAction`, `UpdateMealTemplateAction`,
       `DeleteMealTemplateAction`.
-- [ ] `GET/POST /api/admin/meal-templates`,
+- [x] `GET/POST /api/admin/meal-templates`,
       `PUT/DELETE /api/admin/meal-templates/{mealTemplate}`, behind the
       policy.
-- [ ] Validation: `meal_time` enum, macro fields as non-negative numbers,
+- [x] Validation: `meal_time` enum, macro fields as non-negative numbers,
       translatable `name`/`description` required in every supported locale.
-- [ ] Admin frontend: meal template table and form, mirroring M12.
-- [ ] Feature and component test coverage mirroring M12.
+- [x] Admin frontend: meal template table and form, mirroring M12.
+- [x] Feature and component test coverage mirroring M12.
 
 **Definition of done:** as M12, for meal templates.
 
