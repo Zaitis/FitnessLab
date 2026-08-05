@@ -153,7 +153,8 @@
   "admin": {
     "nav": {
       "logs": "Logi",
-      "exercises": "Ćwiczenia"
+      "exercises": "Ćwiczenia",
+      "mealTemplates": "Posiłki"
     },
     "logs": {
       "title": "Logi błędów",
@@ -212,6 +213,38 @@
         "durationLabel": "Czas trwania (min)",
         "nameLabel": "Nazwa",
         "instructionsLabel": "Instrukcje",
+        "submit": "Zapisz",
+        "submitting": "Zapisywanie…",
+        "errors": {
+          "generic": "Coś poszło nie tak. Spróbuj ponownie."
+        }
+      }
+    },
+    "mealTemplates": {
+      "title": "Posiłki",
+      "empty": "Brak posiłków.",
+      "addNew": "Dodaj posiłek",
+      "cancel": "Anuluj",
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "confirmDelete": "Usunąć ten posiłek? Tej operacji nie można cofnąć.",
+      "table": {
+        "name": "Nazwa",
+        "mealTime": "Pora posiłku",
+        "calories": "Kalorie",
+        "macros": "Białko / Tłuszcz / Węglowodany",
+        "actions": "Akcje"
+      },
+      "form": {
+        "titleCreate": "Dodaj posiłek",
+        "titleEdit": "Edytuj posiłek",
+        "mealTimeLabel": "Pora posiłku",
+        "caloriesLabel": "Kalorie",
+        "proteinLabel": "Białko (g)",
+        "fatLabel": "Tłuszcz (g)",
+        "carbsLabel": "Węglowodany (g)",
+        "nameLabel": "Nazwa",
+        "descriptionLabel": "Opis",
         "submit": "Zapisz",
         "submitting": "Zapisywanie…",
         "errors": {

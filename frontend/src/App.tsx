@@ -8,6 +8,7 @@ import { queryClient } from '@/lib/queryClient';
 import { AdherencePage } from '@/pages/AdherencePage';
 import { AdminExercisesPage } from '@/pages/AdminExercisesPage';
 import { AdminLogsPage } from '@/pages/AdminLogsPage';
+import { AdminMealTemplatesPage } from '@/pages/AdminMealTemplatesPage';
 import { ForgotPasswordPage } from '@/pages/ForgotPasswordPage';
 import { LandingPage } from '@/pages/LandingPage';
 import { LoginPage } from '@/pages/LoginPage';
@@ -43,6 +44,7 @@ function App() {
                 <Route path="admin" element={<AdminLayout />}>
                   <Route index element={<AdminLogsPage />} />
                   <Route path="exercises" element={<AdminExercisesPage />} />
+                  <Route path="meal-templates" element={<AdminMealTemplatesPage />} />
                 </Route>
               </Route>
             </Route>

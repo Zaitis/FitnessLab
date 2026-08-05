@@ -153,7 +153,8 @@
   "admin": {
     "nav": {
       "logs": "Logs",
-      "exercises": "Exercises"
+      "exercises": "Exercises",
+      "mealTemplates": "Meal Templates"
     },
     "logs": {
       "title": "Error logs",
@@ -212,6 +213,38 @@
         "durationLabel": "Duration (minutes)",
         "nameLabel": "Name",
         "instructionsLabel": "Instructions",
+        "submit": "Save",
+        "submitting": "Saving…",
+        "errors": {
+          "generic": "Something went wrong. Please try again."
+        }
+      }
+    },
+    "mealTemplates": {
+      "title": "Meal templates",
+      "empty": "No meal templates yet.",
+      "addNew": "Add meal template",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "delete": "Delete",
+      "confirmDelete": "Delete this meal template? This cannot be undone.",
+      "table": {
+        "name": "Name",
+        "mealTime": "Meal time",
+        "calories": "Calories",
+        "macros": "Protein / Fat / Carbs",
+        "actions": "Actions"
+      },
+      "form": {
+        "titleCreate": "Add meal template",
+        "titleEdit": "Edit meal template",
+        "mealTimeLabel": "Meal time",
+        "caloriesLabel": "Calories",
+        "proteinLabel": "Protein (g)",
+        "fatLabel": "Fat (g)",
+        "carbsLabel": "Carbs (g)",
+        "nameLabel": "Name",
+        "descriptionLabel": "Description",
         "submit": "Save",
         "submitting": "Saving…",
         "errors": {

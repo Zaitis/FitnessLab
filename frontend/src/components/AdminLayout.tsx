@@ -27,6 +27,9 @@ export function AdminLayout() {
         <NavLink to="/dashboard/admin/exercises" className={navLinkClassName}>
           {t('admin.nav.exercises')}
         </NavLink>
+        <NavLink to="/dashboard/admin/meal-templates" className={navLinkClassName}>
+          {t('admin.nav.mealTemplates')}
+        </NavLink>
       </nav>
 
       <Outlet />
