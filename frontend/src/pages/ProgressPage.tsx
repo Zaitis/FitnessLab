@@ -2,9 +2,12 @@ import { useTranslation } from 'react-i18next';
 import { MeasurementChart } from '@/components/MeasurementChart';
 import { MeasurementForm } from '@/components/MeasurementForm';
 import { useMeasurements } from '@/hooks/useMeasurements';
+import { useUnitSystem } from '@/lib/unitPreference';
+import { weightToUnit } from '@/lib/units';
 
 export function ProgressPage() {
   const { t } = useTranslation();
+  const [unit] = useUnitSystem();
   const { data, isLoading } = useMeasurements();
   const measurements = data?.data ?? [];
 
@@ -24,7 +27,9 @@ export function ProgressPage() {
             <thead>
               <tr className="border-b text-muted-foreground">
                 <th className="py-2">{t('progress.table.date')}</th>
-                <th className="py-2">{t('progress.table.weight')}</th>
+                <th className="py-2">
+                  {t('progress.table.weight')} ({t(`units.suffix.weight.${unit}`)})
+                </th>
                 <th className="py-2">{t('progress.table.bmi')}</th>
                 <th className="py-2">{t('progress.table.category')}</th>
               </tr>
@@ -33,7 +38,7 @@ export function ProgressPage() {
               {measurements.map((measurement) => (
                 <tr key={measurement.id} className="border-b last:border-0">
                   <td className="py-2">{measurement.measured_on}</td>
-                  <td className="py-2">{measurement.weight_kg}</td>
+                  <td className="py-2">{weightToUnit(measurement.weight_kg, unit).toFixed(1)}</td>
                   <td className="py-2">{measurement.value}</td>
                   <td className="py-2">{t(`bmiResult.categories.${measurement.category}`)}</td>
                 </tr>

@@ -4,6 +4,7 @@ import { useDisclaimer } from '@/hooks/useDisclaimer';
 import { AuthNav } from '@/components/AuthNav';
 import { CherryLogo } from '@/components/CherryLogo';
 import { LanguageSwitcher } from '@/components/LanguageSwitcher';
+import { UnitSwitcher } from '@/components/UnitSwitcher';
 
 export function Layout() {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ export function Layout() {
               {t('nav.terms')}
             </Link>
             <AuthNav />
+            <UnitSwitcher />
             <LanguageSwitcher />
           </nav>
         </div>

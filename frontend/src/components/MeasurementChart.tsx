@@ -11,6 +11,8 @@ import {
   YAxis,
 } from 'recharts';
 import type { Measurement } from '@/hooks/useMeasurements';
+import { useUnitSystem } from '@/lib/unitPreference';
+import { weightToUnit } from '@/lib/units';
 
 interface MeasurementChartProps {
   measurements: Measurement[];
@@ -25,13 +27,17 @@ const CATEGORY_BANDS = [
 
 export function MeasurementChart({ measurements }: MeasurementChartProps) {
   const { t } = useTranslation();
+  const [unit] = useUnitSystem();
 
   if (measurements.length === 0) {
     return <p className="text-muted-foreground">{t('progress.empty')}</p>;
   }
 
-  const chronological = [...measurements].reverse();
+  const chronological = [...measurements]
+    .reverse()
+    .map((m) => ({ ...m, display_weight: weightToUnit(m.weight_kg, unit) }));
   const maxBmi = Math.max(40, ...chronological.map((m) => m.value));
+  const weightAxisLabel = `${t('progress.chart.weightAxis')} (${t(`units.suffix.weight.${unit}`)})`;
 
   return (
     <div className="h-80 w-full" role="img" aria-label={t('progress.chartTitle')}>
@@ -62,7 +68,7 @@ export function MeasurementChart({ measurements }: MeasurementChartProps) {
             orientation="right"
             stroke="oklch(45% 0.02 150)"
             tick={{ fontSize: 12 }}
-            label={{ value: t('progress.chart.weightAxis'), angle: 90, position: 'insideRight' }}
+            label={{ value: weightAxisLabel, angle: 90, position: 'insideRight' }}
           />
           <Tooltip />
           <Legend />
@@ -78,8 +84,8 @@ export function MeasurementChart({ measurements }: MeasurementChartProps) {
           <Line
             yAxisId="weight"
             type="monotone"
-            dataKey="weight_kg"
-            name={t('progress.chart.weightAxis')}
+            dataKey="display_weight"
+            name={weightAxisLabel}
             stroke="oklch(60% 0.19 35)"
             strokeWidth={2}
             dot
