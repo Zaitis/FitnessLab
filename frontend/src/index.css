@@ -174,3 +174,46 @@
     animation: float-b 8s ease-in-out infinite alternate;
   }
 }
+
+/* Staggered entrance for the landing hero/cards — in the M14 design
+   prototype's own script (`animation:fadeInUp ... both`) but never actually
+   wired up when the redesign landed. `both` keeps the pre-animation state
+   applied before/after so content doesn't flash unstyled at the end. */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease both;
+  }
+}
+
+/* A little personality on the cherry mark — a nod to "wiśnia" (cherry),
+   since the site's author is a Wiśniewski. Wiggles on hover of its parent
+   `group`, never on its own. */
+@keyframes cherry-wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+/* @utility, not a plain class — `group-hover:animate-cherry-wiggle` needs
+   Tailwind to recognize the utility name to generate that variant. */
+@utility animate-cherry-wiggle {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: cherry-wiggle 0.5s ease-in-out;
+  }
+}

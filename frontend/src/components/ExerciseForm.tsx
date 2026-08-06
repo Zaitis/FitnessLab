@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
+import { LocalizedFieldTabs } from '@/components/LocalizedFieldTabs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -70,7 +70,6 @@ export function ExerciseForm({
   isError,
 }: ExerciseFormProps) {
   const { t } = useTranslation();
-  const [activeLocale, setActiveLocale] = useState<string>(supportedLocales[0]);
   const {
     register,
     watch,
@@ -190,49 +189,35 @@ export function ExerciseForm({
         </div>
       )}
 
-      <div className="flex gap-2 border-b">
-        {supportedLocales.map((locale) => (
-          <button
-            key={locale}
-            type="button"
-            onClick={() => setActiveLocale(locale)}
-            className={`px-3 py-1.5 text-sm font-medium ${
-              activeLocale === locale
-                ? 'border-b-2 border-primary text-foreground'
-                : 'text-muted-foreground'
-            }`}
-          >
-            {locale.toUpperCase()}
-          </button>
-        ))}
-      </div>
-
-      {supportedLocales.map((locale) => (
-        <div key={locale} className={activeLocale === locale ? 'flex flex-col gap-4' : 'hidden'}>
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor={`name-${locale}`}>
-              {t('admin.exercises.form.nameLabel')} ({locale.toUpperCase()})
-            </Label>
-            <Input
-              id={`name-${locale}`}
-              aria-invalid={Boolean(errors.name?.[locale as keyof typeof errors.name])}
-              {...register(`name.${locale}`)}
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor={`instructions-${locale}`}>
-              {t('admin.exercises.form.instructionsLabel')} ({locale.toUpperCase()})
-            </Label>
-            <Input
-              id={`instructions-${locale}`}
-              aria-invalid={Boolean(
-                errors.instructions?.[locale as keyof typeof errors.instructions],
-              )}
-              {...register(`instructions.${locale}`)}
-            />
-          </div>
-        </div>
-      ))}
+      <LocalizedFieldTabs
+        locales={supportedLocales}
+        renderFields={(locale) => (
+          <>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor={`name-${locale}`}>
+                {t('admin.exercises.form.nameLabel')} ({locale.toUpperCase()})
+              </Label>
+              <Input
+                id={`name-${locale}`}
+                aria-invalid={Boolean(errors.name?.[locale as keyof typeof errors.name])}
+                {...register(`name.${locale}`)}
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label htmlFor={`instructions-${locale}`}>
+                {t('admin.exercises.form.instructionsLabel')} ({locale.toUpperCase()})
+              </Label>
+              <Input
+                id={`instructions-${locale}`}
+                aria-invalid={Boolean(
+                  errors.instructions?.[locale as keyof typeof errors.instructions],
+                )}
+                {...register(`instructions.${locale}`)}
+              />
+            </div>
+          </>
+        )}
+      />
 
       {isError && (
         <p className="text-sm text-destructive">{t('admin.exercises.form.errors.generic')}</p>
