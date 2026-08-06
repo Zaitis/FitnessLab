@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+import { useEffect, useMemo, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -9,17 +10,33 @@ import { Label } from '@/components/ui/label';
 import { apiFetch } from '@/lib/api';
 import type { BmiCalculation } from '@/lib/bmi';
 import { savePendingMeasurement } from '@/lib/pendingMeasurement';
+import { useUnitSystem } from '@/lib/unitPreference';
+import { heightToCm, heightToUnit, weightToKg, weightToUnit, type UnitSystem } from '@/lib/units';
 
-const schema = z.object({
-  weightKg: z.coerce.number().min(1).max(500),
-  heightCm: z.coerce.number().min(30).max(250),
-  age: z.coerce.number().int().min(1).max(120),
-  sex: z.enum(['male', 'female']),
-  activityLevel: z.enum(['sedentary', 'light', 'moderate', 'active', 'very_active']),
-});
+const METRIC_WEIGHT_BOUNDS = { min: 1, max: 500 };
+const METRIC_HEIGHT_BOUNDS = { min: 30, max: 250 };
 
-type FormInput = z.input<typeof schema>;
-type FormValues = z.output<typeof schema>;
+function buildSchema(unit: UnitSystem) {
+  const weightBounds = {
+    min: weightToUnit(METRIC_WEIGHT_BOUNDS.min, unit),
+    max: weightToUnit(METRIC_WEIGHT_BOUNDS.max, unit),
+  };
+  const heightBounds = {
+    min: heightToUnit(METRIC_HEIGHT_BOUNDS.min, unit),
+    max: heightToUnit(METRIC_HEIGHT_BOUNDS.max, unit),
+  };
+
+  return z.object({
+    weight: z.coerce.number().min(weightBounds.min).max(weightBounds.max),
+    height: z.coerce.number().min(heightBounds.min).max(heightBounds.max),
+    age: z.coerce.number().int().min(1).max(120),
+    sex: z.enum(['male', 'female']),
+    activityLevel: z.enum(['sedentary', 'light', 'moderate', 'active', 'very_active']),
+  });
+}
+
+type FormInput = z.input<ReturnType<typeof buildSchema>>;
+type FormValues = z.output<ReturnType<typeof buildSchema>>;
 
 interface BmiFormProps {
   onResult: (result: BmiCalculation) => void;
@@ -27,14 +44,49 @@ interface BmiFormProps {
 
 export function BmiForm({ onResult }: BmiFormProps) {
   const { t } = useTranslation();
+  const [unit] = useUnitSystem();
+  const schema = useMemo(() => buildSchema(unit), [unit]);
   const {
     register,
     handleSubmit,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm<FormInput, unknown, FormValues>({
     resolver: zodResolver(schema),
     defaultValues: { sex: 'male', activityLevel: 'moderate' },
   });
+
+  // Re-express whatever the user already typed in the new unit, rather than
+  // leaving a raw number that silently means something else after the toggle.
+  const previousUnit = useRef(unit);
+  useEffect(() => {
+    if (previousUnit.current === unit) {
+      return;
+    }
+
+    const { weight: rawWeight, height: rawHeight } = getValues();
+    if (rawWeight !== undefined && rawWeight !== null && `${rawWeight}` !== '') {
+      const weightKg = weightToKg(Number(rawWeight), previousUnit.current);
+      setValue('weight', weightToUnit(weightKg, unit));
+    }
+    if (rawHeight !== undefined && rawHeight !== null && `${rawHeight}` !== '') {
+      const heightCm = heightToCm(Number(rawHeight), previousUnit.current);
+      setValue('height', heightToUnit(heightCm, unit));
+    }
+    previousUnit.current = unit;
+  }, [unit, getValues, setValue]);
+
+  const weightSuffix = t(`units.suffix.weight.${unit}`);
+  const heightSuffix = t(`units.suffix.height.${unit}`);
+  const weightBounds = {
+    min: Math.round(weightToUnit(METRIC_WEIGHT_BOUNDS.min, unit)),
+    max: Math.round(weightToUnit(METRIC_WEIGHT_BOUNDS.max, unit)),
+  };
+  const heightBounds = {
+    min: Math.round(heightToUnit(METRIC_HEIGHT_BOUNDS.min, unit)),
+    max: Math.round(heightToUnit(METRIC_HEIGHT_BOUNDS.max, unit)),
+  };
 
   const mutation = useMutation({
     // Age/sex/activity level aren't sent here — the BMI value itself never
@@ -44,12 +96,15 @@ export function BmiForm({ onResult }: BmiFormProps) {
     mutationFn: (values: FormValues) =>
       apiFetch<BmiCalculation>('/bmi/calculate', {
         method: 'POST',
-        body: JSON.stringify({ weight_kg: values.weightKg, height_cm: values.heightCm }),
+        body: JSON.stringify({
+          weight_kg: weightToKg(values.weight, unit),
+          height_cm: heightToCm(values.height, unit),
+        }),
       }),
     onSuccess: (data, values) => {
       savePendingMeasurement({
-        weightKg: values.weightKg,
-        heightCm: values.heightCm,
+        weightKg: weightToKg(values.weight, unit),
+        heightCm: heightToCm(values.height, unit),
         age: values.age,
         sex: values.sex,
         activityLevel: values.activityLevel,
@@ -67,30 +122,38 @@ export function BmiForm({ onResult }: BmiFormProps) {
       <h2 className="text-xl font-semibold">{t('bmiForm.title')}</h2>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="weightKg">{t('bmiForm.weightLabel')}</Label>
+        <Label htmlFor="weight">
+          {t('bmiForm.weightLabel')} ({weightSuffix})
+        </Label>
         <Input
-          id="weightKg"
+          id="weight"
           type="number"
           step="0.1"
-          aria-invalid={Boolean(errors.weightKg)}
-          {...register('weightKg')}
+          aria-invalid={Boolean(errors.weight)}
+          {...register('weight')}
         />
-        {errors.weightKg && (
-          <p className="text-sm text-destructive">{t('bmiForm.errors.weight')}</p>
+        {errors.weight && (
+          <p className="text-sm text-destructive">
+            {t('bmiForm.errors.weight', { ...weightBounds, unit: weightSuffix })}
+          </p>
         )}
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="heightCm">{t('bmiForm.heightLabel')}</Label>
+        <Label htmlFor="height">
+          {t('bmiForm.heightLabel')} ({heightSuffix})
+        </Label>
         <Input
-          id="heightCm"
+          id="height"
           type="number"
           step="0.1"
-          aria-invalid={Boolean(errors.heightCm)}
-          {...register('heightCm')}
+          aria-invalid={Boolean(errors.height)}
+          {...register('height')}
         />
-        {errors.heightCm && (
-          <p className="text-sm text-destructive">{t('bmiForm.errors.height')}</p>
+        {errors.height && (
+          <p className="text-sm text-destructive">
+            {t('bmiForm.errors.height', { ...heightBounds, unit: heightSuffix })}
+          </p>
         )}
       </div>
 

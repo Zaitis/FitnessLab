@@ -18,6 +18,23 @@
     "en": "English",
     "pl": "Polski"
   },
+  "unitSwitcher": {
+    "label": "Units",
+    "metric": "Metric (kg, cm)",
+    "imperial": "Imperial (lb, in)"
+  },
+  "units": {
+    "suffix": {
+      "weight": {
+        "metric": "kg",
+        "imperial": "lb"
+      },
+      "height": {
+        "metric": "cm",
+        "imperial": "in"
+      }
+    }
+  },
   "landing": {
     "heroTitle": "Take care of your health and your shape",
     "heroSubtitle": "A free demo BMI calculator. Enter your weight and height, get an instant result — no account required.",
@@ -44,13 +61,13 @@
   },
   "bmiForm": {
     "title": "Calculate your BMI",
-    "weightLabel": "Weight (kg)",
-    "heightLabel": "Height (cm)",
+    "weightLabel": "Weight",
+    "heightLabel": "Height",
     "submit": "Calculate",
     "submitting": "Calculating…",
     "errors": {
-      "weight": "Enter a weight between 1 and 500 kg.",
-      "height": "Enter a height between 30 and 250 cm.",
+      "weight": "Enter a weight between {{min}} and {{max}} {{unit}}.",
+      "height": "Enter a height between {{min}} and {{max}} {{unit}}.",
       "generic": "Something went wrong. Please try again."
     }
   },
@@ -138,24 +155,24 @@
     "history": "History",
     "table": {
       "date": "Date",
-      "weight": "Weight (kg)",
+      "weight": "Weight",
       "bmi": "BMI",
       "category": "Category"
     },
     "chart": {
       "bmiAxis": "BMI",
-      "weightAxis": "Weight (kg)"
+      "weightAxis": "Weight"
     },
     "form": {
       "title": "Add a measurement",
-      "weightLabel": "Weight (kg)",
-      "heightLabel": "Height (cm)",
+      "weightLabel": "Weight",
+      "heightLabel": "Height",
       "submit": "Save measurement",
       "submitting": "Saving…",
       "success": "Measurement saved.",
       "errors": {
-        "weight": "Enter a weight between 1 and 500 kg.",
-        "height": "Enter a height between 30 and 250 cm.",
+        "weight": "Enter a weight between {{min}} and {{max}} {{unit}}.",
+        "height": "Enter a height between {{min}} and {{max}} {{unit}}.",
         "generic": "Something went wrong. Please try again."
       }
     }

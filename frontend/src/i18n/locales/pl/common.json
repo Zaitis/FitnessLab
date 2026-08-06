@@ -18,6 +18,23 @@
     "en": "English",
     "pl": "Polski"
   },
+  "unitSwitcher": {
+    "label": "Jednostki",
+    "metric": "Metryczne (kg, cm)",
+    "imperial": "Imperialne (lb, in)"
+  },
+  "units": {
+    "suffix": {
+      "weight": {
+        "metric": "kg",
+        "imperial": "lb"
+      },
+      "height": {
+        "metric": "cm",
+        "imperial": "in"
+      }
+    }
+  },
   "landing": {
     "heroTitle": "Zadbaj o zdrowie i sylwetkę",
     "heroSubtitle": "Bezpłatny demonstracyjny kalkulator BMI. Podaj wagę i wzrost, dostaniesz wynik od razu — bez zakładania konta.",
@@ -44,13 +61,13 @@
   },
   "bmiForm": {
     "title": "Oblicz swoje BMI",
-    "weightLabel": "Waga (kg)",
-    "heightLabel": "Wzrost (cm)",
+    "weightLabel": "Waga",
+    "heightLabel": "Wzrost",
     "submit": "Oblicz",
     "submitting": "Obliczanie…",
     "errors": {
-      "weight": "Podaj wagę w zakresie od 1 do 500 kg.",
-      "height": "Podaj wzrost w zakresie od 30 do 250 cm.",
+      "weight": "Podaj wagę w zakresie od {{min}} do {{max}} {{unit}}.",
+      "height": "Podaj wzrost w zakresie od {{min}} do {{max}} {{unit}}.",
       "generic": "Coś poszło nie tak. Spróbuj ponownie."
     }
   },
@@ -138,24 +155,24 @@
     "history": "Historia",
     "table": {
       "date": "Data",
-      "weight": "Waga (kg)",
+      "weight": "Waga",
       "bmi": "BMI",
       "category": "Kategoria"
     },
     "chart": {
       "bmiAxis": "BMI",
-      "weightAxis": "Waga (kg)"
+      "weightAxis": "Waga"
     },
     "form": {
       "title": "Dodaj pomiar",
-      "weightLabel": "Waga (kg)",
-      "heightLabel": "Wzrost (cm)",
+      "weightLabel": "Waga",
+      "heightLabel": "Wzrost",
       "submit": "Zapisz pomiar",
       "submitting": "Zapisywanie…",
       "success": "Pomiar zapisany.",
       "errors": {
-        "weight": "Podaj wagę w zakresie od 1 do 500 kg.",
-        "height": "Podaj wzrost w zakresie od 30 do 250 cm.",
+        "weight": "Podaj wagę w zakresie od {{min}} do {{max}} {{unit}}.",
+        "height": "Podaj wzrost w zakresie od {{min}} do {{max}} {{unit}}.",
         "generic": "Coś poszło nie tak. Spróbuj ponownie."
       }
     }
